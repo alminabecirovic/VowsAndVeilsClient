@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Registration from './components/Registration';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
-import UserAdmin from './components/UserAdmin'; 
+import AdminDashboard from './components/AdminDashboard'; 
 
 
 
@@ -16,7 +16,7 @@ function App() {
         <Route path='/registration' element = {<Registration/>}/>
         <Route path='/login' element = {<Login/>}/>
         <Route path = '/navbar' element = {<Navbar/>}/>
-        <Route path = '/useradmin' element = {<UserAdmin/>}/>
+        <Route path = '/admin_dashboard' element = {<AdminDashboard/>}/>
         
       </Routes>
 

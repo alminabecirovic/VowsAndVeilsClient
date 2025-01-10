@@ -99,7 +99,7 @@ const Registration = () => {
             setPassword('');
 
             if (userRole === "Admin") {
-                navigate('/useradmin');
+                navigate('/admin_dashboard');
             } else if (userRole === "SalonOwner") {
                 navigate('/home');
             } else if (userRole === "User") {

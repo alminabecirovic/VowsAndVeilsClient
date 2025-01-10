@@ -3,6 +3,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { MyContext } from "../context/my-context";
 import { useNavigate } from "react-router-dom";
+import "../pages/login.css";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -50,7 +51,7 @@ const Login = () => {
             setPassword("");
 
             if (responseData.role === "Admin") {
-                navigate("/administrator_dashboard");
+                navigate("/admin_dashboard");
             } else if (responseData.role === "SalonOwner") {
                 navigate("/bungalow_owner_dashboard");
             } else if (responseData.role === "User") {

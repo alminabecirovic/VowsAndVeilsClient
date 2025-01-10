@@ -13,7 +13,7 @@ const UserAdmin = () => {
   // Dohvatanje korisnika sa backend-a
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("/api/User"); 
+      const response = await axios.get("/api/Admin/users"); 
       setUsers(response.data);
     } catch (err) {
       setError("Greška pri dohvatanju korisnika.");
