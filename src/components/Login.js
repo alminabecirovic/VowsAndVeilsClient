@@ -53,7 +53,7 @@ const Login = () => {
             if (responseData.role === "Admin") {
                 navigate("/admin_dashboard");
             } else if (responseData.role === "SalonOwner") {
-                navigate("/bungalow_owner_dashboard");
+                navigate("/post");
             } else if (responseData.role === "User") {
                 navigate("/home");
             } else {

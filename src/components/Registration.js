@@ -98,15 +98,10 @@ const Registration = () => {
             setUsername('');
             setPassword('');
 
-            if (userRole === "Admin") {
-                navigate('/admin_dashboard');
-            } else if (userRole === "SalonOwner") {
-                navigate('/home');
-            } else if (userRole === "User") {
-                navigate('/home');
-            } else {
-                alert("Nepoznata uloga korisnika.");
-            }
+
+                navigate('/login');
+         
+           
         }
         catch (e) {
             console.log("Error", e);
