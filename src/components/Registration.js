@@ -73,7 +73,7 @@ const Registration = () => {
             const response = await axios.post(
                 "https://localhost:7042/api/User/register", 
                 {
-                    userRole,
+                    Roles : userRole,
                     firstName, 
                     lastName,
                     email,
