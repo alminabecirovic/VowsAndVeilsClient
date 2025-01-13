@@ -3,6 +3,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 import axios from "axios";
 import { MyContext } from "../context/my-context";
 import { useNavigate } from "react-router-dom";
+import "../pages/login.css";
 
 const Registration = () => {
     const [roles, setRoles] = useState([]);
@@ -182,7 +183,9 @@ const Registration = () => {
                       />
                       {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
                   </div>
+                  <div className="auth-page-input">
                   <input type="submit" value="Registruj se" />
+                  </div>
               </form>
           </div>
       </div>

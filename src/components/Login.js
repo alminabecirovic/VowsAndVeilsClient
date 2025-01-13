@@ -93,7 +93,9 @@ const Login = () => {
                         </span>
                         {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
                     </div>
-                    <input type="submit" value="Prijavi se" />
+                    <div className="auth-page-input">
+                        <input type="submit" value="Prijavi se" />
+                    </div>
                 </form>
             </div>
         </div>

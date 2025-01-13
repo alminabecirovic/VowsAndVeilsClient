@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
     const [urlPhoto, setUrlPhoto] = useState("");
@@ -9,6 +10,7 @@ const CreatePost = () => {
     const [size, setSize] = useState("");
     const [dressLength, setDressLenght] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
@@ -37,6 +39,8 @@ const CreatePost = () => {
             setStatus(true);
             setSize("");
             setDressLenght("");
+
+            navigate ("/dress")
         } catch (e) {
             console.error("Error", e);
             setError("Došlo je do greške prilikom kreiranja posta.");

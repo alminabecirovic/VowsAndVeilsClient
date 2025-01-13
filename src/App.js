@@ -5,7 +5,9 @@ import Registration from './components/Registration';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import AdminDashboard from './components/AdminDashboard';
-import Post from './components/Post';  
+import ListWeddingDress from './components/salon/ListWeddingDress';  
+import Post from './components/salon/Post';
+import Search from './components/Search';
 
 
 
@@ -19,7 +21,8 @@ function App() {
         <Route path = '/navbar' element = {<Navbar/>}/>
         <Route path = '/admin_dashboard' element = {<AdminDashboard/>}/>
         <Route path = '/post' element = {<Post/>}/>
-        
+        <Route path = '/dress' element = {<ListWeddingDress/>}/>
+        <Route path = '/search' element= {<Search/>}/>
       </Routes>
 
     </div>
