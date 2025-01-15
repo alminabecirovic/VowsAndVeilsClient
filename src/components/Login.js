@@ -14,7 +14,7 @@ const Login = () => {
     const { setUserFunction } = useContext(MyContext);
     const navigate = useNavigate();
 
-    const onSubmitHandler = async (e) => {
+    const loginUserHandler = async (e) => {
         e.preventDefault();
 
         setUsernameMessage(null);
@@ -34,16 +34,19 @@ const Login = () => {
                 "https://localhost:7042/api/User/login",
                 {
                     username,
-                    password
+                    password,
                 }
             );
 
             const responseData = response.data;
 
-            axios.defaults.headers.common[
-                "Authorization"
-            ] = `Bearer ${responseData.token}`;
-
+            // Spremi token u localStorage
+            localStorage.setItem('jwtToken', responseData.token);
+            localStorage.setItem("user", JSON.stringify(responseData));
+            
+            // Postavi Authorization header
+            axios.defaults.headers.common["Authorization"] = `Bearer ${responseData.token}`;
+            
             setUserFunction(responseData);
 
             // Reset inputs
@@ -53,12 +56,14 @@ const Login = () => {
             if (responseData.role === "Admin") {
                 navigate("/admin_dashboard");
             } else if (responseData.role === "SalonOwner") {
-                navigate("/post");
+                navigate("/dress");
             } else if (responseData.role === "User") {
                 navigate("/home");
             } else {
                 alert("Nepoznata uloga korisnika.");
             }
+            
+            
         } catch (error) {
             console.error("Login error:", error);
             alert("Došlo je do greške prilikom prijave. Proverite korisničko ime i lozinku.");
@@ -68,7 +73,7 @@ const Login = () => {
     return (
         <div className="auth-page">
             <div className="auth-page-div">
-                <form onSubmit={onSubmitHandler}>
+                <form>
                     <div className="auth-page-input">
                         <input
                             type="text"
@@ -93,8 +98,8 @@ const Login = () => {
                         </span>
                         {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
                     </div>
-                    <div className="auth-page-input">
-                        <input type="submit" value="Prijavi se" />
+                    <div className="auth-page-button">
+                        <button onClick={loginUserHandler}>Login</button>
                     </div>
                 </form>
             </div>
@@ -102,4 +107,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Login;

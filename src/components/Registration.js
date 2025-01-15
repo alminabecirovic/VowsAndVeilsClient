@@ -99,6 +99,7 @@ const Registration = () => {
             setUsername('');
             setPassword('');
 
+            localStorage.setItem('user', JSON.stringify(responseData))
 
                 navigate('/login');
          

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+
 axios.defaults.baseURL = "https://localhost:7042"; 
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
 
 
-const UserAdmin = () => {
+const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -77,4 +78,4 @@ const UserAdmin = () => {
   );
 };
 
-export default UserAdmin;
+export default AdminDashboard;

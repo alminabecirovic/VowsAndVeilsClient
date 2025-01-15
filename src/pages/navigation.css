@@ -1,0 +1,77 @@
+/* Navbar.css */
+
+/* Stil za glavni navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px 20px;
+    padding-bottom: 0;
+    background-color: #000000; /* Svetla pozadina */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Blaga senka */
+    font-family: Arial, sans-serif;
+    
+  }
+  
+  /* Leva sekcija */
+  .navbar-left {
+    display: flex;
+    gap: 10px; /* Razmak između dugmadi */
+    background-color: transparent;
+  }
+  
+  /* Centar sekcija */
+  /* Centar sekcija */
+.navbar-center {
+    flex: 1; /* Omogućava centriranje */
+    text-align: center;
+    background-color: #000; /* Crna pozadina */
+    /* Razmak oko naslova */
+    
+  }
+  
+  .navbar-center h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #ffffff; /* Bela boja teksta */
+    font-weight: bold;
+    background-color: #000;
+    margin-top: 10px;
+    margin-right: 5%;
+  }
+  
+  /* Desna sekcija */
+  .navbar-right {
+    display: flex;
+    gap: 10px; /* Razmak između dugmadi */
+  }
+  
+  /* Stil dugmadi */
+  .navbar button {
+    background-color: #000000;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #9c9090; /* Plava boja */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar button:hover {
+    color: white; /* Tamnija plava na hover */
+  }
+  
+  /* Specifični stil za ❤️ i ➕ dugmad */
+  .navbar-right button:nth-child(1) {
+    background-color: #ff4757; /* Crvena za ❤️ */
+  }
+  
+  .navbar-right button:nth-child(2) {
+    background-color: #2ed573; /* Zelena za ➕ */
+  }
+  
+  /* Odgovarajući stil za Logout dugme */
+  .navbar-right button:last-child {
+    background-color: #ff6b6b; /* Svetlocrvena */
+  }
+  
