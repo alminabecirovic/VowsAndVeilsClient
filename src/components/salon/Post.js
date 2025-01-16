@@ -3,44 +3,64 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
-    const [urlPhoto, setUrlPhoto] = useState("");
+    const [photos, setPhotos] = useState([]); // Za više slika
+    const [previewPhotos, setPreviewPhotos] = useState([]); // Za prikaz slika
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [status, setStatus] = useState(true);
     const [size, setSize] = useState("");
-    const [dressLength, setDressLenght] = useState("");
+    const [dressLength, setDressLength] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        setPhotos(files);
+
+        // Generisanje URL-ova za prikaz slika
+        const previewUrls = files.map((file) => URL.createObjectURL(file));
+        setPreviewPhotos(previewUrls);
+    };
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
 
         try {
+            const formData = new FormData();
+
+            photos.forEach((photo) => {
+                formData.append("photos", photo); // Dodavanje svake slike
+            });
+            formData.append("name", name);
+            formData.append("price", price);
+            formData.append("status", status);
+            formData.append("size", size);
+            formData.append("dressLength", dressLength);
+
             const response = await axios.post(
                 "https://localhost:7042/api/Post/create",
+                formData,
                 {
-                    urlPhoto,
-                    name,
-                    price,
-                    status,
-                    size,
-                    dressLength,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
                 }
             );
 
-            const responseData = response.data;
-            if (responseData.token) {
-                axios.defaults.headers.common["Authorization"] = `Bearer ${responseData.token}`;
+            if (response.data.token) {
+                axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
             }
 
-            setUrlPhoto("");
+            // Resetovanje forme
+            setPhotos([]);
+            setPreviewPhotos([]);
             setName("");
             setPrice("");
             setStatus(true);
             setSize("");
-            setDressLenght("");
+            setDressLength("");
 
-            navigate ("/dress")
+            navigate("/dress");
         } catch (e) {
             console.error("Error", e);
             setError("Došlo je do greške prilikom kreiranja posta.");
@@ -52,13 +72,46 @@ const CreatePost = () => {
             <h1>Kreiraj Post</h1>
             <form onSubmit={handleCreatePost}>
                 <div>
-                    <label>URL Fotografije:</label>
+                    <label>Fotografije:</label>
+                    {/* Custom upload dugme */}
+                    <label
+                        htmlFor="file-upload"
+                        style={{
+                            display: "inline-block",
+                            padding: "10px 20px",
+                            backgroundColor: "#007bff",
+                            color: "#fff",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                        }}
+                    >
+                        Izaberi fotografije
+                    </label>
                     <input
-                        type="text"
-                        value={urlPhoto}
-                        onChange={(e) => setUrlPhoto(e.target.value)}
-                        placeholder="Unesi URL fotografije"
+                        id="file-upload"
+                        type="file"
+                        multiple
+                        onChange={handleFileChange}
+                        accept="image/*" // Samo slike
+                        style={{ display: "none" }} // Sakrij defaultni input
                     />
+                </div>
+                {/* Prikaz slika */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+                    {previewPhotos.map((photo, index) => (
+                        <img
+                            key={index}
+                            src={photo}
+                            alt={`Preview ${index + 1}`}
+                            style={{
+                                width: "150px",
+                                height: "150px",
+                                objectFit: "cover",
+                                borderRadius: "5px",
+                                border: "1px solid #ddd",
+                            }}
+                        />
+                    ))}
                 </div>
                 <div>
                     <label>Naziv:</label>
@@ -104,7 +157,7 @@ const CreatePost = () => {
                     <input
                         type="text"
                         value={dressLength}
-                        onChange={(e) => setDressLenght(e.target.value)}
+                        onChange={(e) => setDressLength(e.target.value)}
                         placeholder="Unesi dužinu haljine"
                     />
                 </div>

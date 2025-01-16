@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 import Registration from "./Registration";
 import axios from "axios";
-import "../pages/navigation.css";
+import "../pages/navbar.css";
 
 const Navbar = () => {
   const { userRole, currentUser, setUserFunction, setRoleFunction } =
