@@ -58,7 +58,7 @@ const Login = () => {
             } else if (responseData.role === "SalonOwner") {
                 navigate("/dress");
             } else if (responseData.role === "User") {
-                navigate("/home");
+                navigate("/user_dresses_list");
             } else {
                 alert("Nepoznata uloga korisnika.");
             }

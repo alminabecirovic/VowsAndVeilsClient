@@ -1,0 +1,45 @@
+.container {
+    background-color: rgb(255, 255, 255); /* Bela pozadina */
+    border-bottom: 1px solid #ddd; /* Tanka linija ispod navigacije */
+    padding: 10px 20px;
+    text-align: center; /* Centriranje sadržaja */
+}
+
+.navigation nav {
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; 
+    background-color: white;
+}
+
+.navigation nav a {
+    text-decoration: none; 
+    background-color: transparent;
+    color: #000; /* Crna boja teksta */
+    font-size: 16px; /* Veličina teksta */
+    text-transform: uppercase; /* Velika slova */
+    padding: 5px ; /* Prostor oko teksta */
+    transition: color 0.3s, border-bottom 0.3s; /* Efekat prelaza */
+    position: relative; /* Potrebno za pseudo-element */
+}
+
+.navigation nav a:hover,
+.navigation nav a.active {
+    color: #000000; /* Plava boja na hover ili aktivni link */
+    border-bottom: 2px solid #000000; /* Plava linija ispod aktivnog linka */
+}
+
+.button {
+    font-size: 24px; /* Veći tekst */
+    color: #000;
+    margin-bottom: 20px;
+    background-color: transparent;
+    margin-top: 20px; /* Prostor između teksta i navigacije */
+    text-transform: uppercase; /* Velika slova */
+}
+
+.divider {
+    border: none; /* Uklanja defaultnu liniju */
+  border-top: 1px solid #ddd; /* Svetla horizontalna linija */
+  margin: 15px 0; /* Razmak iznad i ispod linije */
+  }

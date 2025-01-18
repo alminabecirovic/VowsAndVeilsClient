@@ -1,0 +1,91 @@
+.container-dress-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.container-dress-details img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-section {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.details-section h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.details-section p {
+    font-size: 18px;
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+.details-section .details-info {
+    margin-top: 20px;
+}
+
+.details-section .details-info span {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.details-section button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.details-section button:hover {
+    background-color: #45a049;
+}
+
+.details-section .register-button {
+    background-color: #FFA500;
+}
+
+.details-section .register-button:hover {
+    background-color: #FF8C00;
+}
+
+.image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.image-gallery img {
+    max-width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.05);
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import AdminDashboard from "./components/AdminDashboard";
@@ -8,12 +8,27 @@ import ListWeddingDress from "./components/salon/ListWeddingDress";
 import Post from "./components/salon/Post";
 import Search from "./components/Search";
 import Navbar from "./components/Navbar";
+import UserDressesList from "./components/UserDressesList";
+import Favorites from "./components/user/Favorites";
+import Navbar2 from "./components/Navbar2";
+import Appointment from "./components/user/Appointment";
+import DressDetails from "./components/DressDetails";
 
 function App() {
+  const location = useLocation();
+
+  // Rute na kojima treba prikazati Navbar2
+  const showNavbar2Routes = ["/user_dresses_list", "/inspiration", "/search", "/login", "/registration"];
+
+  const showNavbar2 = showNavbar2Routes.includes(location.pathname);
+
   return (
     <div>
-      {/* Dodata Navigation komponenta koja će biti prikazana na svim rutama */}
+      {/* Navbar koji se prikazuje na svim stranicama */}
       <Navbar />
+      
+      {/* Navbar2 koji se prikazuje samo na određenim stranicama */}
+      {showNavbar2 && <Navbar2 />}
 
       <Routes>
         <Route path="/registration" element={<Registration />} />
@@ -22,7 +37,11 @@ function App() {
         <Route path="/post" element={<Post />} />
         <Route path="/dress" element={<ListWeddingDress />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/nav" element={<Navbar />} />
+        <Route path="/user_dresses_list" element={<UserDressesList />} />
+        <Route path="/fav" element={<Favorites />} />
+        <Route path="/appointment" element={<Appointment />} />
+        <Route path="/dress-details/:dressId" element={<DressDetails />} />
+
       </Routes>
     </div>
   );
