@@ -3,48 +3,47 @@
 /* Stil za glavni navbar */
 .navbar {
     width: 100%;
-    height: 80px;
+    height: 90px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #000000; /* Svetla pozadina */
+    background-color: #3e2c2c; /* Svetla pozadina */
     font-family: Arial, sans-serif;
   }
   
   /* Leva sekcija */
   .navbar-left {
     display: flex;
-    gap: 10px; /* Razmak između dugmadi */
+    font-size: 20px;
     background-color: transparent;
+    margin-left: 20px;
+    font-size: 30px;
   }
   
   /* Centar sekcija */
   /* Centar sekcija */
 .navbar-center {
-    flex: 1; /* Omogućava centriranje */
-    text-align: center;
-    background-color: #000; /* Crna pozadina */
-    margin-top: 35px;
-    /* Razmak oko naslova */
-    
-  }
-  
-  .navbar-center h1 {
+    width: 50vw;
     display: flex;
+    justify-content: center;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    font-size: 24px;
-    color: #ffffff; /* Bela boja teksta */
-    font-weight: bold;
-    background-color: #000;
-    margin-top: 10px;
-    margin-right: 10%;
+    
+  }
+  .navbar-logo{
+    display: flex;
+    
+  }
+  .navbar-center img {
+    display: flex;
+    width: 50%;
+    margin-top: 40px;
+    margin-right: 20%;
+    
   }
   
   /* Desna sekcija */
   .navbar-right {
-   
     display: flex;
     gap: 10px; /* Razmak između dugmadi */
     background-color: transparent;
@@ -52,10 +51,10 @@
   
   /* Stil dugmadi */
   .navbar button {
-    background-color: #000000;
+    background-color: #3e2c2c;
     margin-bottom: 50px;
     font-size: 13px;
-    color: #9c9090; /* Plava boja */
+    color: #ffffff; /* Plava boja */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -67,12 +66,14 @@
   
   /* Specifični stil za ❤️ i ➕ dugmad */
   .navbar-right button{
-    background-color: #000;
+    background-color: #3e2c2c;
   }
   
   
   
   /* Odgovarajući stil za Logout dugme */
   .navbar-right button:last-child {
-   background-color: #000;
+   background-color: #3e2c2c;
+   margin-left: 20px;
+   
   }

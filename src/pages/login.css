@@ -1,29 +1,40 @@
-*{
-    background-color: #ECECE7;
-}
 .auth-page {
     display: flex;
-    justify-content: center;
     align-items: center;
+    flex-direction: row;
     height: 100vh;
-    width: 100%;
+    width: 98vw;
+    margin-top: 50px;
+}
+
+.auth-page img{
+    width: 40vw;
+    height: 100vh;
+    display: flex;
+    margin-left: 50px;
 }
 
 .auth-page-div {
-    width: 20%;
-    padding: 30px;
-    border-radius: 1px solid;
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    
+    justify-content: center;
+    align-items: center; /* Centriranje inputa i dugmeta */
+    padding: 10px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px; /* Smanjen razmak */
 }
 
 .auth-page-input {
+    width: 40vw;
     position: relative;
     display: flex;
     padding: 5px;
-    width: 100%;
-    
 }
 .auth-page-input select {
     width: 100%;
@@ -39,7 +50,7 @@
 }
 
 .auth-page-input input {
-    width: 100%;
+    width:   100%;;
     padding: 12px 40px 12px 12px; /* Prostor za ikonu "eye" */
     font-size: 16px;
     border: 1px solid #ccc;
@@ -48,6 +59,22 @@
     transition: border-color 0.3s;
     background-color: #ffffff;
     color: black;
+    
+}
+.auth-page-button button{
+    width: 98.5%;
+    padding: 12px 40px 12px 12px; /* Prostor za ikonu "eye" */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    outline: black;
+    transition: border-color 0.3s;
+    background-color: #ffffff;
+    color: black;
+    cursor: pointer;
+    margin-left: 5px;
+  
+
 }
 
 .auth-page-input input:focus {
@@ -80,3 +107,6 @@ input[type="submit"] {
 /* input[type="submit"]:hover {
     background-color: #99a7b7;
 } */
+
+
+

@@ -14,22 +14,22 @@ const CreatePost = () => {
     const navigate = useNavigate();
 
     const handleFileChange = (e) => {
-        const files = Array.from(e.target.files);
+        const files = Array.from(e.target.files); // Pretvaramo u niz
         setPhotos(files);
 
-        // Generisanje URL-ova za prikaz slika
         const previewUrls = files.map((file) => URL.createObjectURL(file));
         setPreviewPhotos(previewUrls);
     };
 
-    const handleCreatePost = async (e) => {
+    const create = async (e) => {
         e.preventDefault();
 
         try {
             const formData = new FormData();
 
+            // Dodavanje fotografija u FormData
             photos.forEach((photo) => {
-                formData.append("photos", photo); // Dodavanje svake slike
+                formData.append("photos", photo);
             });
             formData.append("name", name);
             formData.append("price", price);
@@ -70,50 +70,51 @@ const CreatePost = () => {
     return (
         <div>
             <h1>Kreiraj Post</h1>
-            <form onSubmit={handleCreatePost}>
-                <div>
-                    <label>Fotografije:</label>
-                    {/* Custom upload dugme */}
-                    <label
-                        htmlFor="file-upload"
-                        style={{
-                            display: "inline-block",
-                            padding: "10px 20px",
-                            backgroundColor: "#007bff",
-                            color: "#fff",
-                            borderRadius: "5px",
-                            cursor: "pointer",
-                        }}
-                    >
-                        Izaberi fotografije
-                    </label>
-                    <input
-                        id="file-upload"
-                        type="file"
-                        multiple
-                        onChange={handleFileChange}
-                        accept="image/*" // Samo slike
-                        style={{ display: "none" }} // Sakrij defaultni input
-                    />
-                </div>
-                {/* Prikaz slika */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
-                    {previewPhotos.map((photo, index) => (
-                        <img
-                            key={index}
-                            src={photo}
-                            alt={`Preview ${index + 1}`}
+            <form onSubmit={create}>
+                    <div>
+                        <label>Photos:</label>
+                        {/* Custom upload dugme */}
+                        <label
+                            htmlFor="file-upload"
                             style={{
-                                width: "150px",
-                                height: "150px",
-                                objectFit: "cover",
+                                display: "inline-block",
+                                padding: "10px 20px",
+                                backgroundColor: "#007bff",
+                                color: "#fff",
                                 borderRadius: "5px",
-                                border: "1px solid #ddd",
+                                cursor: "pointer",
                             }}
+                        >
+                            Select Photos
+                        </label>
+                        <input
+                            id="file-upload"
+                            type="file"
+                            multiple
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            style={{ display: "none" }}
                         />
-                    ))}
-                </div>
-                <div>
+                    </div>
+                    {/* Prikaz slika */}
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+                        {previewPhotos.map((photo, index) => (
+                            <img
+                                key={index}
+                                src={photo}
+                                alt={`Preview ${index + 1}`}
+                                style={{
+                                    width: "150px",
+                                    height: "150px",
+                                    objectFit: "cover",
+                                    borderRadius: "5px",
+                                    border: "1px solid #ddd",
+                                }}
+                            />
+                        ))}
+                    </div>
+                    <div>
+
                     <label>Naziv:</label>
                     <input
                         type="text"
@@ -121,7 +122,7 @@ const CreatePost = () => {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Unesi naziv"
                     />
-                </div>
+                    </div>
                 <div>
                     <label>Cena:</label>
                     <input

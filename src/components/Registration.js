@@ -112,6 +112,13 @@ const Registration = () => {
 
     return (
       <div className="auth-page">
+         <div className="pic">
+                <img 
+                src={process.env.PUBLIC_URL + "/images/login.jpg"} // Putanja do slike
+                alt="Logo" 
+                className="navbar-logo"
+                />
+            </div>
           <div className="auth-page-div">
               <form onSubmit={onSubmitHandler}>
                   <div className="auth-page-input">

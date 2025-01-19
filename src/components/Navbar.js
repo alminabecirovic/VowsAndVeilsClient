@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { FaHeart } from "react-icons/fa";
 import { MyContext } from "../context/my-context"; 
 import { useNavigate } from "react-router-dom";
 import Login from "./Login";
@@ -48,25 +49,29 @@ const Navbar = () => {
       <div className="navbar-left">
         {!currentUser && (
           <>
-          <button onClick={() => navigate("/login")}>Login</button>
-          <button onClick={() => navigate("/registration")}>Register</button>
+          <button onClick={() => navigate("/login")}>Prijavi se</button>
+          <button onClick={() => navigate("/registration")}>Registruj se</button>
           </>
         )}
       </div>
 
       {/* Center Section */}
       <div className="navbar-center">
-        <h1>VOWS AND VEILS</h1>
+        <img 
+          src={process.env.PUBLIC_URL + "/images/logo2.png"} // Putanja do slike
+          alt="Logo" 
+          className="navbar-logo"
+        />
       </div>
 
       {/* Right Section */}
       <div className="navbar-right">
-        {currentUser && (
-          <>
-            {userRole === "User" && <button onClick={() => navigate("/fav")}>❤️</button>}
+      {currentUser && (
+    <>
+            {userRole === "User" && (<button onClick={() => navigate("/fav")}><FaHeart className="icon-heart" /> </button>)}
             {userRole === "SalonOwner" && <button onClick={() => navigate("/post")}>➕</button>}
             {["User", "SalonOwner", "Admin"].includes(userRole) && (
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout}>Odjavi se</button>
             )}
           </>
         )}

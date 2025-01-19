@@ -15,7 +15,7 @@
 .navigation nav a {
     text-decoration: none; 
     background-color: transparent;
-    color: #000; /* Crna boja teksta */
+    color: #3e2c2c; /* Crna boja teksta */
     font-size: 16px; /* Veličina teksta */
     text-transform: uppercase; /* Velika slova */
     padding: 5px ; /* Prostor oko teksta */
@@ -25,13 +25,13 @@
 
 .navigation nav a:hover,
 .navigation nav a.active {
-    color: #000000; /* Plava boja na hover ili aktivni link */
-    border-bottom: 2px solid #000000; /* Plava linija ispod aktivnog linka */
+    color: #3e2c2c; /* Plava boja na hover ili aktivni link */
+    border-bottom: 2px solid #3e2c2c; /* Plava linija ispod aktivnog linka */
 }
 
 .button {
-    font-size: 24px; /* Veći tekst */
-    color: #000;
+    font-size: 30px; /* Veći tekst */
+    color: #3e2c2c;
     margin-bottom: 20px;
     background-color: transparent;
     margin-top: 20px; /* Prostor između teksta i navigacije */

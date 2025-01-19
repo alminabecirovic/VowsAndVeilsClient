@@ -39,7 +39,7 @@ const DressesList = () => {
             {dresses.length > 0 ? (
                 dresses.map((weddingDress) => (
                     <div key={weddingDress.id}>
-                        <img src={weddingDress.urlPhoto} alt={weddingDress.name} width="200" />
+                         <img src={weddingDress.urlPhotos[0]} alt={weddingDress.name} width="300" />
                         <h2>{weddingDress.name}</h2>
                         <p>Cena: {weddingDress.price} RSD</p>
                         <p>Status: {weddingDress.status ? "Aktivan" : "Neaktivan"}</p>

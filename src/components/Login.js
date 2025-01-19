@@ -62,8 +62,6 @@ const Login = () => {
             } else {
                 alert("Nepoznata uloga korisnika.");
             }
-            
-            
         } catch (error) {
             console.error("Login error:", error);
             alert("Došlo je do greške prilikom prijave. Proverite korisničko ime i lozinku.");
@@ -72,36 +70,54 @@ const Login = () => {
 
     return (
         <div className="auth-page">
+            <div className="pic">
+                <img 
+                src={process.env.PUBLIC_URL + "/images/login.jpg"} // Putanja do slike
+                alt="Logo" 
+                className="navbar-logo"
+                />
+            </div>
             <div className="auth-page-div">
-                <form>
-                    <div className="auth-page-input">
-                        <input
-                            type="text"
-                            placeholder="Korisničko ime"
-                            onChange={(e) => setUsername(e.target.value)}
-                            value={username}
-                        />
-                        {usernameMessage && <p className="input-alert">{usernameMessage}</p>}
-                    </div>
-                    <div className="auth-page-input">
-                        <input
-                            type={visible ? "password" : "text"}
-                            placeholder="Lozinka"
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                        />
-                        <span
-                            className="password-toggle"
-                            onClick={() => setVisible((prev) => !prev)}
-                        >
-                            {visible ? <FaRegEye /> : <FaRegEyeSlash />}
+                <div className="form-header">
+                    <p>
+                        Dobrodošli! Molimo vas da se prijavite koristeći vaše korisničko ime i lozinku.
+                    </p>
+                </div>
+                    <form>
+                        <div className="auth-page-input">
+                            <input
+                                type="text"
+                                placeholder="Korisničko ime"
+                                onChange={(e) => setUsername(e.target.value)}
+                                value={username}
+                            />
+                            {usernameMessage && <p className="input-alert">{usernameMessage}</p>}
+                        </div>
+                        <div className="auth-page-input">
+                            <input
+                                type={visible ? "password" : "text"}
+                                placeholder="Lozinka"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                            />
+                            <span
+                                className="password-toggle"
+                                onClick={() => setVisible((prev) => !prev)}
+                            >
+                                {visible ? <FaRegEye /> : <FaRegEyeSlash />}
+                            </span>
+                            {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
+                        </div>
+                        <div className="auth-page-button">
+                            <button onClick={loginUserHandler}>Login</button>
+                        </div>
+                    </form>
+                    <p className="form-footer">
+                        Nemate nalog?{" "}
+                        <span onClick={() => navigate("/registration")} className="form-footer-link">
+                            Registrujte se.
                         </span>
-                        {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
-                    </div>
-                    <div className="auth-page-button">
-                        <button onClick={loginUserHandler}>Login</button>
-                    </div>
-                </form>
+                    </p>
             </div>
         </div>
     );

@@ -59,7 +59,7 @@ const UserDressesList = () => {
     const handleNavigateToDetails = (dressId) => navigate(`/dress-details/${dressId}`);
 
     // Navigacija na stranicu omiljenih
-    const handleViewFavorites = () => navigate("/fav");
+   // const handleViewFavorites = () => navigate("/fav");
 
     return (
         <div>
@@ -70,9 +70,7 @@ const UserDressesList = () => {
                     dresses.map((weddingDress) => (
                         <div key={weddingDress.id} style={{ marginBottom: "20px" }}>
                             <img
-                                src={weddingDress.urlPhoto}
-                                alt={weddingDress.name}
-                                width="200px"
+                                src={weddingDress.urlPhotos[0]} alt={weddingDress.name} width="300"
                                 onClick={() => handleNavigateToDetails(weddingDress.id)}
                                 style={{ cursor: "pointer" }} // Stil za naglašavanje klika
                             />
