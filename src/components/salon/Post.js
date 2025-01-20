@@ -14,13 +14,17 @@ const CreatePost = () => {
     const navigate = useNavigate();
 
     const handleFileChange = (e) => {
-        const files = Array.from(e.target.files); // Pretvaramo u niz
-        setPhotos(files);
-
+        const files = Array.from(e.target.files); // Pretvori nove fajlove u niz
+        console.log("Selected files:", files);
+    
+        // Dodaj nove fajlove na postojeći niz
+        setPhotos((prevPhotos) => [...prevPhotos, ...files]);
+    
+        // Kreiraj preview URL-ove za nove slike
         const previewUrls = files.map((file) => URL.createObjectURL(file));
-        setPreviewPhotos(previewUrls);
+        setPreviewPhotos((prevPreview) => [...prevPreview, ...previewUrls]);
     };
-
+    
     const create = async (e) => {
         e.preventDefault();
 

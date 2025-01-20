@@ -18,7 +18,9 @@ const DressDetails = () => {
         const fetchDresses = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(process.env.REACT_APP_API_URL || "https://localhost:7042/api/Post");
+                const response = await fetch(
+                    process.env.REACT_APP_API_URL || "https://localhost:7042/api/Post"
+                );
                 if (!response.ok) {
                     throw new Error("Greška prilikom učitavanja venčanica");
                 }
@@ -88,9 +90,10 @@ const DressDetails = () => {
                     </div>
                     <div>
                         {userRole === "User" && (
-                                <button onClick={() => toggleFavorite(dress)}>
-                                    {isFavorite(dress.id) ? "Ukloni iz omiljenih" : "Dodaj u omiljene"}<FaHeart className="icon-heart" />
-                                </button>        
+                            <button onClick={() => toggleFavorite(dress)}>
+                                {isFavorite(dress.id) ? "Ukloni iz omiljenih" : "Dodaj u omiljene"}{" "}
+                                <FaHeart className="icon-heart" />
+                            </button>
                         )}
                     </div>
                 </div>
@@ -103,23 +106,33 @@ const DressDetails = () => {
                 <div className="btn">
                     {userRole ? (
                         userRole === "User" && (
-                            <button
-                                onClick={() => navigate("/appointment")}
-                            >
+                            <button onClick={() => navigate("/appointment")}>
                                 Napravi termin
                             </button>
                         )
                     ) : (
-                        <button
-                            onClick={() => navigate("/registration")}
-                        >
+                        <button onClick={() => navigate("/registration")}>
                             Registrujte se da napravite termin
                         </button>
                     )}
                 </div>
             </div>
             <div className="pictures">
-                <img src={dress.urlPhotos[0]} alt={dress.name} width="300" />
+                {/* Prikaz svih slika iz urlPhotos */}
+                {dress.urlPhotos && dress.urlPhotos.length > 0 ? (
+                    <div className="gallery">
+                        {dress.urlPhotos.map((photo, index) => (
+                            <img
+                                key={index}
+                                src={photo}
+                                alt={`${dress.name} - ${index + 1}`}
+                                className="gallery-photo"
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <p>Nema dostupnih slika za ovu venčanicu.</p>
+                )}
             </div>
         </div>
     );

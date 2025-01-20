@@ -1,5 +1,29 @@
 /* Navbar.css */
 
+.navigation nav {
+    display: flex;
+    justify-content: center; /* Centriraj navigaciju */
+    gap: 40px; /* Razmak između elemenata */
+    background-color: white;
+    position: relative; /* Osigurava stabilnost položaja */
+}
+
+.navigation nav .filter-placeholder {
+    width: 80px; /* Širina placeholder-a da zauzme mesto Filter dugmeta */
+    height: 0; /* Ne prikazuje visinu */
+    visibility: hidden; /* Čini placeholder nevidljivim */
+}
+
+.navigation nav a {
+    text-decoration: none;
+    color: #3e2c2c;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 5px;
+    transition: color 0.3s, border-bottom 0.3s;
+    position: relative;
+}
+
 /* Stil za glavni navbar */
 .navbar {
     width: 100%;
@@ -38,7 +62,7 @@
     display: flex;
     width: 50%;
     margin-top: 40px;
-    margin-right: 20%;
+   
     
   }
   
@@ -77,3 +101,10 @@
    margin-left: 20px;
    
   }
+
+  .navbar-left,
+.navbar-right {
+  min-width: 150px;
+}
+
+

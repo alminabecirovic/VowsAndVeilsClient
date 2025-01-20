@@ -7,7 +7,7 @@
 
 .navigation nav {
     display: flex; 
-    justify-content: center; 
+    justify-content: flex-end; 
     gap: 40px; 
     background-color: white;
 }
@@ -16,11 +16,12 @@
     text-decoration: none; 
     background-color: transparent;
     color: #3e2c2c; /* Crna boja teksta */
-    font-size: 16px; /* Veličina teksta */
+    font-size:20px; /* Veličina teksta */
     text-transform: uppercase; /* Velika slova */
     padding: 5px ; /* Prostor oko teksta */
     transition: color 0.3s, border-bottom 0.3s; /* Efekat prelaza */
     position: relative; /* Potrebno za pseudo-element */
+
 }
 
 .navigation nav a:hover,
@@ -30,7 +31,7 @@
 }
 
 .button {
-    font-size: 30px; /* Veći tekst */
+    font-size: 25px; /* Veći tekst */
     color: #3e2c2c;
     margin-bottom: 20px;
     background-color: transparent;
@@ -39,7 +40,9 @@
 }
 
 .divider {
-    border: none; /* Uklanja defaultnu liniju */
+  border: none; /* Uklanja defaultnu liniju */
   border-top: 1px solid #ddd; /* Svetla horizontalna linija */
   margin: 15px 0; /* Razmak iznad i ispod linije */
   }
+
+  

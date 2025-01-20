@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaHeart } from "react-icons/fa";
 import { MyContext } from "../context/my-context";
 import "../pages/user-dresses-list.css";
 
@@ -58,9 +59,6 @@ const UserDressesList = () => {
     // Navigacija na stranicu detalja
     const handleNavigateToDetails = (dressId) => navigate(`/dress-details/${dressId}`);
 
-    // Navigacija na stranicu omiljenih
-   // const handleViewFavorites = () => navigate("/fav");
-
     return (
         <div>
             <div className="container-dresses">
@@ -68,19 +66,23 @@ const UserDressesList = () => {
                 {!error && dresses.length === 0 && <p>Nema dostupnih venčanica za prikaz.</p>}
                 {!error &&
                     dresses.map((weddingDress) => (
-                        <div key={weddingDress.id} style={{ marginBottom: "20px" }}>
-                            <img
-                                src={weddingDress.urlPhotos[0]} alt={weddingDress.name} width="300"
-                                onClick={() => handleNavigateToDetails(weddingDress.id)}
-                                style={{ cursor: "pointer" }} // Stil za naglašavanje klika
-                            />
-                            <h2>{weddingDress.name}</h2>
-                            {userRole === "User" && (
-                                <button onClick={() => toggleFavorite(weddingDress)}>
-                                    {isFavorite(weddingDress.id) ? "Ukloni iz omiljenih" : "Dodaj u omiljene"}
-                                </button>
-                            )}
-                            <hr />
+                        <div key={weddingDress.id} className="card">
+                            <div className="image-container">
+                                <img
+                                    src={weddingDress.urlPhotos[0]}
+                                    alt={weddingDress.name}
+                                    onClick={() => handleNavigateToDetails(weddingDress.id)}
+                                    style={{ cursor: "pointer" }} // Stil za naglašavanje klika
+                                />
+                                {userRole === "User" && (
+                                    <button
+                                        className={`favorite-button ${isFavorite(weddingDress.id) ? "active" : ""}`}
+                                        onClick={() => toggleFavorite(weddingDress)}
+                                    >
+                                     <FaHeart className="icon-heart" />
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     ))}
             </div>

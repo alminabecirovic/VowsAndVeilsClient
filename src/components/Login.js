@@ -109,7 +109,7 @@ const Login = () => {
                             {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
                         </div>
                         <div className="auth-page-button">
-                            <button onClick={loginUserHandler}>Login</button>
+                            <button onClick={loginUserHandler}>Prijavite se</button>
                         </div>
                     </form>
                     <p className="form-footer">
