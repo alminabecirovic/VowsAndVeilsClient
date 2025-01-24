@@ -12,6 +12,8 @@ export const MyContextProvider = (props) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [userRole, setUserRole] = useState(""); // Dodato za praćenje uloge korisnika
 
+ 
+
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {

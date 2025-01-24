@@ -1,43 +1,35 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../pages/create-post.css";
 
 const CreatePost = () => {
-    const [photos, setPhotos] = useState([]); // Za više slika
-    const [previewPhotos, setPreviewPhotos] = useState([]); // Za prikaz slika
+    const [photos, setPhotos] = useState([]);
+    const [previewPhotos, setPreviewPhotos] = useState([]);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [status, setStatus] = useState(true);
+    const [status, setStatus] = useState("true");
     const [size, setSize] = useState("");
     const [dressLength, setDressLength] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleFileChange = (e) => {
-        const files = Array.from(e.target.files); // Pretvori nove fajlove u niz
-        console.log("Selected files:", files);
-    
-        // Dodaj nove fajlove na postojeći niz
+        const files = Array.from(e.target.files);
         setPhotos((prevPhotos) => [...prevPhotos, ...files]);
-    
-        // Kreiraj preview URL-ove za nove slike
         const previewUrls = files.map((file) => URL.createObjectURL(file));
         setPreviewPhotos((prevPreview) => [...prevPreview, ...previewUrls]);
     };
-    
+
     const create = async (e) => {
         e.preventDefault();
 
         try {
             const formData = new FormData();
-
-            // Dodavanje fotografija u FormData
-            photos.forEach((photo) => {
-                formData.append("photos", photo);
-            });
+            photos.forEach((photo) => formData.append("photos", photo));
             formData.append("name", name);
             formData.append("price", price);
-            formData.append("status", status);
+            formData.append("status", status === "true");
             formData.append("size", size);
             formData.append("dressLength", dressLength);
 
@@ -55,70 +47,52 @@ const CreatePost = () => {
                 axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
             }
 
-            // Resetovanje forme
+            // Resetovanje polja nakon uspešnog kreiranja posta
             setPhotos([]);
             setPreviewPhotos([]);
             setName("");
             setPrice("");
-            setStatus(true);
+            setStatus("true");
             setSize("");
             setDressLength("");
 
             navigate("/dress");
         } catch (e) {
-            console.error("Error", e);
-            setError("Došlo je do greške prilikom kreiranja posta.");
+            console.error("Greška prilikom kreiranja posta:", e);
+            setError("Došlo je do greške prilikom kreiranja posta. Pokušajte ponovo.");
         }
     };
 
     return (
-        <div>
+        <div className="create-post-container">
             <h1>Kreiraj Post</h1>
-            <form onSubmit={create}>
-                    <div>
-                        <label>Photos:</label>
-                        {/* Custom upload dugme */}
-                        <label
-                            htmlFor="file-upload"
-                            style={{
-                                display: "inline-block",
-                                padding: "10px 20px",
-                                backgroundColor: "#007bff",
-                                color: "#fff",
-                                borderRadius: "5px",
-                                cursor: "pointer",
-                            }}
-                        >
-                            Select Photos
-                        </label>
-                        <input
-                            id="file-upload"
-                            type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            style={{ display: "none" }}
-                        />
-                    </div>
-                    {/* Prikaz slika */}
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+            <form onSubmit={create} className="create-post-form">
+                <div className="form-group photo-upload-container">
+                    <label>Fotografije:</label>
+                    <label htmlFor="file-upload" className="photo-upload-button">
+                        Izaberi fotografije
+                    </label>
+                    <input
+                        id="file-upload"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        style={{ display: "none" }}
+                    />
+                    <div className="photo-preview-grid">
                         {previewPhotos.map((photo, index) => (
                             <img
                                 key={index}
                                 src={photo}
-                                alt={`Preview ${index + 1}`}
-                                style={{
-                                    width: "150px",
-                                    height: "150px",
-                                    objectFit: "cover",
-                                    borderRadius: "5px",
-                                    border: "1px solid #ddd",
-                                }}
+                                alt={`Pregled ${index + 1}`}
+                                className="photo-preview"
                             />
                         ))}
                     </div>
-                    <div>
+                </div>
 
+                <div className="form-group">
                     <label>Naziv:</label>
                     <input
                         type="text"
@@ -126,8 +100,9 @@ const CreatePost = () => {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Unesi naziv"
                     />
-                    </div>
-                <div>
+                </div>
+
+                <div className="form-group">
                     <label>Cena:</label>
                     <input
                         type="number"
@@ -136,16 +111,19 @@ const CreatePost = () => {
                         placeholder="Unesi cenu"
                     />
                 </div>
-                <div>
+
+                <div className="form-group">
                     <label>Status:</label>
-                    <input
-                        type="checkbox"
-                        checked={status}
-                        onChange={(e) => setStatus(e.target.checked)}
-                    />
-                    <span>{status ? "Aktivan" : "Neaktivan"}</span>
+                    <select
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                    >
+                        <option value="true">Aktivan</option>
+                        <option value="false">Neaktivan</option>
+                    </select>
                 </div>
-                <div>
+
+                <div className="form-group">
                     <label>Veličina:</label>
                     <select
                         value={size}
@@ -157,18 +135,26 @@ const CreatePost = () => {
                         <option value="L">L</option>
                     </select>
                 </div>
-                <div>
-                    <label>Dužina Haljine:</label>
-                    <input
-                        type="text"
+
+                <div className="form-group">
+                    <label>Dužina haljine:</label>
+                    <select
                         value={dressLength}
                         onChange={(e) => setDressLength(e.target.value)}
-                        placeholder="Unesi dužinu haljine"
-                    />
+                    >
+                        <option value="">Izaberi dužinu</option>
+                        <option value="Sirena">Sirena</option>
+                        <option value="Princeza">Princeza</option>
+                        <option value="A-line">A-line</option>
+                        <option value="Mini">Mini</option>
+                    </select>
                 </div>
-                <button type="submit">Kreiraj</button>
+
+                <button type="submit" className="submit-button">
+                    Kreiraj
+                </button>
             </form>
-            {error && <p>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
         </div>
     );
 };

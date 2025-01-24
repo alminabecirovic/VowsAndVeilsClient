@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import { MyContext } from "../context/my-context";
 import "../pages/user-dresses-list.css";
 
-const UserDressesList = () => {
-    const [dresses, setDresses] = useState([]); // Sve venčanice
-    const [favorites, setFavorites] = useState([]); // Omiljene venčanice
+const UserDressesList = ({ criteria }) => {
+    const [dresses, setDresses] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     const [error, setError] = useState("");
-    const { userRole } = useContext(MyContext);
     const navigate = useNavigate();
 
-    // Učitaj listu venčanica sa servera
     useEffect(() => {
         const fetchDresses = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_API_URL || "https://localhost:7042/api/Post");
+                const response = await fetch(
+                    `https://localhost:7042/api/WeddingDress/search?dressLength=${criteria.dressLength}&size=${criteria.size}`
+                );
                 if (!response.ok) {
                     throw new Error("Greška prilikom učitavanja venčanica");
                 }
@@ -28,35 +27,24 @@ const UserDressesList = () => {
         };
 
         fetchDresses();
-    }, []);
+    }, [criteria]);
 
-    // Učitaj omiljene iz localStorage-a kada se komponenta montira
-    useEffect(() => {
-        const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-        setFavorites(storedFavorites);
-    }, []);
-
-    // Dodaj ili ukloni venčanicu iz omiljenih
     const toggleFavorite = (weddingDress) => {
         let updatedFavorites;
         if (favorites.some((fav) => fav.id === weddingDress.id)) {
-            // Ako je već u omiljenim, ukloni je
             updatedFavorites = favorites.filter((fav) => fav.id !== weddingDress.id);
         } else {
-            // Ako nije, dodaj je
             updatedFavorites = [...favorites, weddingDress];
         }
 
         setFavorites(updatedFavorites);
-        localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Sačuvaj u localStorage
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     };
 
-    // Proveri da li je venčanica u omiljenima
     const isFavorite = (weddingDressId) => {
         return favorites.some((fav) => fav.id === weddingDressId);
     };
 
-    // Navigacija na stranicu detalja
     const handleNavigateToDetails = (dressId) => navigate(`/dress-details/${dressId}`);
 
     return (
@@ -72,16 +60,17 @@ const UserDressesList = () => {
                                     src={weddingDress.urlPhotos[0]}
                                     alt={weddingDress.name}
                                     onClick={() => handleNavigateToDetails(weddingDress.id)}
-                                    style={{ cursor: "pointer" }} // Stil za naglašavanje klika
+                                    style={{ cursor: "pointer" }}
                                 />
-                                {userRole === "User" && (
-                                    <button
-                                        className={`favorite-button ${isFavorite(weddingDress.id) ? "active" : ""}`}
-                                        onClick={() => toggleFavorite(weddingDress)}
-                                    >
-                                     <FaHeart className="icon-heart" />
-                                    </button>
-                                )}
+                                <button
+                                    className={`favorite-button ${isFavorite(weddingDress.id) ? "active" : ""}`}
+                                    onClick={() => toggleFavorite(weddingDress)}
+                                >
+                                    <FaHeart
+                                        className="icon-heart"
+                                        style={{ color: isFavorite(weddingDress.id) ? "red" : "gray" }}
+                                    />
+                                </button>
                             </div>
                         </div>
                     ))}

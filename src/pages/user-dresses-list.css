@@ -14,17 +14,19 @@
   overflow: hidden;
   text-align: center;
   background-color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efekti animacije */
-}
-
-.card:hover {
-  transform: scale(1.05); /* Blago povećanje na hover */
+  border-radius: 8px; /* Zaobljeni uglovi */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Blagi senka efekat */
 }
 
 .card img {
   width: 100%; /* Slika preko cele širine kartice */
   height: 350px; /* Povećana visina slike */
   object-fit: cover; /* Proporcionalno prilagođavanje slike */
+  transition: transform 0.3s ease; /* Animacija za pomeranje slike */
+}
+
+.card img:hover {
+  transform: scale(1.1); /* Povećanje slike na hover */
 }
 
 .card h2 {
@@ -35,32 +37,25 @@
 
 .image-container {
   position: relative; /* Omogućava pozicioniranje dugmeta unutar slike */
+  overflow: hidden; /* Sprečava izlazak slike iz okvira kartice */
 }
 
 .favorite-button {
+  color: white; /* Inicijalno belo */
   position: absolute; /* Dugme je postavljeno unutar slike */
   bottom: 10px; /* Razmak od dna slike */
   right: 10px; /* Razmak od desne strane slike */
-  background: none; /* Uklanjanje pozadine */
-  border: none; /* Uklanjanje bordure */
-  color: #ff4757; /* Crvena boja za srce */
-  font-size: 30px; /* Veličina srca */
+  border: none;
+  font-size: 20px; 
   cursor: pointer;
-  transition: transform 0.2s ease; /* Animacija na klik */
+  transition: transform 0.2s ease, color 0.2s ease; /* Animacija za promenu veličine i boje */
+  background-color: transparent;
 }
 
 .favorite-button:hover {
-  transform: scale(1.2); /* Povećanje srca na hover */
+  transform: scale(1.1); /* Lagano povećanje na hover */
+  color: #ff4757; /* Boja na hover */
 }
-
-.favorite-button.active {
-  color: #e63946; /* Tamnija crvena boja kada je aktivno */
-  transform: scale(1.2); /* Povećanje srca kada je aktivno */
-}
-
-
-
-
 
 @media (max-width: 1200px) {
   .container-dresses {

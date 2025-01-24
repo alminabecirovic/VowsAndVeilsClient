@@ -1,0 +1,106 @@
+.dresses-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.dresses-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dresses-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.dress-card {
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.photos-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+}
+
+.dress-photo {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.dress-card h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.dress-card p {
+    color: #666;
+    margin: 0.25rem 0;
+}
+
+.delete-button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.delete-button:hover {
+    background-color: #f8f8f8;
+}
+
+.error-message {
+    color: #ef4444;
+    text-align: center;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background-color: #fee2e2;
+}
+
+.no-dresses {
+    text-align: center;
+    color: #666;
+    grid-column: 1 / -1;
+    padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .dresses-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .dresses-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dresses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dresses-container {
+        padding: 1rem;
+    }
+}

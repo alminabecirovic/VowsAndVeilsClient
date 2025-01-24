@@ -91,8 +91,10 @@ const DressDetails = () => {
                     <div>
                         {userRole === "User" && (
                             <button onClick={() => toggleFavorite(dress)}>
-                                {isFavorite(dress.id) ? "Ukloni iz omiljenih" : "Dodaj u omiljene"}{" "}
-                                <FaHeart className="icon-heart" />
+                                 <FaHeart className="icon-heart" 
+                                    style={{
+                                    color: isFavorite(dress.id) ? "red" : "gray", border: "none",}}
+                                 />
                             </button>
                         )}
                     </div>

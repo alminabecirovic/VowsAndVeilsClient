@@ -45,7 +45,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      {/* Left Section */}
+
       <div className="navbar-left">
         {!currentUser && (
           <>
@@ -55,7 +55,6 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Center Section */}
       <div className="navbar-center">
         <img 
           src={process.env.PUBLIC_URL + "/images/logo2.png"} // Putanja do slike
@@ -64,12 +63,11 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Right Section */}
       <div className="navbar-right">
       {currentUser && (
     <>
-            {userRole === "User" && (<button onClick={() => navigate("/fav")}><FaHeart className="icon-heart" /> </button>)}
-            {userRole === "SalonOwner" && <button onClick={() => navigate("/post")}>➕</button>}
+            {userRole === "User" && (<button onClick={() => navigate("/fav")}>Omiljene venčanice </button>)}
+            {userRole === "SalonOwner" && <button onClick={() => navigate("/post")}>Kreiraj post</button>}
             {["User", "SalonOwner", "Admin"].includes(userRole) && (
               <button onClick={handleLogout}>Odjavi se</button>
             )}

@@ -78,11 +78,6 @@ const Login = () => {
                 />
             </div>
             <div className="auth-page-div">
-                <div className="form-header">
-                    <p>
-                        Dobrodošli! Molimo vas da se prijavite koristeći vaše korisničko ime i lozinku.
-                    </p>
-                </div>
                     <form>
                         <div className="auth-page-input">
                             <input

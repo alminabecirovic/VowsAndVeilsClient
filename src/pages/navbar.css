@@ -1,33 +1,25 @@
-/* Navbar.css */
-
 .navigation nav {
     display: flex;
-    justify-content: center; /* Centriraj navigaciju */
-    gap: 40px; /* Razmak između elemenata */
+    justify-content: center; 
+    gap: 40px; 
     background-color: white;
-    position: relative; /* Osigurava stabilnost položaja */
+    position: relative;
 }
 
-.navigation nav .filter-placeholder {
-    width: 80px; /* Širina placeholder-a da zauzme mesto Filter dugmeta */
-    height: 0; /* Ne prikazuje visinu */
-    visibility: hidden; /* Čini placeholder nevidljivim */
-}
 
 .navigation nav a {
     text-decoration: none;
     color: #3e2c2c;
-    font-size: 20px;
+    font-size: 25px;
     text-transform: uppercase;
     padding: 5px;
     transition: color 0.3s, border-bottom 0.3s;
     position: relative;
 }
 
-/* Stil za glavni navbar */
 .navbar {
     width: 100%;
-    height: 90px;
+    height: 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,17 +27,12 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Leva sekcija */
   .navbar-left {
     display: flex;
-    font-size: 20px;
     background-color: transparent;
     margin-left: 20px;
-    font-size: 30px;
   }
   
-  /* Centar sekcija */
-  /* Centar sekcija */
 .navbar-center {
     width: 50vw;
     display: flex;
@@ -61,47 +48,38 @@
   .navbar-center img {
     display: flex;
     width: 50%;
-    margin-top: 40px;
+    margin-top: 50px;
    
     
   }
   
-  /* Desna sekcija */
   .navbar-right {
     display: flex;
-    gap: 10px; /* Razmak između dugmadi */
     background-color: transparent;
   }
-  
-  /* Stil dugmadi */
+  .navbar-right button{
+    display: flex;
+    margin-right: 20px;
+  }
+
   .navbar button {
     background-color: #3e2c2c;
     margin-bottom: 50px;
-    font-size: 13px;
-    color: #ffffff; /* Plava boja */
+    font-size: 15px;
+    color: #ffffff; 
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .navbar button:hover {
-    color: white; /* Tamnija plava na hover */
+    color: white; 
   }
   
-  /* Specifični stil za ❤️ i ➕ dugmad */
   .navbar-right button{
     background-color: #3e2c2c;
   }
   
-  
-  
-  /* Odgovarajući stil za Logout dugme */
-  .navbar-right button:last-child {
-   background-color: #3e2c2c;
-   margin-left: 20px;
-   
-  }
-
   .navbar-left,
 .navbar-right {
   min-width: 150px;

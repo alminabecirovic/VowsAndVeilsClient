@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import "../../pages/favorites.css";
+
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -17,17 +19,32 @@ const Favorites = () => {
   };
 
   return (
-    <div>
+    <div className="favorites-container">
       <h1>Omiljene Venčanice</h1>
       {favorites.length > 0 ? (
         favorites.map((dress) => (
-          <div key={dress.id} style={{ marginBottom: "20px" }}>
-            <img src={dress.urlPhoto} alt={dress.name} width="200" />
-            <h2>{dress.name}</h2>
-            <p>Cena: {dress.price} RSD</p>
-            <p>Veličina: {dress.size}</p>
-            <p>Dužina haljine: {dress.dressLength}</p>
-            <button onClick={() => removeFavorite(dress)}>Ukloni iz omiljenih</button>
+          <div key={dress.id} className="favorite-card">
+            <div className="favorite-gallery">
+              {dress.urlPhotos && dress.urlPhotos.length > 0 ? (
+                dress.urlPhotos.map((photo, index) => (
+                  <img
+                    key={index}
+                    src={photo}
+                    alt={`${dress.name} - ${index + 1}`}
+                    className="favorite-photo"
+                  />
+                ))
+              ) : (
+                <p>Nema dostupnih slika za ovu venčanicu.</p>
+              )}
+            </div>
+            <div className="favorite-info">
+              <h2>{dress.name}</h2>
+              <p>Cena: {dress.price} RSD</p>
+              <p>Veličina: {dress.size}</p>
+              <p>Dužina haljine: {dress.dressLength}</p>
+              <button onClick={() => removeFavorite(dress)}>Ukloni iz omiljenih</button>
+            </div>
           </div>
         ))
       ) : (
