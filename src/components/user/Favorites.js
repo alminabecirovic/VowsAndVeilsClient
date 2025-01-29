@@ -1,57 +1,114 @@
-import React, { useEffect, useState } from "react";
-import "../../pages/favorites.css";
+import React, { useState } from "react";
 
 
-const Favorites = () => {
-  const [favorites, setFavorites] = useState([]);
+const Appointment = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    startDate: "",
+    endDate: "",
+  });
 
-  useEffect(() => {
-    // Učitaj omiljene iz localStorage-a
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(storedFavorites);
-  }, []);
+  const [message, setMessage] = useState("");
 
-  // Ukloni venčanicu iz omiljenih
-  const removeFavorite = (weddingDress) => {
-    const updatedFavorites = favorites.filter((fav) => fav.id !== weddingDress.id);
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Ažuriraj u localStorage
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleReserve = async () => {
+    const token = localStorage.getItem("token"); // Učitaj token iz localStorage-a
+
+    if (!token) {
+      setMessage("Nemate ovlašćenje da izvršite ovu radnju. Prijavite se ponovo.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://localhost:7042/api/WeddingDress/reserve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Dodaj token u Authorization header
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setMessage("Rezervacija je uspešno sačuvana!");
+        console.log(data);
+      } else if (response.status === 401) {
+        setMessage("Nemate ovlašćenje da izvršite ovu radnju. Prijavite se ponovo.");
+      } else {
+        setMessage("Došlo je do greške prilikom rezervacije.");
+      }
+    } catch (error) {
+      console.error("Greška:", error);
+      setMessage("Došlo je do greške prilikom povezivanja sa serverom.");
+    }
   };
 
   return (
-    <div className="favorites-container">
-      <h1>Omiljene Venčanice</h1>
-      {favorites.length > 0 ? (
-        favorites.map((dress) => (
-          <div key={dress.id} className="favorite-card">
-            <div className="favorite-gallery">
-              {dress.urlPhotos && dress.urlPhotos.length > 0 ? (
-                dress.urlPhotos.map((photo, index) => (
-                  <img
-                    key={index}
-                    src={photo}
-                    alt={`${dress.name} - ${index + 1}`}
-                    className="favorite-photo"
-                  />
-                ))
-              ) : (
-                <p>Nema dostupnih slika za ovu venčanicu.</p>
-              )}
-            </div>
-            <div className="favorite-info">
-              <h2>{dress.name}</h2>
-              <p>Cena: {dress.price} RSD</p>
-              <p>Veličina: {dress.size}</p>
-              <p>Dužina haljine: {dress.dressLength}</p>
-              <button onClick={() => removeFavorite(dress)}>Ukloni iz omiljenih</button>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>Nema omiljenih venčanica.</p>
-      )}
+    <div className="appointment-container">
+      <h1>Reserve a Wedding Dress</h1>
+      <form>
+        <label>
+          First Name:
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Last Name:
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Phone Number:
+          <input
+            type="text"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Start Date:
+          <input
+            type="datetime-local"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          End Date:
+          <input
+            type="datetime-local"
+            name="endDate"
+            value={formData.endDate}
+            onChange={handleInputChange}
+          />
+        </label>
+        <button type="button" onClick={handleReserve}>
+          Reserve
+        </button>
+      </form>
+      {message && <p className="error-message">{message}</p>}
     </div>
   );
 };
 
-export default Favorites;
+export default Appointment;

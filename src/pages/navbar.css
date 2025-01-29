@@ -29,6 +29,7 @@
   
   .navbar-left {
     display: flex;
+    gap: 10px;
     background-color: transparent;
     margin-left: 20px;
   }

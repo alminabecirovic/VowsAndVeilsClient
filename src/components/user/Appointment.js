@@ -3,8 +3,11 @@ import axios from "axios";
 
 const ReserveWeddingDress = () => {
   const [reservation, setReservation] = useState({
-    weddingDressId: "",
-    reservationDate: "",
+    firstname: "",
+    lastname: "",
+    phoneNumber: "",
+    startDate: "",
+    endDate: "",
   });
 
   const [message, setMessage] = useState("");
@@ -20,14 +23,43 @@ const ReserveWeddingDress = () => {
     setMessage("");
     setError("");
 
+    const token = localStorage.getItem("jwtToken");
+
+
+    console.log("Token pre slanja zahteva:", token);
+    console.log("Podaci za rezervaciju:", reservation);
+
+    if (!token) {
+      setError("Nemate validan token. Prijavite se ponovo.");
+      return;
+    }
+
     try {
-      await axios.post("/api/WeddingDress/reserve", reservation);
+      const response = await axios.post(
+        "http://localhost:7042/api/WeddingDress/reserve", 
+        reservation,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            
+          },
+        }
+      );
+      console.log("Odgovor sa backend-a:", response.data);
       setMessage("Rezervacija venčanice je uspešno izvršena!");
     } catch (err) {
-      if (err.response && err.response.status === 400) {
-        setError(err.response.data.message || "Došlo je do greške prilikom rezervacije.");
+      console.error("Greška prilikom slanja zahteva:", err.response ? err.response.data : err);
+
+      if (err.response) {
+        if (err.response.status === 400) {
+          setError(err.response.data.message || "Došlo je do greške prilikom rezervacije.");
+        } else if (err.response.status === 401) {
+          setError("Nemate ovlašćenje da izvršite ovu radnju. Prijavite se ponovo.");
+        } else {
+          setError("Došlo je do greške na serveru. Pokušajte ponovo kasnije.");
+        }
       } else {
-        setError("Došlo je do greške na serveru. Pokušajte ponovo kasnije.");
+        setError("Nije moguće povezivanje sa serverom.");
       }
     }
   };
@@ -37,21 +69,51 @@ const ReserveWeddingDress = () => {
       <h1>Reserve a Wedding Dress</h1>
       <form onSubmit={handleReserve}>
         <div>
-          <label>Wedding Dress ID:</label>
+          <label>First Name:</label>
           <input
             type="text"
-            name="weddingDressId"
-            value={reservation.weddingDressId}
+            name="firstname"
+            value={reservation.firstname}
             onChange={handleInputChange}
             required
           />
         </div>
         <div>
-          <label>Reservation Date:</label>
+          <label>Last Name:</label>
+          <input
+            type="text"
+            name="lastname"
+            value={reservation.lastname}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Phone Number:</label>
+          <input
+            type="tel"
+            name="phoneNumber"
+            value={reservation.phoneNumber}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Start Date:</label>
           <input
             type="datetime-local"
-            name="reservationDate"
-            value={reservation.reservationDate}
+            name="startDate"
+            value={reservation.startDate}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>End Date:</label>
+          <input
+            type="datetime-local"
+            name="endDate"
+            value={reservation.endDate}
             onChange={handleInputChange}
             required
           />

@@ -49,6 +49,8 @@ const DressDetails = () => {
         setFavorites(storedFavorites);
     }, []);
 
+    
+    
     // Dodaj ili ukloni venčanicu iz omiljenih
     const toggleFavorite = (weddingDress) => {
         let updatedFavorites;

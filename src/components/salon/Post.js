@@ -33,21 +33,13 @@ const CreatePost = () => {
             formData.append("size", size);
             formData.append("dressLength", dressLength);
 
-            const response = await axios.post(
-                "https://localhost:7042/api/Post/create",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                }
-            );
+            await axios.post("https://localhost:7042/api/Post/create", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
 
-            if (response.data.token) {
-                axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-            }
-
-            // Resetovanje polja nakon uspešnog kreiranja posta
+            // Resetovanje forme i preusmeravanje
             setPhotos([]);
             setPreviewPhotos([]);
             setName("");
@@ -55,7 +47,6 @@ const CreatePost = () => {
             setStatus("true");
             setSize("");
             setDressLength("");
-
             navigate("/dress");
         } catch (e) {
             console.error("Greška prilikom kreiranja posta:", e);

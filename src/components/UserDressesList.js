@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import { MyContext } from "../context/my-context";
 import "../pages/user-dresses-list.css";
 
 const UserDressesList = ({ criteria }) => {
@@ -8,6 +9,9 @@ const UserDressesList = ({ criteria }) => {
     const [favorites, setFavorites] = useState([]);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    // Pristup kontekstu
+    const { currentUser, userRole } = useContext(MyContext);
 
     useEffect(() => {
         const fetchDresses = async () => {
@@ -62,15 +66,18 @@ const UserDressesList = ({ criteria }) => {
                                     onClick={() => handleNavigateToDetails(weddingDress.id)}
                                     style={{ cursor: "pointer" }}
                                 />
-                                <button
-                                    className={`favorite-button ${isFavorite(weddingDress.id) ? "active" : ""}`}
-                                    onClick={() => toggleFavorite(weddingDress)}
-                                >
-                                    <FaHeart
-                                        className="icon-heart"
-                                        style={{ color: isFavorite(weddingDress.id) ? "red" : "gray" }}
-                                    />
-                                </button>
+                                {/* Prikaz srca samo ako je korisnik registrovan */}
+                                {currentUser && userRole === "User" && (
+                                    <button
+                                        className={`favorite-button ${isFavorite(weddingDress.id) ? "active" : ""}`}
+                                        onClick={() => toggleFavorite(weddingDress)}
+                                    >
+                                        <FaHeart
+                                            className="icon-heart"
+                                            style={{ color: isFavorite(weddingDress.id) ? "red" : "gray" }}
+                                        />
+                                    </button>
+                                )}
                             </div>
                         </div>
                     ))}

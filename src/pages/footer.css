@@ -1,0 +1,105 @@
+* {
+    
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.footer {
+    position: fixed;
+    margin-top: 50px;
+    width: 100%;
+    background-color: #3e2c2c;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px;
+    font-family: 'Playfair Display', serif;
+    flex-direction: column; /* Postavlja elemente jedan ispod drugog */
+}
+
+.footer-left {
+    text-align: left;
+    margin-left: 0;
+    margin-bottom: 20px;
+}
+
+.footer-message {
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+
+
+.footer-center {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ddd;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.footer {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #3e2c2c;
+    color: white;
+    display: flex;
+    flex-direction: column; /* Da elementi idu jedan ispod drugog */
+    align-items: flex-start; /* Levo poravnanje svih elemenata */
+    padding: 30px;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+}
+
+.footer-left {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.footer-message {
+    font-size: 36px;
+    font-weight: 400; /* Ili ga ukloni potpuno */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.footer-buttons button {
+    background: none;
+    border: none;
+    color: #f8f4f0;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.footer-buttons button:hover {
+    color: #e5e0dc;
+}
+
+.footer-center {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px; /* Dodaje razmak između dugmadi i copyright-a */
+    font-size: 14px;
+    color: #ddd;
+    font-family: 'Playfair Display', serif;
+}

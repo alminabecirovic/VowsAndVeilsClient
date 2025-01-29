@@ -26,7 +26,7 @@ const dressTypes = [
     id: "mini",
     name: "Mini",
     image: "/images/mini_s.png",
-    hoverImage: "/images/a-line.png"
+    hoverImage: "/images/mini.png"
   }
 ];
 

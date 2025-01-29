@@ -14,7 +14,6 @@
   overflow: hidden;
   text-align: center;
   background-color: #fff;
-  border-radius: 8px; /* Zaobljeni uglovi */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Blagi senka efekat */
 }
 
