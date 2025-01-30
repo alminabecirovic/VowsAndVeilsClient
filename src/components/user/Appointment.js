@@ -1,130 +1,154 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ReserveWeddingDress = () => {
-  const [reservation, setReservation] = useState({
-    firstname: "",
-    lastname: "",
-    phoneNumber: "",
-    startDate: "",
-    endDate: "",
-  });
+const Appointment = () => {
+    const navigate = useNavigate();
 
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+    const [formData, setFormData] = useState({
+        firstname: "",
+        lastname: "",
+        phoneNumber: "",
+        startDate: "",
+        endDate: "",
+    });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setReservation((prev) => ({ ...prev, [name]: value }));
-  };
+    const [userId, setUserId] = useState(null);
+    const [weddingDressId, setWeddingDressId] = useState(null);
+    const [dress, setDress] = useState(null);
 
-  const handleReserve = async (e) => {
-    e.preventDefault();
-    setMessage("");
-    setError("");
+    // Dohvatanje podataka iz localStorage prilikom učitavanja stranice
+    useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedDress = JSON.parse(localStorage.getItem("selectedDress"));
 
-    const token = localStorage.getItem("jwtToken");
+    console.log("📌 User iz localStorage-a:", storedUser);
+    console.log("📌 Wedding Dress iz localStorage-a:", storedDress);
 
+    // Popravi čitanje userId ako se nalazi unutar user objekta
+    const extractedUserId = storedUser?.user?.id || storedUser?.id; // Dodaj ovu liniju
+    const extractedDressId = storedDress?.id;
 
-    console.log("Token pre slanja zahteva:", token);
-    console.log("Podaci za rezervaciju:", reservation);
-
-    if (!token) {
-      setError("Nemate validan token. Prijavite se ponovo.");
-      return;
+    if (!extractedUserId) {
+        console.error("❌ Nedostaje korisnički ID!");
+        alert("Greška: Prijavite se ponovo.");
+        navigate("/login");
+        return;
     }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:7042/api/WeddingDress/reserve", 
-        reservation,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            
-          },
-        }
-      );
-      console.log("Odgovor sa backend-a:", response.data);
-      setMessage("Rezervacija venčanice je uspešno izvršena!");
-    } catch (err) {
-      console.error("Greška prilikom slanja zahteva:", err.response ? err.response.data : err);
+    if (!extractedDressId) {
+        console.error("❌ Nedostaje ID venčanice!");
+        alert("Greška: Vratite se nazad i pokušajte ponovo.");
+        navigate("/dress-details");
+        return;
+    }
 
-      if (err.response) {
-        if (err.response.status === 400) {
-          setError(err.response.data.message || "Došlo je do greške prilikom rezervacije.");
-        } else if (err.response.status === 401) {
-          setError("Nemate ovlašćenje da izvršite ovu radnju. Prijavite se ponovo.");
-        } else {
-          setError("Došlo je do greške na serveru. Pokušajte ponovo kasnije.");
-        }
-      } else {
-        setError("Nije moguće povezivanje sa serverom.");
+    setUserId(extractedUserId);
+    setWeddingDressId(extractedDressId);
+    setDress(storedDress);
+}, [navigate]);
+
+  
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const token = storedUser?.token;  // Preuzmi token iz localStorage-a
+  
+      if (!token) {
+          alert("Morate biti prijavljeni da biste zakazali termin.");
+          navigate("/login");
+          return;
       }
-    }
+  
+      const appointmentData = {
+          userId,
+          weddingDressId,
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          phoneNumber: formData.phoneNumber,
+          startDate: new Date(formData.startDate).toISOString(),  // Pretvaramo u ISO format
+          endDate: new Date(formData.endDate).toISOString(),
+      };
+  
+      try {
+          const response = await fetch("https://localhost:7042/api/WeddingDress/reserve", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${token}`  // ✅ Sad je ispravno!
+              },
+              body: JSON.stringify(appointmentData),
+          });
+  
+          if (!response.ok) {
+              const errorText = await response.text();
+              console.error("Greška sa backenda:", errorText);
+              throw new Error("Zakazivanje termina nije uspelo.");
+          }
+  
+          alert("Termin uspešno zakazan!");
+          navigate("/");
+      } catch (error) {
+          alert("Greška prilikom zakazivanja termina.");
+      }
   };
+  
+  
+    
 
-  return (
-    <div>
-      <h1>Reserve a Wedding Dress</h1>
-      <form onSubmit={handleReserve}>
-        <div>
-          <label>First Name:</label>
-          <input
-            type="text"
-            name="firstname"
-            value={reservation.firstname}
-            onChange={handleInputChange}
-            required
-          />
+    return (
+        <div className="appointment-container">
+            <h2>Zakazivanje termina za {dress?.name}</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="firstname"
+                    placeholder="Ime"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    name="lastname"
+                    placeholder="Prezime"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="tel"
+                    name="phoneNumber"
+                    placeholder="Telefon"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    required
+                />
+                <label>Datum početka:</label>
+                <input
+                    type="datetime-local"
+                    name="startDate"
+                    value={formData.startDate}
+                    onChange={handleChange}
+                    required
+                />
+                <label>Datum završetka:</label>
+                <input
+                    type="datetime-local"
+                    name="endDate"
+                    value={formData.endDate}
+                    onChange={handleChange}
+                    required
+                />
+                <button type="submit">Zakaži termin</button>
+            </form>
         </div>
-        <div>
-          <label>Last Name:</label>
-          <input
-            type="text"
-            name="lastname"
-            value={reservation.lastname}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Phone Number:</label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            value={reservation.phoneNumber}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Start Date:</label>
-          <input
-            type="datetime-local"
-            name="startDate"
-            value={reservation.startDate}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>End Date:</label>
-          <input
-            type="datetime-local"
-            name="endDate"
-            value={reservation.endDate}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <button type="submit">Reserve</button>
-      </form>
-
-      {message && <p style={{ color: "green" }}>{message}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
+    );
 };
 
-export default ReserveWeddingDress;
+export default Appointment;

@@ -11,8 +11,13 @@ const CreatePost = () => {
     const [status, setStatus] = useState("true");
     const [size, setSize] = useState("");
     const [dressLength, setDressLength] = useState("");
+    const [city, setCity] = useState("");
+    const [address, setAddress] = useState("");
+    const [salonName, setSalonName] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    const cities = ["Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"];
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
@@ -32,6 +37,9 @@ const CreatePost = () => {
             formData.append("status", status === "true");
             formData.append("size", size);
             formData.append("dressLength", dressLength);
+            formData.append("city", city);
+            formData.append("address", address);
+            formData.append("salonName", salonName);
 
             await axios.post("https://localhost:7042/api/Post/create", formData, {
                 headers: {
@@ -47,6 +55,9 @@ const CreatePost = () => {
             setStatus("true");
             setSize("");
             setDressLength("");
+            setCity("");
+            setAddress("");
+            setSalonName("");
             navigate("/dress");
         } catch (e) {
             console.error("Greška prilikom kreiranja posta:", e);
@@ -139,6 +150,39 @@ const CreatePost = () => {
                         <option value="A-line">A-line</option>
                         <option value="Mini">Mini</option>
                     </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Grad:</label>
+                    <select
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                    >
+                        <option value="">Izaberi grad</option>
+                        {cities.map((c, index) => (
+                            <option key={index} value={c}>{c}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Adresa:</label>
+                    <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Unesi adresu"
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Naziv salona:</label>
+                    <input
+                        type="text"
+                        value={salonName}
+                        onChange={(e) => setSalonName(e.target.value)}
+                        placeholder="Unesi naziv salona"
+                    />
                 </div>
 
                 <button type="submit" className="submit-button">

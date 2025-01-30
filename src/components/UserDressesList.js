@@ -16,8 +16,15 @@ const UserDressesList = ({ criteria }) => {
     useEffect(() => {
         const fetchDresses = async () => {
             try {
+                console.log("Pretraga venčanica sa kriterijumima:", criteria);
+                
+                const queryParams = new URLSearchParams();
+                if (criteria.dressLength) queryParams.append("dressLength", criteria.dressLength);
+                if (criteria.size) queryParams.append("size", criteria.size);
+                queryParams.append("city", criteria.city || "All"); // Ako city nije unet, šalje "All"
+                
                 const response = await fetch(
-                    `https://localhost:7042/api/WeddingDress/search?dressLength=${criteria.dressLength}&size=${criteria.size}`
+                    `https://localhost:7042/api/WeddingDress/search?${queryParams.toString()}`
                 );
                 if (!response.ok) {
                     throw new Error("Greška prilikom učitavanja venčanica");

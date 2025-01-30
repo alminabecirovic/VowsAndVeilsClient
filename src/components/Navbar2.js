@@ -34,14 +34,16 @@ const Navbar2 = ({ onCriteriaChange }) => {
   const [activeText, setActiveText] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
-    sizes: [],
+    sizes: ["S", "M", "L"],
+    cities: ["Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
   });
   const [criteria, setCriteria] = useState({
     dressLength: "",
     size: "",
+    city: ""
   });
   const [hoveredDress, setHoveredDress] = useState(null);
-  const [activeDress, setActiveDress] = useState(null); // Za aktivnu sliku
+  const [activeDress, setActiveDress] = useState(null);
 
   const location = useLocation();
 
@@ -63,8 +65,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
       return newCriteria;
     });
 
-    // Postavi ili skloni aktivnu sliku
-    setActiveDress((prevActive) => prevActive === dressType ? null : dressType);
+    setActiveDress((prevActive) => (prevActive === dressType ? null : dressType));
   };
 
   const handleSizeChange = (e) => {
@@ -76,14 +77,26 @@ const Navbar2 = ({ onCriteriaChange }) => {
     });
   };
 
+  const handleCityChange = (e) => {
+    const { value } = e.target;
+    setCriteria((prev) => {
+      const newCriteria = { ...prev, city: value };
+      onCriteriaChange(newCriteria);
+      return newCriteria;
+    });
+  };
+
   useEffect(() => {
     const fetchFilterOptions = async () => {
       try {
         const response = await axios.get("https://localhost:7042/api/WeddingDress/search");
         console.log("API Response:", response.data);
-        setFilterOptions({
+
+        setFilterOptions((prev) => ({
+          ...prev,
           sizes: ["S", "M", "L"],
-        });
+          cities: ["Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
+        }));
       } catch (error) {
         console.error("Greška pri učitavanju opcija filtera:", error);
       }
@@ -173,14 +186,23 @@ const Navbar2 = ({ onCriteriaChange }) => {
 
           <div className="size-selector">
             <label>Veličina:</label>
-            <select
-              value={criteria.size}
-              onChange={handleSizeChange}
-            >
+            <select value={criteria.size} onChange={handleSizeChange}>
               <option value="">Sve veličine</option>
               {filterOptions.sizes.map((size) => (
                 <option key={size} value={size}>
                   {size}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="city-selector">
+            <label>Grad:</label>
+            <select value={criteria.city} onChange={handleCityChange}>
+              <option value="">Svi gradovi</option>
+              {filterOptions.cities.map((city, index) => (
+                <option key={index} value={city}>
+                  {city}
                 </option>
               ))}
             </select>

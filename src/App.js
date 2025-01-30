@@ -15,6 +15,7 @@ import DressDetails from "./components/DressDetails";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import Navbar3 from "./components/Navbar3";
+import AppointmentPage from "./components/salon/AppointmentPage";
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
         <Route path="/fav" element={<Favorites />} />
         <Route path="/appointment" element={<Appointment />} />
         <Route path="/dress-details/:dressId" element={<DressDetails />} />
+        <Route path="/appointments" element={<AppointmentPage />} />
         <Route path="/footer" element={<Footer />} />
       </Routes>
 
