@@ -10,7 +10,6 @@ const UserDressesList = ({ criteria }) => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    // Pristup kontekstu
     const { currentUser, userRole } = useContext(MyContext);
 
     useEffect(() => {
@@ -21,7 +20,7 @@ const UserDressesList = ({ criteria }) => {
                 const queryParams = new URLSearchParams();
                 if (criteria.dressLength) queryParams.append("dressLength", criteria.dressLength);
                 if (criteria.size) queryParams.append("size", criteria.size);
-                queryParams.append("city", criteria.city || "All"); // Ako city nije unet, šalje "All"
+                queryParams.append("city", criteria.city || "All");
                 
                 const response = await fetch(
                     `https://localhost:7042/api/WeddingDress/search?${queryParams.toString()}`
@@ -39,6 +38,12 @@ const UserDressesList = ({ criteria }) => {
 
         fetchDresses();
     }, [criteria]);
+
+    useEffect(() => {
+        // Učitavanje omiljenih iz localStorage-a prilikom učitavanja stranice
+        const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        setFavorites(storedFavorites);
+    }, []);
 
     const toggleFavorite = (weddingDress) => {
         let updatedFavorites;
@@ -73,8 +78,7 @@ const UserDressesList = ({ criteria }) => {
                                     onClick={() => handleNavigateToDetails(weddingDress.id)}
                                     style={{ cursor: "pointer" }}
                                 />
-                                {/* Prikaz srca samo ako je korisnik registrovan */}
-                                {currentUser && userRole === "User" && (
+                                {userRole === "User" && (
                                     <button
                                         className={`favorite-button ${isFavorite(weddingDress.id) ? "active" : ""}`}
                                         onClick={() => toggleFavorite(weddingDress)}

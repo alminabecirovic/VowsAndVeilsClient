@@ -40,7 +40,6 @@ const AppointmentPage = () => {
 
     return (
         <div className="appointments-container">
-            <h1>Zakazani Termini</h1>
             {loading && <p className="loading-message">Učitavanje...</p>}
             {error && !loading && <p className="error-message">{error}</p>}
 

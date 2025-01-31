@@ -58,6 +58,15 @@ const DressDetails = () => {
         return favorites.some((fav) => fav.id === weddingDressId);
     };
 
+    const handleAppointmentClick = () => {
+        if (dress) {
+            localStorage.setItem("selectedDress", JSON.stringify(dress)); // ✅ Čuvanje venčanice pre navigacije
+            navigate("/appointment");
+        } else {
+            alert("Greška: Podaci o venčanici nisu dostupni.");
+        }
+    };
+
     if (loading) {
         return <p>Učitavanje detalja venčanice...</p>;
     }
@@ -95,7 +104,9 @@ const DressDetails = () => {
                 <div className="btn">
                     {userRole ? (
                         userRole === "User" && (
-                            <button onClick={() => navigate("/appointment")}>Napravi termin</button>
+                            <button onClick={handleAppointmentClick}>
+                                Napravi termin
+                            </button>
                         )
                     ) : (
                         <button onClick={() => navigate("/registration")}>

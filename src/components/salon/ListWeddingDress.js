@@ -75,7 +75,6 @@ const DressesList = () => {
 
     return (
         <div className="dresses-container">
-            <h1>Lista Venčanica</h1>
             {loading && <p className="loading-message">Učitavanje...</p>}
             {error && !loading && <p className="error-message">{error}</p>}
             {!loading && dresses.length > 0 ? (

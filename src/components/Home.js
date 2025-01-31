@@ -3,7 +3,9 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import home from '../assets/home.mp4'
 import "../pages/home.css";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,20 +16,9 @@ const Home = () => {
 
   return (
     <div className="hero">
-      {/* Video Background */}
-      <video 
-        className="hero-video"
-        autoPlay 
-        muted 
-        loop 
-        playsInline
-      >
-        <source 
-          src="/public/video/16_9_10_sek_sajt_v2_989aa9df50.mp4" 
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
+      <div className='main'>
+        <video src={home} autoPlay loop muted />
+      </div>
 
       {/* Overlay */}
       <div className="hero-overlay"></div>

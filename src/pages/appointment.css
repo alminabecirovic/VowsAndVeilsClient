@@ -1,0 +1,220 @@
+/* Container styles */
+.appointment-container {
+    min-height: 100vh;
+    background-color: #f8f4f1;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+    .appointment-container {
+        padding: 3rem 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .appointment-container {
+        padding: 3rem 2rem;
+    }
+}
+
+.appointment-card {
+    max-width: 42rem;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0; /* Uklonjen border-radius */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Header styles */
+.appointment-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.appointment-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background-color: #4a3427;
+}
+
+.appointment-title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #4a3427;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em;
+}
+
+.appointment-subtitle {
+    color: #8b7355;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+/* Form styles */
+.appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.875rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: #8b7355;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+    border: 2px solid #e5d6ca;
+    border-radius: 0; /* Uklonjen border-radius */
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem;
+    color: #4a3427;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.form-input:focus {
+    border-color: #8b7355;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.2);
+    background-color: white;
+}
+
+.date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #4a3427;
+    margin-bottom: 0.625rem;
+}
+
+.input-label .icon {
+    margin-right: 0.5rem;
+}
+
+.date-input {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px solid #e5d6ca;
+    border-radius: 0; /* Uklonjen border-radius */
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem;
+    color: #4a3427;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.date-input:focus {
+    border-color: #8b7355;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.2);
+    background-color: white;
+}
+
+.submit-button-container {
+    padding-top: 1.5rem;
+}
+
+.submit-button {
+    width: 100%;
+    background-color: #4a3427;
+    color: white;
+    padding: 1rem;
+    border-radius: 0; /* Uklonjen border-radius */
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+.submit-button:hover {
+    background-color: #5d4435;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 52, 39, 0.15);
+}
+
+.submit-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.4);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+/* Input placeholder styles */
+.form-input::placeholder {
+    color: #a8a29e;
+}
+
+/* Remove default datetime-local styling */
+input[type="datetime-local"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+}
+
+/* Disabled state styles */
+.form-input:disabled,
+.date-input:disabled,
+.submit-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .date-group {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}

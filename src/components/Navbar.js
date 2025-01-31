@@ -1,27 +1,29 @@
 import React, { useState, useContext } from "react";
-import { FaHeart } from "react-icons/fa";
-import { MyContext } from "../context/my-context"; 
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../context/my-context";
+import axios from "axios";
 import Login from "./Login";
 import Registration from "./Registration";
-import axios from "axios";
 import "../pages/navbar.css";
 
 const Navbar = () => {
   const { userRole, currentUser, setUserFunction, setRoleFunction } =
     useContext(MyContext);
-  const [isLoginOpen, setIsLoginOpen] = useState(false); 
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     if (currentUser) {
+      // Uklanjanje podataka korisnika i tokena
       setUserFunction(null);
       setRoleFunction("");
       localStorage.removeItem("user");
       localStorage.removeItem("jwtToken");
-      axios.defaults.headers.common["Authorization"] = "";
+
+      // Uklanjanje tokena iz axios zaglavlja
+      delete axios.defaults.headers.common["Authorization"];
     }
     setIsLoginOpen(false);
     setIsRegisterOpen(false);
@@ -45,28 +47,27 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-
       <div className="navbar-left">
         {!currentUser && (
           <>
-          <button onClick={() => navigate("/login")}>Prijavi se</button>
-          <button onClick={() => navigate("/registration")}>Registruj se</button>
+            <button onClick={() => navigate("/login")}>Prijavi se</button>
+            <button onClick={() => navigate("/registration")}>Registruj se</button>
           </>
         )}
       </div>
 
       <div className="navbar-center">
-        <img 
-          src={process.env.PUBLIC_URL + "/images/logo2.png"} // Putanja do slike
-          alt="Logo" 
+        <img
+          src={process.env.PUBLIC_URL + "/images/logo2.png"}
+          alt="Logo"
           className="navbar-logo"
         />
       </div>
 
       <div className="navbar-right">
-      {currentUser && (
-    <>
-            {userRole === "User" && (<button onClick={() => navigate("/fav")}>Omiljene venčanice </button>)}
+        {currentUser && (
+          <>
+            {userRole === "User" && <button onClick={() => navigate("/fav")}>Omiljene venčanice</button>}
             {userRole === "SalonOwner" && <button onClick={() => navigate("/post")}>Kreiraj post</button>}
             {["User", "SalonOwner", "Admin"].includes(userRole) && (
               <button onClick={handleLogout}>Odjavi se</button>
@@ -75,7 +76,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Modals for Login and Registration */}
+      {/* Modali za prijavu i registraciju */}
       {isLoginOpen && (
         <Login
           onLoginSuccess={handleLoginSuccess}
