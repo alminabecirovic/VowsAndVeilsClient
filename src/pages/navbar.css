@@ -70,20 +70,32 @@
     color: #d8cbcb; 
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .navbar button:hover {
-    color: white; 
-  }
-  
-  .navbar-right button{
-    background-color: #3e2c2c;
-  }
-  
-  .navbar-left,
-.navbar-right {
-  min-width: 150px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Specifično za dugmad 'Prijavi se' i 'Registruj se' */
+.navbar-left button {
+    color: #d8cbcb;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-left button:hover,
+.navbar-left button:focus,
+.navbar-left button:active {
+    color: white; /* Dugme ostaje belo */
+   
+}
+
+.navbar button:hover {
+    color: white; 
+}
+
+.navbar-right button {
+    background-color: #3e2c2c;
+}
+
+.navbar-left,
+.navbar-right {
+    min-width: 150px;
+}
 

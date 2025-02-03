@@ -193,3 +193,31 @@
     border-color: #000;
 }
 
+@media (max-width: 500px) {
+  .button {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .navigation nav a {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .dress-type-option img {
+    width: 60%; /* Dodatno smanjujemo širinu slika */
+  }
+
+  .size-selector select,
+  .city-selector select {
+    font-size: 12px;
+  }
+
+  .divider {
+    margin: 8px 0;
+  }
+
+  .container {
+    padding: 5px;
+  }
+}
