@@ -65,13 +65,13 @@ const UserDressesList = ({ criteria }) => {
 
     return (
         <div>
-            <div className="container-dresses">
+            <div className="user-container-dresses">
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 {!error && dresses.length === 0 && <p>Nema dostupnih venčanica za prikaz.</p>}
                 {!error &&
                     dresses.map((weddingDress) => (
                         <div key={weddingDress.id} className="card">
-                            <div className="image-container">
+                            <div className="image-container-user">
                                 <img
                                     src={weddingDress.urlPhotos[0]}
                                     alt={weddingDress.name}

@@ -31,16 +31,17 @@
 }
 
 .auth-page-input {
-    width: 40vw;
+    width: 30vw;
+    height: 10vh;
     position: relative;
     display: flex;
-    padding: 5px;
+    padding: 8px;
 }
 .auth-page-input select {
     width: 100%;
     padding: 12px 40px 12px 12px; /* Prostor za ikonu "eye" */
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #585858;
     box-sizing: border-box;
     outline: black;
     transition: border-color 0.3s;
@@ -50,10 +51,10 @@
 }
 
 .auth-page-input input {
-    width:   100%;;
+    width:   100%;
     padding: 12px 40px 12px 12px; /* Prostor za ikonu "eye" */
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #585858;
     box-sizing: border-box;
     outline: black;
     transition: border-color 0.3s;
@@ -61,55 +62,72 @@
     color: black;
     
 }
-.auth-page-button button{
-    width: 98.5%;
+.auth-page-button button {
+    width: 96%;
+    height: 7vh;
     padding: 12px 40px 12px 12px; /* Prostor za ikonu "eye" */
-    font-size: 16px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    outline: black;
-    transition: border-color 0.3s;
-    background-color: #ffffff;
+    font-size: 13px;
+    background-color: transparent;
     color: black;
+    border: 1px solid #363636;
     cursor: pointer;
-    margin-left: 5px;
+    position: relative;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    margin-left: 8px;
     margin-top: 8px;
 }
 
-.auth-page-input input:focus {
-    border-color: #000000;
+/* Animacija ispod dugmeta */
+.auth-page-button button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.3px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: bottom;
+    background-color: #3a3737;
+    transition: transform 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
+
+.auth-page-button button:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom;
+}
+
+/* Efekat hovera */
+.auth-page-button button:hover {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
 
 .password-toggle {
     position: absolute;
-    right: 10px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     
 }
-
-input[type="submit"] {
-    display: flex;
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #000000;
-    background-color: #ffffff;
-    border: 1px solid black;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: 100;
-}
-
-/* input[type="submit"]:hover {
-    background-color: #99a7b7;
-} */
 .form-footer{
     display: flex;
     margin-top: 8px;
     gap: 5px;
+    
 }
-
-
+.form-footer-link{
+    color: #9f9f9f;
+    cursor: pointer;
+}
+.form-footer-link:hover{
+    color: #000000;
+    cursor: pointer;
+}

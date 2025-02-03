@@ -1,63 +1,149 @@
 .inspiration-page-container {
-    padding: 20px;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Columns layout */
+.inspiration-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.inspiration-column {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+}
+
+.inspiration-column h2 {
+    font-size: 1.8rem;
+    color: #4a3434;
+    margin-bottom: 2rem;
     text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e6d5d5;
+    padding-bottom: 1rem;
 }
 
-h1, h2 {
-    color: #4A4A4A;
-}
-
+/* Inspiration list and items */
 .inspiration-list {
     list-style: none;
     padding: 0;
+    display: grid;
+    gap: 2rem;
 }
 
 .inspiration-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0;
-    padding: 15px;
-    border: 1px solid #ddd;
+    background: white;
     border-radius: 8px;
-    background: #f9f9f9;
-    width: 50%;
-    margin: auto;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+/* Image container and hover effect */
+.image-container-admin {
+    position: relative;
+    padding-top: 75%;
+    overflow: hidden;
 }
 
 .inspiration-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 300px;
-    height: auto;
-    border-radius: 5px;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
+.image-container-admin::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #4a3434;
+}
+
+.image-container-admin:hover::after {
+    transform: translateY(0);
+}
+
+/* Text and description */
+.inspiration-item p {
+    padding: 1rem;
+    margin: 0;
+    color: #4a3434;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Button group */
 .button-group {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 10px;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
 }
 
-.approve-button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
+/* Buttons */
+.approve-button,
 .reject-button {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    background-color: white;
+    color: black;
+}
+
+.approve-button:hover,
+.reject-button:hover {
+    background-color: black;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Loading and error states */
+.loading-message,
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #4a3434;
 }
 
 .error-message {
-    color: red;
-    font-weight: bold;
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .inspiration-page-container {
+        padding: 0 1rem;
+    }
+    
+    .inspiration-columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .inspiration-column h2 {
+        font-size: 1.5rem;
+    }
 }

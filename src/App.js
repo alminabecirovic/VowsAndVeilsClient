@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
-import AdminDashboard from "./components/AdminDashboard";
+import AdminDashboard from "./components/admin/AdminDashboard";
 import ListWeddingDress from "./components/salon/ListWeddingDress";
 import Post from "./components/salon/Post";
 import Navbar from "./components/Navbar";
@@ -14,18 +14,19 @@ import Appointment from "./components/user/Appointment";
 import DressDetails from "./components/DressDetails";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
-import Navbar3 from "./components/Navbar3";
+import Navbar3 from "./components/salon/Navbar3";
 import AppointmentPage from "./components/salon/AppointmentPage";
-import Navbar4 from "./components/Navbar4";
+import Navbar4 from "./components/admin/Navbar4";
 import CreateInspiration from "./components/user/CreateInspiration";
-import InspirationPage from "./components/InspirationPage";
+import InspirationPage from "./components/admin/InspirationPage";
 import ApprovedInspirationsPage from "./components/ApprovedInspirationsPage";
+import StoryInspiration from "./components/StoryInspiration";
 function App() {
   const location = useLocation();
   const [criteria, setCriteria] = useState({ dressLength: "", size: "" });
 
   // Rute na kojima treba prikazati Navbar2
-  const showNavbar2Routes = ["/user_dresses_list", "/inspiration", "/search", "/login", "/registration"];
+  const showNavbar2Routes = ["/user_dresses_list", "/inspiration", "/search", "/login", "/registration","/story", "/approved"];
   const showNavbar2 = showNavbar2Routes.includes(location.pathname);
 
   // Rute na kojima treba prikazati Navbar3
@@ -59,8 +60,9 @@ function App() {
         <Route path="/appointments" element={<AppointmentPage />} />
         <Route path="/inspiration" element={<CreateInspiration />} />
         <Route path="/inspiration-page" element={<InspirationPage />} />
-        <Route path="/approved" element={<ApprovedInspirationsPage />} />
-        
+        <Route path="/approved/:id" element={<ApprovedInspirationsPage />} />
+        <Route path="/story" element={<StoryInspiration/>} />
+
         <Route path="/footer" element={<Footer />} />
        
 

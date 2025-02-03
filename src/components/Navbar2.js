@@ -118,7 +118,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
             Kolekcija
           </NavLink>
           <NavLink
-            to="/approved"
+            to="/story"
             onClick={() => handleSetActiveText("Inspiracija")}
           >
             Inspiracija

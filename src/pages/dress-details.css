@@ -72,19 +72,31 @@
 /* Button Styles */
 .btn button {
   width: 100%;
-  padding: 1rem;
-  background-color: white;
-  color: black;
-  border: 2px solid black;
-  border-radius: 0;
-  font-size: 1.1rem;
+  padding: 12px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .btn button:hover {
-  background-color: black;
-  color: white;
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.button-text {
+  flex: 1;
+  text-align: left;
+}
+
+.button-icon {
+  margin-left: 10px;
 }
 
 /* Gallery Section */

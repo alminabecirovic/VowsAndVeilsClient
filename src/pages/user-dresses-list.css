@@ -1,4 +1,4 @@
-.container-dresses {
+.user-container-dresses {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Tačno 4 kolone u jednom redu */
   gap: 20px; /* Veći razmak između kartica */
@@ -28,13 +28,14 @@
   transform: scale(1.1); /* Povećanje slike na hover */
 }
 
+
 .card h2 {
   font-size: 20px; /* Povećan font naslova */
   color: #333;
   margin: 10px 0;
 }
 
-.image-container {
+.image-container-user {
   position: relative; /* Omogućava pozicioniranje dugmeta unutar slike */
   overflow: hidden; /* Sprečava izlazak slike iz okvira kartice */
 }
@@ -55,6 +56,8 @@
   transform: scale(1.1); /* Lagano povećanje na hover */
   color: #ff4757; /* Boja na hover */
 }
+
+
 
 @media (max-width: 1200px) {
   .container-dresses {

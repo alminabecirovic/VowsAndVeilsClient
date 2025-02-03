@@ -105,12 +105,15 @@ const DressDetails = () => {
                     {userRole ? (
                         userRole === "User" && (
                             <button onClick={handleAppointmentClick}>
-                                Napravi termin
+                            <span className="button-text">Napravi termin</span>
+                            <span className="button-icon">➝</span>
                             </button>
+                            
                         )
                     ) : (
                         <button onClick={() => navigate("/registration")}>
-                            Registrujte se da napravite termin
+                              <span className="button-text">Registrujte se i napravite termin</span>
+                              <span className="button-icon">➝</span>
                         </button>
                     )}
                 </div>

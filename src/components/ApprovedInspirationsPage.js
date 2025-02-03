@@ -1,59 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { MyContext } from "../context/my-context";
+import "../pages/approved.css";
 
-
-const ApprovedInspirationsPage = () => {
-    const [approvedInspirations, setApprovedInspirations] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-    const token = localStorage.getItem("jwtToken");
+const ApprovedInspiration = () => {
+    const { userRole } = useContext(MyContext);
+    const location = useLocation();
     const navigate = useNavigate();
+    const { id } = useParams();
+    const [inspiration, setInspiration] = useState(location.state?.inspiration || null);
+    const [loading, setLoading] = useState(!inspiration);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        loadApprovedInspirations();
+        if (!inspiration) {
+            fetchInspirationById();
+        }
     }, []);
 
-    const loadApprovedInspirations = async () => {
+    const fetchInspirationById = async () => {
         setLoading(true);
         try {
-            const response = await axios.get("https://localhost:7042/api/Inspiration/approved", {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-
-            setApprovedInspirations(response.data);
+            const response = await axios.get(`https://localhost:7042/api/Inspiration/${id}`);
+            setInspiration(response.data);
         } catch (e) {
-            setError("Greška pri učitavanju odobrenih inspiracija.");
+            setError("Greška pri učitavanju inspiracije.");
         } finally {
             setLoading(false);
         }
     };
 
+    if (loading) return <p className="loading-message">Učitavanje inspiracije...</p>;
+    if (error) return <p className="error-message">{error}</p>;
+    if (!inspiration) return <p className="error-message">Podaci nisu dostupni.</p>;
+
     return (
-        <div className="approved-inspirations-container">
-            <h1>Odobrene Inspiracije</h1>
-
-            {error && <p className="error-message">{error}</p>}
-            {loading && <p>Učitavanje inspiracija...</p>}
-
-            {approvedInspirations.length === 0 ? (
-                <p>Nema odobrenih inspiracija.</p>
+        <div className="approved-inspiration-container">
+            {inspiration.urlPhotos && inspiration.urlPhotos.length > 0 ? (
+                <img src={inspiration.urlPhotos[0]} alt="Inspiracija" className="approved-image" />
             ) : (
-                <ul className="inspiration-list">
-                    {approvedInspirations.map((insp) => (
-                        <li key={insp.id} className="inspiration-item">
-                            <img src={insp.urlPhotos[0]} alt="Slika inspiracije" className="inspiration-image" />
-                            <p>{insp.text}</p>
-                        </li>
-                    ))}
-                </ul>
+                <p className="no-image-message">Nema dostupne slike.</p>
             )}
+            <p className="approved-description">{inspiration.text}</p>
+            <p className="approved-description">{inspiration.description}</p>
 
-            <button className="inspiration-page-button" onClick={() => navigate("/inspiration")}>
-                Idi na Inspiration Page
+            <button 
+                className="inspiration-page-button" 
+                onClick={() => navigate(userRole ? "/inspiration" : "/registration")}
+            >
+                <span className="button-text">
+                    {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se inspirisite druge"}
+                </span>
+                <span className="button-icon">➝</span>
             </button>
         </div>
     );
 };
 
-export default ApprovedInspirationsPage;
+export default ApprovedInspiration;

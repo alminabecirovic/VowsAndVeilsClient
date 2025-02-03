@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../pages/appointments-list.css"; // Koristi CSS iz appointments.css
+import "../../pages/appointments-list.css"; // Koristi CSS iz appointments.css
 
 axios.defaults.baseURL = "https://localhost:7042";
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import "../pages/navbar2.css";
+import "../../pages/navbar2.css";
 
 const Navbar3 = () => {
   const [activeText, setActiveText] = useState("");
-  const location = useLocation();
+ 
 
   const handleSetActiveText = (text) => {
     setActiveText(text);

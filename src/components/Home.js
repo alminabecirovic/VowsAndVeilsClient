@@ -1,11 +1,7 @@
-
-
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import home from '../assets/home.mp4'
 import "../pages/home.css";
-
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,8 +22,8 @@ const Home = () => {
       {/* Content */}
       <div className="hero-content-wrapper">
         <div className="hero-content">
-          <h2>TIMELESS ELEGANCE</h2>
-          <p>DISCOVER THE ART OF BRIDAL BEAUTY</p>
+          <h2>BESKRAJNA ELEGANCIJA</h2>
+          <p>OTKRIJ UMETNOST MLADALAČKE LEPOTE</p>
           <button onClick={handleExplore}>
             PRIKAŽI KOLEKCIJU
           </button>
