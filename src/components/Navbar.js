@@ -47,35 +47,35 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-left">
-        {!currentUser && (
-          <>
-            <button onClick={() => navigate("/login")}>Prijavi se</button>
-            <button onClick={() => navigate("/registration")}>Registruj se</button>
-          </>
-        )}
-      </div>
+       <div className="nav1">
+          <div className="navbar-left">
+            {!currentUser && (
+              <>
+                <button onClick={() => navigate("/login")}>Prijavi se</button>
+                <button onClick={() => navigate("/registration")}>Registruj se</button>
+              </>
+            )}    
+          </div>
+          <div className="navbar-right">
+            {currentUser && (
+              <>
+                {userRole === "User" && <button onClick={() => navigate("/fav")}>Omiljene venčanice</button>}
+                {userRole === "SalonOwner" && <button onClick={() => navigate("/post")}>Kreiraj post</button>}
+                {["User", "SalonOwner", "Admin"].includes(userRole) && (
+                  <button onClick={handleLogout}>Odjavi se</button>
+                )}
+              </>
+            )}
+          </div>
+        </div>
 
       <div className="navbar-center">
         <img
           src={process.env.PUBLIC_URL + "/images/logo2.png"}
           alt="Logo"
-          className="navbar-logo"
+          className="nav-logo"
         />
       </div>
-
-      <div className="navbar-right">
-        {currentUser && (
-          <>
-            {userRole === "User" && <button onClick={() => navigate("/fav")}>Omiljene venčanice</button>}
-            {userRole === "SalonOwner" && <button onClick={() => navigate("/post")}>Kreiraj post</button>}
-            {["User", "SalonOwner", "Admin"].includes(userRole) && (
-              <button onClick={handleLogout}>Odjavi se</button>
-            )}
-          </>
-        )}
-      </div>
-
       {/* Modali za prijavu i registraciju */}
       {isLoginOpen && (
         <Login

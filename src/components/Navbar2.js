@@ -1,71 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import axios from "axios";
+import { MyContext } from "../context/my-context";
 import "../pages/navbar2.css";
+import axios from "axios";
 
 const dressTypes = [
-  {
-    id: "aline",
-    name: "A-kroj",
-    image: "/images/a-line_s.png",
-    hoverImage: "/images/a-line.png"
-  },
-  {
-    id: "mermaid",
-    name: "Sirena",
-    image: "/images/mermaid_s.png",
-    hoverImage: "/images/mermaid.png"
-  },
-  {
-    id: "princess",
-    name: "Princeza",
-    image: "/images/princess_s.png",
-    hoverImage: "/images/princess.png"
-  },
-  {
-    id: "mini",
-    name: "Mini",
-    image: "/images/mini_s.png",
-    hoverImage: "/images/mini.png"
-  }
+  { id: "aline", name: "A-kroj", image: "/images/a-line_s.png", hoverImage: "/images/a-line.png" },
+  { id: "mermaid", name: "Sirena", image: "/images/mermaid_s.png", hoverImage: "/images/mermaid.png" },
+  { id: "princess", name: "Princeza", image: "/images/princess_s.png", hoverImage: "/images/princess.png" },
+  { id: "mini", name: "Mini", image: "/images/mini_s.png", hoverImage: "/images/mini.png" }
 ];
 
 const Navbar2 = ({ onCriteriaChange }) => {
+  const { userRole } = useContext(MyContext);
   const [activeText, setActiveText] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
     sizes: ["S", "M", "L"],
-    cities: ["Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
+    cities: ["Svi gradovi", "Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
   });
-  const [criteria, setCriteria] = useState({
-    dressLength: "",
-    size: "",
-    city: ""
-  });
+  const [criteria, setCriteria] = useState({ dressTypes: [], size: "", city: "" });
   const [hoveredDress, setHoveredDress] = useState(null);
-  const [activeDress, setActiveDress] = useState(null);
-
   const location = useLocation();
+
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSidebarOpen]);
 
   const handleSetActiveText = (text) => {
     setActiveText(text);
   };
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen((prev) => !prev);
   };
 
   const handleDressTypeSelect = (dressType) => {
     setCriteria((prev) => {
-      const newCriteria = {
-        ...prev,
-        dressLength: prev.dressLength === dressType ? "" : dressType
-      };
+      const newDressTypes = prev.dressTypes.includes(dressType)
+        ? prev.dressTypes.filter(type => type !== dressType)
+        : [...prev.dressTypes, dressType];
+     
+      const newCriteria = { ...prev, dressTypes: newDressTypes };
       onCriteriaChange(newCriteria);
       return newCriteria;
     });
-
-    setActiveDress((prevActive) => (prevActive === dressType ? null : dressType));
   };
 
   const handleSizeChange = (e) => {
@@ -80,7 +67,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
   const handleCityChange = (e) => {
     const { value } = e.target;
     setCriteria((prev) => {
-      const newCriteria = { ...prev, city: value };
+      const newCriteria = { ...prev, city: value === "Svi gradovi" ? "" : value };
       onCriteriaChange(newCriteria);
       return newCriteria;
     });
@@ -95,7 +82,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
         setFilterOptions((prev) => ({
           ...prev,
           sizes: ["S", "M", "L"],
-          cities: ["Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
+          cities: ["Svi gradovi", "Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
         }));
       } catch (error) {
         console.error("Greška pri učitavanju opcija filtera:", error);
@@ -111,56 +98,64 @@ const Navbar2 = ({ onCriteriaChange }) => {
       <hr className="divider" />
       <div className="navigation">
         <nav>
-          <NavLink
-            to="/user_dresses_list"
-            onClick={() => handleSetActiveText("Kolekcija")}
-          >
-            Kolekcija
-          </NavLink>
-          <NavLink
-            to="/story"
-            onClick={() => handleSetActiveText("Inspiracija")}
-          >
-            Inspiracija
-          </NavLink>
-
-          <div className="filter">
-            {location.pathname === "/user_dresses_list" && (
-              <NavLink
-                to="#"
-                onClick={toggleSidebar}
-                style={{
-                  display: "flex",
-                  borderRight: "2px solid #f0f0f0",
-                  borderLeft: "2px solid #f0f0f0",
-                  borderBottom: "none",
-                  fontSize: "20px",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                }}
-              >
-                Filter
+          {!userRole && (
+            <>
+              <NavLink to="/user_dresses_list" onClick={() => handleSetActiveText("Kolekcija")}>
+                Kolekcija
               </NavLink>
-            )}
-          </div>
+              <NavLink to="/story" onClick={() => handleSetActiveText("Inspiracija")}>
+                Inspiracija
+              </NavLink>
+              {location.pathname === "/user_dresses_list" && (
+                <NavLink to="#" onClick={toggleSidebar} className="filter-button">
+                  Filter {criteria.dressTypes.length > 0 && `(${criteria.dressTypes.length})`}
+                </NavLink>
+              )}
+            </>
+          )}
+
+          {userRole === "User" && (
+            <>
+              <NavLink to="/user_dresses_list" onClick={() => handleSetActiveText("Kolekcija")}>
+                Kolekcija
+              </NavLink>
+              <NavLink to="/story" onClick={() => handleSetActiveText("Inspiracija")}>
+                Inspiracija
+              </NavLink>
+              {location.pathname === "/user_dresses_list" && (
+                <NavLink to="#" onClick={toggleSidebar} className="filter-button">
+                  Filter {criteria.dressTypes.length > 0 && `(${criteria.dressTypes.length})`}
+                </NavLink>
+              )}
+            </>
+          )}
+
+          {userRole === "SalonOwner" && (
+            <>
+              <NavLink to="/dress" onClick={() => handleSetActiveText("Kolekcija")}>
+                Kolekcija
+              </NavLink>
+              <NavLink to="/appointments" onClick={() => handleSetActiveText("Obaveze")}>
+                Obaveze
+              </NavLink>
+            </>
+          )}
+
+          {userRole === "Admin" && (
+            <>
+              <NavLink to="/admin_dashboard" onClick={() => handleSetActiveText("Lista korisnika")}>
+                Lista korisnika
+              </NavLink>
+              <NavLink to="/inspiration-page" onClick={() => handleSetActiveText("Inspiracija")}>
+                Inspiracija
+              </NavLink>
+            </>
+          )}
         </nav>
       </div>
 
       {isSidebarOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            right: 0,
-            width: "400px",
-            height: "100%",
-            background: "#fff",
-            boxShadow: "-2px 0 5px rgba(0,0,0,0.1)",
-            padding: "30px",
-            zIndex: 1000,
-            overflowY: "auto"
-          }}
-        >
+        <div className="sidebar">
           <div className="sidebar-header">
             <h2 className="filter-title">Opcije filtera</h2>
             <button className="close-button" onClick={toggleSidebar}>×</button>
@@ -170,13 +165,13 @@ const Navbar2 = ({ onCriteriaChange }) => {
             {dressTypes.map((dress) => (
               <div
                 key={dress.id}
-                className={`dress-type-option ${activeDress === dress.name ? 'active' : ''}`}
+                className={`dress-type-option ${criteria.dressTypes.includes(dress.name) ? "active" : ""}`}
                 onClick={() => handleDressTypeSelect(dress.name)}
                 onMouseEnter={() => setHoveredDress(dress.id)}
                 onMouseLeave={() => setHoveredDress(null)}
               >
                 <img
-                  src={hoveredDress === dress.id || activeDress === dress.name ? dress.hoverImage : dress.image}
+                  src={hoveredDress === dress.id || criteria.dressTypes.includes(dress.name) ? dress.hoverImage : dress.image}
                   alt={dress.name}
                 />
                 <div className="dress-type-label">{dress.name}</div>
@@ -199,7 +194,6 @@ const Navbar2 = ({ onCriteriaChange }) => {
           <div className="city-selector">
             <label>Grad:</label>
             <select value={criteria.city} onChange={handleCityChange}>
-              <option value="">Svi gradovi</option>
               {filterOptions.cities.map((city, index) => (
                 <option key={index} value={city}>
                   {city}

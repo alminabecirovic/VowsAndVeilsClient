@@ -30,40 +30,34 @@ const InspirationGallery = () => {
     };
 
     return (
-        <>
-            <div className="gallery-container">
-                {error && <p className="gallery-error">{error}</p>}
-                {loading && <p className="gallery-loading">Učitavanje inspiracija...</p>}
+        <div className="gallery-container">
+            {error && <p className="gallery-error">{error}</p>}
+            {loading && <p className="gallery-loading">Učitavanje inspiracija...</p>}
 
-                {!loading && inspirations.length === 0 ? (
-                    <p className="gallery-empty">Nema odobrenih inspiracija.</p>
-                ) : (
-                    <ul className="gallery-list">
-                        {inspirations.map((insp) => (
-                            <li key={insp.id} className="gallery-item">
-                                <div className="gallery">
-                                    {insp.urlPhotos && insp.urlPhotos.length > 0 ? (
-                                        insp.urlPhotos.map((photo, index) => (
-                                            <img
-                                                key={index}
-                                                src={photo}
-                                                alt={`Slika inspiracije ${index + 1}`}
-                                                className="gallery-image"
-                                                onClick={() => navigate(`/approved/${insp.id}`, { state: { inspiration: insp } })}
-                                            />
-                                        ))
-                                    ) : (
-                                        <p>Nema dostupnih slika.</p>
-                                    )}
-                                </div>
-                                <p className="gallery-description">{insp.text}</p>
-                                
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
-        </>
+            {!loading && inspirations.length === 0 ? (
+                <p className="gallery-empty">Nema odobrenih inspiracija.</p>
+            ) : (
+                <ul className="gallery-list">
+                    {inspirations.map((insp) => (
+                        <li key={insp.id} className="gallery-item">
+                            <div className="gallery">
+                                {insp.urlPhotos && insp.urlPhotos.length > 0 ? (
+                                    <img
+                                        src={insp.urlPhotos[0]} // Učitava samo prvu sliku
+                                        alt="Slika inspiracije"
+                                        className="gallery-image"
+                                        onClick={() => navigate(`/approved/${insp.id}`, { state: { inspiration: insp } })}
+                                    />
+                                ) : (
+                                    <p>Nema dostupnih slika.</p>
+                                )}
+                            </div>
+                            <p className="gallery-description">{insp.text}</p>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 };
 

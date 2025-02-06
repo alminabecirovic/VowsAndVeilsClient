@@ -1,100 +1,173 @@
+/* Container styles */
 .approved-inspiration-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
+/* Image styles */
 .approved-image {
-  margin-top: 50px;
-  width: 100%;
-  height: 600px;
+  width: 80%;
+  height: 400px;
   object-fit: cover;
-  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin: 2rem auto;
+  transition: transform 0.3s ease;
+  display: block;
 }
 
+/* Content styles */
 .content-wrapper {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 1.5rem;
-  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .post-title {
   font-size: 2.5rem;
   color: #1a1a1a;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  letter-spacing: -0.5px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
 .post-date {
   font-size: 0.875rem;
-  color: #666;
+  color: #6b7280;
   margin-bottom: 2rem;
   font-style: italic;
 }
 
 .approved-description {
+  width: 80%; /* Match image width */
   font-size: 1.125rem;
   line-height: 1.8;
-  color: #333;
+  color: #374151;
   text-align: left;
-  margin-bottom: 2rem;
+  margin: 1rem auto 2rem; /* Center horizontally and add vertical spacing */
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Button styles */
 .inspiration-page-button {
-  width: 40%;
-  padding: 12px;
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem 1.5rem;
+  background-color: white;
+  color: #111827;
+  border: 1px solid #e5e7eb;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  }
-  
-  .inspiration-page-button:hover {
-    background-color: #f5f5f5;
-  border-color: #ccc;
-  }
-  
-  .button-text {
-    flex: 1; /* Omogućava da tekst ostane levo */
-    text-align: left;
-  }
-  
-  .button-icon {
-    font-size: 1.2rem;
-    margin-left: 10px; /* Razmak između teksta i strelice */
-  }
-  
-  
+  margin: 2rem auto;
+}
+
+.inspiration-page-button:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.button-text {
+  flex: 1;
+  text-align: left;
+}
+
+.button-icon {
+  font-size: 1.25rem;
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.inspiration-page-button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+/* Message styles */
 .loading-message,
 .error-message,
 .no-image-message {
   text-align: center;
-  padding: 2rem;
-  margin: 2rem auto;
+  padding: 3rem;
+  margin: 3rem auto;
   max-width: 600px;
   font-size: 1.125rem;
-  color: #666;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.loading-message {
+  color: #6b7280;
 }
 
 .error-message {
   color: #dc2626;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+.no-image-message {
+  color: #6b7280;
+  background-color: #f3f4f6;
+}
+
+/* Action button styles */
+.approve-button,
+.reject-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.approve-button {
+  background-color: #10b981;
+  color: white;
+}
+
+.approve-button:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06);
+}
+
+.reject-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.reject-button:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1), 0 2px 4px -1px rgba(239, 68, 68, 0.06);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .approved-inspiration-container {
+    padding: 1rem;
+    min-height:80vh;
+  }
+
   .approved-image {
-    height: 400px;
+    width: 90%;
+    height: 300px;
+  }
+
+  .approved-description {
+    width: 90%; /* Match image width for tablets */
   }
 
   .post-title {
@@ -104,12 +177,24 @@
   .approved-description {
     font-size: 1rem;
     line-height: 1.6;
+    padding: 1rem;
+  }
+
+  .inspiration-page-button {
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .approved-image {
-    height: 300px;
+    width: 100%;
+    height: 250px;
+    border-radius: 0.5rem;
+  }
+
+  .approved-description {
+    width: 100%; /* Match image width for mobile */
+    padding: 0.75rem;
   }
 
   .post-title {
@@ -117,33 +202,6 @@
   }
 
   .content-wrapper {
-    padding: 0 1rem;
+    padding: 1rem;
   }
-}
-.approve-button,
-.reject-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-}
-
-.approve-button {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.approve-button:hover {
-    background-color: #45a049;
-}
-
-.reject-button {
-    background-color: #f44336;
-    color: white;
-}
-
-.reject-button:hover {
-    background-color: #d32f2f;
 }

@@ -92,6 +92,7 @@
   .favorite-card {
     flex-direction: column;
     gap: 1.5rem;
+    min-height: 80vh;
   }
 
   .favorite-gallery {

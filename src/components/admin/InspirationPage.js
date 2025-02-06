@@ -34,24 +34,38 @@ const InspirationPage = () => {
         }
     };
 
-    const handleAction = async (id, approve) => {
+    // ✅ Funkcija za odobravanje inspiracije
+    const handleApprove = async (id) => {
         try {
-            await axios.put(`https://localhost:7042/api/Inspiration/approve/${id}?approve=${approve}`, {}, {
+            await axios.put(`https://localhost:7042/api/Inspiration/approve/${id}?approve=true`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
             setPendingInspirations((prev) => prev.filter((insp) => insp.id !== id));
 
-            if (approve) {
-                const approvedInspiration = pendingInspirations.find((insp) => insp.id === id);
-                if (approvedInspiration) {
-                    setApprovedInspirations((prev) => [...prev, approvedInspiration]);
-                }
+            const approvedInspiration = pendingInspirations.find((insp) => insp.id === id);
+            if (approvedInspiration) {
+                setApprovedInspirations((prev) => [...prev, approvedInspiration]);
             }
         } catch (e) {
-            setError(`Greška prilikom ${approve ? "odobravanja" : "odbijanja"} inspiracije.`);
+            setError("Greška prilikom odobravanja inspiracije.");
         }
     };
+
+    // ✅ Funkcija za brisanje inspiracije (kada se odbije)
+   const handleDelete = async (id) => {
+    try {
+        await axios.delete(`https://localhost:7042/api/Inspiration/delete/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        // Ukloni obrisanu inspiraciju iz stanja
+        setPendingInspirations((prev) => prev.filter((insp) => insp.id !== id));
+    } catch (e) {
+        setError("Greška prilikom brisanja inspiracije.");
+    }
+};
+
 
     return (
         <div className="inspiration-page-container">
@@ -70,8 +84,7 @@ const InspirationPage = () => {
                                 {approvedInspirations.map((insp) => (
                                     <li key={insp.id} className="inspiration-item">
                                         <div className="image-container-admin" data-text={`${insp.text} - ${insp.description}`}>
-                            
-                                        <img src={insp.urlPhotos[0]} alt="Slika inspiracije" className="inspiration-image" />
+                                            <img src={insp.urlPhotos[0]} alt="Slika inspiracije" className="inspiration-image" />
                                         </div>
                                         <p><strong>{insp.text}</strong></p>
                                         <p>{insp.description}</p>
@@ -96,8 +109,9 @@ const InspirationPage = () => {
                                         <p><strong>{insp.text}</strong></p>
                                         <p>{insp.description}</p>
                                         <div className="button-group">
-                                            <button onClick={() => handleAction(insp.id, true)} className="approve-button">Odobri</button>
-                                            <button onClick={() => handleAction(insp.id, false)} className="reject-button">Odbij</button>
+                                        <button onClick={() => handleApprove(insp.id)} className="button1 btn1-approve"> <span className="button-icon">←</span>Odobri  </button>
+                                        <button onClick={() => handleDelete(insp.id)} className="button1 btn1-delete">Odbij <span className="button-icon">➝</span> </button>
+
                                         </div>
                                     </li>
                                 ))}

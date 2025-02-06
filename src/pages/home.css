@@ -1,3 +1,4 @@
+
 *{
   margin: 0;
   padding: 0;
@@ -45,7 +46,7 @@ video{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2; /* Dodato kako bi sadržaj bio iznad videa */
+  z-index: 2;
   text-align: center;
   width: 100%;
 }
@@ -56,8 +57,7 @@ video{
   color: white;
   padding: 2rem;
   position: relative;
-  z-index: 3; /* Osigurava da je sadržaj iznad svega */
-  _background: rgba(0, 0, 0, 0.3); /* Dodata blaga pozadina za bolju vidljivost */
+  z-index: 3;
   padding: 20px;
   border-radius: 5px;
 }
@@ -76,6 +76,7 @@ video{
   margin-bottom: 2.5rem;
   font-weight: 300;
 }
+
 .hero-content button {
   padding: 1rem 3rem;
   font-size: 0.875rem;
@@ -94,7 +95,6 @@ video{
   box-sizing: border-box;
   outline: black;
   transition: border-color 0.3s;
-  
 }
 
 .hero-content button::after {
@@ -109,20 +109,37 @@ video{
   transform-origin: bottom;
   background-color: #ccc;
   transition: transform 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-  
 }
 
 .hero-content button:hover::after {
-  
-    transform: scaleX(1);
-    transform-origin: bottom;
+  transform: scaleX(1);
+  transform-origin: bottom;
 }
+
 .hero-content button:hover {
   border-top: 1px solid grey;
   border-left: 1px solid grey;
   border-right: 1px solid grey;
 }
 
+/* Desktop and larger tablets */
+@media (min-width: 1024px) {
+  .hero-content button {
+    width: 60%;
+    padding: 0.875rem 2.5rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1023px) {
+  .hero-content button {
+    width: 70%;
+    padding: 0.75rem 2rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile devices */
 @media (max-width: 768px) {
   .hero {
     height: 70vh;
@@ -133,10 +150,28 @@ video{
   }
 
   .hero-content h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 5%;
   }
   
   .hero-content p {
-    font-size: 0.8rem;
+    font-size: 8px;
+  }
+
+  .hero-content button {
+    width: 50%;
+    padding: 0.625rem 1.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .hero-content button {
+    width: 70%;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
   }
 }

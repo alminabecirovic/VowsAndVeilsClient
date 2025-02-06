@@ -1,9 +1,10 @@
 .user-container-dresses {
   display: grid;
+  align-items: center;
+  justify-content: center;
   grid-template-columns: repeat(4, 1fr); /* Tačno 4 kolone u jednom redu */
   gap: 20px; /* Veći razmak između kartica */
   padding: 20px;
-  margin-top: 50px;
   background-color: #ffffff; /* Bela pozadina */
   justify-content: center; /* Centriranje mreže */
 }
@@ -19,7 +20,7 @@
 
 .card img {
   width: 100%; /* Slika preko cele širine kartice */
-  height: 350px; /* Povećana visina slike */
+  height: 300px; /* Povećana visina slike */
   object-fit: cover; /* Proporcionalno prilagođavanje slike */
   transition: transform 0.3s ease; /* Animacija za pomeranje slike */
 }
@@ -27,7 +28,6 @@
 .card img:hover {
   transform: scale(1.1); /* Povećanje slike na hover */
 }
-
 
 .card h2 {
   font-size: 20px; /* Povećan font naslova */
@@ -57,22 +57,36 @@
   color: #ff4757; /* Boja na hover */
 }
 
-
-
+/* Updated media queries for better responsiveness */
 @media (max-width: 1200px) {
-  .container-dresses {
-    grid-template-columns: repeat(3, 1fr); /* 3 kolone na širim tablet uređajima */
+  .user-container-dresses {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .card {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 768px) {
-  .container-dresses {
-    grid-template-columns: repeat(2, 1fr); /* 2 kolone na tablet uređajima */
+@media (max-width: 900px) {
+  .user-container-dresses {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 }
 
-@media (max-width: 480px) {
-  .container-dresses {
-    grid-template-columns: 1fr; /* 1 kolona na mobilnim uređajima */
+@media (max-width: 600px) {
+  .user-container-dresses {
+    grid-template-columns: 1fr;
+    padding: 15px;
+  }
+  
+  .card {
+    max-width: none;
+    width: 100%;
+  }
+  
+  .card img {
+    height: 400px;
   }
 }

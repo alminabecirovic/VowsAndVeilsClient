@@ -2,97 +2,251 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  max-width: 1200px;
+  width: 98vw;
   margin: 0 auto;
   height: auto;
   background-color: #fcfcfc;
+}
+
+.loading-message,
+.error-message,
+.no-appointments {
+  text-align: center;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+.loading-message {
+  background-color: #f8f4f1;
+  color: #2c1810;
+}
+
+.error-message {
+  background-color: #fdf0ed;
+  color: #842029;
+}
+
+.no-appointments {
+  background-color: #f8f4f1;
+  color: #2c1810;
+}
+
+.appointments-table {
+  margin-top: 50px;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.appointments-table thead {
+  background-color: #E4E0E1;
+}
+
+.appointments-table th {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #232222;
+  padding: 1.25rem 1rem;
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+.appointments-table td {
+  padding: 1rem;
+  color: #4a4a4a;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.appointments-table tbody tr:hover {
+  background-color: #E4E0E1;
+  transition: background-color 0.2s ease;
+}
+
+.appointments-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Large screens (1200px and down) */
+@media (max-width: 1200px) {
+  .appointments-container {
+    width: 95vw;
+  }
+}
+
+/* Medium screens (992px and down) */
+@media (max-width: 992px) {
+  .appointments-container {
+    padding: 1.5rem;
   }
   
-  
+  .appointments-table th,
+  .appointments-table td {
+    padding: 1rem 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet screens (768px and down) */
+@media (max-width: 768px) {
+  .appointments-container {
+    padding: 1rem;
+    width: 100vw;
+  }
+
+  .appointments-table {
+    margin-top: 30px;
+  }
+
+  /* Convert table to cards */
+  .appointments-table,
+  .appointments-table thead,
+  .appointments-table tbody,
+  .appointments-table tr {
+    display: block;
+  }
+
+  .appointments-table thead {
+    display: none; /* Hide table headers */
+  }
+
+  .appointments-table tbody tr {
+    margin-bottom: 1rem;
+    border: 1px solid #E4E0E1;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .appointments-table td {
+    display: block;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* Add labels for each cell */
+  .appointments-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #232222;
+    margin-right: 1rem;
+  }
+
+  .appointments-table td:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Small screens (576px and down) */
+@media (max-width: 576px) {
+  .appointments-container {
+    padding: 0.75rem;
+  }
+
+  .appointments-table td {
+    padding: 0.75rem;
+  }
+
   .loading-message,
   .error-message,
   .no-appointments {
-    text-align: center;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    font-size: 1.1rem;
-  }
-  
-  .loading-message {
-    background-color: #f8f4f1;
-    color: #2c1810;
-  }
-  
-  .error-message {
-    background-color: #fdf0ed;
-    color: #842029;
-  }
-  
-  .no-appointments {
-    background-color: #f8f4f1;
-    color: #2c1810;
-  }
-  
-  .appointments-table {
-    margin-top: 50px;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: white;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .appointments-table thead {
-    background-color: #E4E0E1;
-  }
-  
-  .appointments-table th {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #232222;
-    padding: 1.25rem 1rem;
-    text-align: left;
-    letter-spacing: 0.5px;
-  }
-  
-  .appointments-table td {
     padding: 1rem;
-    color: #4a4a4a;
-    border-bottom: 1px solid #eee;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
-  
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .appointments-container {
+    background-color: #1a1a1a;
+  }
+
+  .appointments-table {
+    background: #242424;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .appointments-table thead {
+    background-color: #333;
+  }
+
+  .appointments-table th {
+    color: #e5e5e5;
+  }
+
+  .appointments-table td {
+    color: #d1d1d1;
+    border-bottom-color: #333;
+  }
+
   .appointments-table tbody tr:hover {
-    background-color: #E4E0E1;
-    transition: background-color 0.2s ease;
+    background-color: #333;
   }
-  
-  .appointments-table tbody tr:last-child td {
-    border-bottom: none;
+
+  .loading-message,
+  .no-appointments {
+    background-color: #2a2a2a;
+    color: #e5e5e5;
   }
-  
-  /* Responsive adjustments */
+
+  .error-message {
+    background-color: #3a1f1f;
+    color: #ffa7a7;
+  }
+
   @media (max-width: 768px) {
-    .appointments-container {
-      padding: 1rem;
+    .appointments-table tbody tr {
+      border-color: #333;
+      background-color: #242424;
     }
-  
-    .appointments-container h1 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-  
-    .appointments-table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-  
-    .appointments-table th,
-    .appointments-table td {
-      padding: 1rem 0.75rem;
+
+    .appointments-table td::before {
+      color: #e5e5e5;
     }
   }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .appointments-table {
+    border: 2px solid CanvasText;
+  }
+
+  .appointments-table td,
+  .appointments-table th {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Print styles */
+@media print {
+  .appointments-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  .appointments-table {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .appointments-table th,
+  .appointments-table td {
+    border: 1px solid #000;
+  }
+
+  .loading-message,
+  .error-message {
+    display: none;
+  }
+}

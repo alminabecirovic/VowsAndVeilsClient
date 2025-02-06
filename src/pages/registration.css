@@ -1,4 +1,6 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .auth-page {
     width: 98vw;
@@ -58,7 +60,7 @@
     color: black;
 }
 
-.auth-page-button2 button {
+.auth-page-button1 button {
     width: 100%;
     padding: 10px 40px 10px 12px;
     font-size: 13px;
@@ -74,7 +76,7 @@
     transition: all 0.3s ease;
 }
 
-.auth-page-button2 button::after {
+.auth-page-button1 button::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -87,27 +89,26 @@
     transition: transform 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 
-.auth-page-button2 button:hover::after {
+.auth-page-button1 button:hover::after {
     transform: scaleX(1);
     transform-origin: bottom;
 }
 
-.auth-page-button2 button:hover {
+.auth-page-button1 button:hover {
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
-
 
 .password-input-wrapper {
     position: relative;
     width: 100%;
 }
 
-.password-toggle {
+.password-toggle1 {
     position: absolute;
     right: 12px;
-    top: 50%;
+    top: 25%;
     transform: translateY(-50%);
     cursor: pointer;
     z-index: 10;
@@ -149,6 +150,7 @@
         width: 100vw;
         height: auto;
         padding: 20px;
+       
     }
 
     .auth-page img {
@@ -174,14 +176,17 @@
     .auth-page img {
         height: 40vh;
     }
-
+    .password-toggle1{
+        top: 15%;
+    }
     .auth-page-input input,
     .auth-page-input select {
         font-size: 14px;
         padding: 8px 35px 8px 10px;
     }
 
-    .auth-page-button2 button {
+    .auth-page-button1
+     button {
         font-size: 12px;
         padding: 8px 30px;
     }

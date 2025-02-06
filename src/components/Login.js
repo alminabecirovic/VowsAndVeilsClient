@@ -74,7 +74,7 @@ const Login = () => {
                 <img 
                 src={process.env.PUBLIC_URL + "/images/login.jpg"} // Putanja do slike
                 alt="Logo" 
-                className="navbar-logo"
+                className="slika"
                 />
             </div>
             <div className="auth-page-div">
@@ -103,7 +103,7 @@ const Login = () => {
                             </span>
                             {passwordMessage && <p className="input-alert">{passwordMessage}</p>}
                         </div>
-                        <div className="auth-page-button">
+                        <div className="auth-page-button2">
                             <button onClick={loginUserHandler}>Prijavite se</button>
                         </div>
                     </form>

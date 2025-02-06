@@ -1,101 +1,169 @@
-.navigation nav {
-    display: flex;
-    justify-content: center; 
-    gap: 40px; 
-    background-color: white;
-    position: relative;
-}
-
-
-.navigation nav a {
-    text-decoration: none;
-    color: #3e2c2c;
-    font-size: 25px;
-    text-transform: uppercase;
-    padding: 5px;
-    transition: color 0.3s, border-bottom 0.3s;
-    position: relative;
-}
 
 .navbar {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3e2c2c; /* Svetla pozadina */
-    font-family: Arial, sans-serif;
-  }
-  
-  .navbar-left {
-    display: flex;
-    gap: 10px;
-    background-color: transparent;
-    margin-left: 20px;
-  }
-  
-.navbar-center {
-    width: 50vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-content: center;
-    
-  }
-  .navbar-logo{
-    display: flex;
-    
-  }
-  .navbar-center img {
-    display: flex;
-    width: 50%;
-    margin-top: 50px;
-   
-    
-  }
-  
-  .navbar-right {
-    display: flex;
-    background-color: transparent;
-  }
-  .navbar-right button{
-    display: flex;
-    margin-right: 20px;
-  }
-
-  .navbar button {
-    background-color: #3e2c2c;
-    margin-bottom: 50px;
-    font-size: 15px;
-    color: #d8cbcb; 
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  width: 98.7vw;
+  height: 20vh;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3e2c2c;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+.nav1{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-/* Specifično za dugmad 'Prijavi se' i 'Registruj se' */
+.navbar-left {
+  display: flex;
+  background-color: transparent;
+  margin-left: 10px;
+}
+
+.navbar-center {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  max-width: 100%;
+  height: auto;
+}
+
+.navbar-center img {
+  width: 50%;
+  max-width: 300px;
+  height: auto;
+}
+
+.navbar-right {
+    display: flex;
+    background-color: transparent;
+    gap: 10px;
+}
+
+.navbar button {
+  background-color: #3e2c2c;
+  font-size: 15px;
+  color: #d8cbcb; 
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 8px;
+  white-space: nowrap;
+}
+
 .navbar-left button {
-    color: #d8cbcb;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  color: #d8cbcb;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar-left button:hover,
 .navbar-left button:focus,
-.navbar-left button:active {
-    color: white; /* Dugme ostaje belo */
-   
-}
-
+.navbar-left button:active,
 .navbar button:hover {
-    color: white; 
+  color: white;
 }
 
 .navbar-right button {
-    background-color: #3e2c2c;
+  background-color: #3e2c2c;
+
 }
 
 .navbar-left,
 .navbar-right {
-    min-width: 150px;
+  min-width: 150px;
 }
 
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+  .nav1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar {
+    height: 5%;
+      padding: 0.5rem;
+  }
+
+  .navbar-center {
+      width: 100%;
+  }
+
+  .navbar-center img {
+      width: 70%;
+      margin-top: 20px;
+      max-width: 200px;
+  }
+
+  .navbar button {
+      font-size: 14px;
+      
+  }
+  .navbar-right {
+    min-width: auto;
+    margin-right: 10px;
+}
+}
+
+/* Small screens */
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 0.25rem;
+    display: flex;
+    width: 100vw;
+    height: 5%;
+}
+  .navbar-center img {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      
+      max-width: 180px;
+      margin-top: 15px;
+  }
+
+  .navbar button {
+      font-size: 13px;
+  }
+
+  
+  .navbar-right {
+      min-width: auto;
+      margin-right: 10px;
+
+  }
+  .navbar-left{
+    min-width: auto;
+    margin-right: 10px;
+  
+  }
+}
+
+/* For very small screens */
+@media screen and (max-width: 393px) {
+  .navbar {
+      padding: 0.25rem;
+      display: flex;
+      width: 100vw;
+      height: 5%;
+  }
+
+  .navbar-center img {
+      max-width: 150px;
+  }
+
+  .navbar button {
+      font-size: 12px;
+      padding: 6px 12px;
+  }
+
+}

@@ -1,59 +1,120 @@
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure the body takes full height */
+body {
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .footer {
+  width: 100%;
+  background-color: #3e2c2c;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px 30px;
+  margin-top: auto; /* This pushes the footer to the bottom */
+}
+
+.footer-left {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.footer-message {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.footer-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.footer-buttons button {
+  background: none;
+  border: none;
+  color: #f8f4f0;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footer-buttons button:hover {
+  color: #e5e0dc;
+}
+
+.footer-center {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #ddd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .footer {
+    padding: 12px 20px;
+  }
+
+  .footer-message {
+    font-size: 15px;
+    letter-spacing: 3px;
+  }
+
+  .footer-buttons button {
+    font-size: 14px;
+  }
+
+  .footer-center {
+    font-size: 11px;
+  }
+}
+html, body {
+    height: 100%;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .main-content {
+    flex-grow: 1; /* Ovo osigurava da sadržaj zauzme sav dostupan prostor i potiskuje footer na dno */
+  }
+  
+  .footer {
     width: 100%;
     background-color: #3e2c2c;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 15px 30px; /* Smanjen padding za manju visinu */
-    position: relative;
-    margin-top: 50px;
-}
-
-.footer-left {
-    text-align: left;
-    margin-bottom: 10px;
-}
-
-.footer-message {
-    font-size: 17px; /* Smanjen font za manji footer */
-    font-weight: 400;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.footer-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    align-items: flex-start;
-}
-
-.footer-buttons button {
-    background: none;
-    border: none;
-    color: #f8f4f0;
-    font-size: 16px; /* Smanjena veličina fonta */
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.footer-buttons button:hover {
-    color: #e5e0dc;
-}
-
-.footer-center {
-    width: 100%;
-    text-align: center;
-    margin-top: 15px; /* Smanjen razmak */
-    font-size: 12px; /* Manji font */
-    color: #ddd;
-}
+    padding: 15px 30px;
+    margin-top: auto; /* Ova linija je ključna za pomeranje footera na dno */
+  }
+  

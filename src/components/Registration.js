@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from "axios";
+import emailjs from "@emailjs/browser";
 import { MyContext } from "../context/my-context";
 import { useNavigate } from "react-router-dom";
-import "../pages/login.css";
+import "../pages/registration.css";
 
 const Registration = () => {
     const [roles, setRoles] = useState([]);
@@ -39,82 +40,135 @@ const Registration = () => {
         fetchRoles();
     }, []);
 
+    const generateVerificationCode = () => {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+      };
+    const sendVerificationEmail = async (email) => {
+        const verificationCode = Math.floor(
+          100000 + Math.random() * 900000
+        ).toString();
+    
+        localStorage.setItem("verificationCode", verificationCode);
+    
+        try {
+          await emailjs.send(
+            "service_9a17om8", // PROVERI Service ID
+            "template_cz3qahm", // PROVERI Template ID
+            {
+              email,
+              message: `Poštovani,
+      
+              Drago nam je što ste se registrovali na našu aplikaciju! 
+              Vaš verifikacioni kod je: ${verificationCode}
+              Molimo vas da unesete ovaj kod kako biste završili proces registracije.
+              Ukoliko niste zahtevali registraciju, slobodno zanemarite ovaj email.
+              
+              Srdačan pozdrav,
+              Vows&Veils tim.`,
+            },
+            "-71BY-Z_2gfNf-qG2" // PROVERI Public Key
+          );
+    
+          console.log("Verifikacioni email uspešno poslat!");
+        } catch (error) {
+          console.error("Greška prilikom slanja emaila:", error);
+        }
+      };
+
+      // VALIDACIJA: IME I PREZIME (MORA POČETI VELIKIM SLOVOM)
+  useEffect(() => {
+    if (firstName && !/^[A-ZČĆŠĐŽ][a-zčćšđž]+$/.test(firstName)) {
+      setFirstNameMessage("Ime mora početi velikim slovom.");
+    } else {
+      setFirstNameMessage(null);
+    }
+  }, [firstName]);
+
+  useEffect(() => {
+    if (lastName && !/^[A-ZČĆŠĐŽ][a-zčćšđž]+$/.test(lastName)) {
+      setLastNameMessage("Prezime mora početi velikim slovom.");
+    } else {
+      setLastNameMessage(null);
+    }
+  }, [lastName]);
+
+  // VALIDACIJA: DATUM ROĐENJA (18+ GODINA)
+  useEffect(() => {
+    if (birthDate) {
+      const today = new Date();
+      const birth = new Date(birthDate);
+      const age = today.getFullYear() - birth.getFullYear();
+      const monthDiff = today.getMonth() - birth.getMonth();
+      const dayDiff = today.getDate() - birth.getDate();
+
+      if (
+        age < 18 ||
+        (age === 18 && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)))
+      ) {
+        setBirthDateMessage("Morate imati najmanje 18 godina.");
+      } else {
+        setBirthDateMessage(null);
+      }
+    }
+  }, [birthDate]);
+
+  // VALIDACIJA: KORISNIČKO IME (SAMO MALA SLOVA)
+  useEffect(() => {
+    if (username && !/^[a-z0-9]+$/.test(username)) {
+      setUsernameMessage(
+        "Korisničko ime može sadržati samo mala slova i brojeve."
+      );
+    } else {
+      setUsernameMessage(null);
+    }
+  }, [username]);
+
+  // VALIDACIJA: LOZINKA (VELIKO SLOVO, BROJ I ZNAK)
+  useEffect(() => {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    let message = [];
+    if (!hasUpperCase)
+      message.push("Lozinka mora sadržati barem jedno veliko slovo.");
+    if (!hasNumber) message.push("Lozinka mora sadržati barem jedan broj.");
+    if (!hasSpecialChar)
+      message.push("Lozinka mora sadržati barem jedan specijalni znak.");
+
+    setPasswordMessage(message.length ? message.join(" ") : null);
+  }, [password]);
+
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
-        setFirstNameMessage(null);
-        setLastNameMessage(null);
-        setEmailMessage(null);
-        setBirthDateMessage(null);
-        setUsernameMessage(null);
-        setPasswordMessage(null);
+        const verificationCode = generateVerificationCode();
+        localStorage.setItem("verificationCode", verificationCode);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem(
+        "userData",
+        JSON.stringify({
+            Roles: userRole,
+            firstName,
+            lastName,
+            email,
+            birthDate,
+            username,
+            password,
+      })
+    );
+    await sendVerificationEmail(email, verificationCode);
+    navigate("/verify_your_account");
+  };
 
-        if (firstName.trim().length === 0) {
-            setFirstNameMessage("Molim vas unesite validno ime!");
-            return;
-        }
-        if (lastName.trim().length === 0) {
-            setLastNameMessage("Molim vas unesite validno prezime!");
-            return;
-        }
-        if (email.trim().length === 0) {
-            setEmailMessage("Molim vas unesite validan email!");
-            return;
-        }
-        if (username.trim().length === 0) {
-            setUsernameMessage("Molim vas unesite validno korisničko ime!");
-            return;
-        }
-        if (password.trim().length === 0) {
-            setPasswordMessage("Molim vas unesite validnu lozinku!");
-            return;
-        }
-
-        try {
-            const response = await axios.post(
-                "https://localhost:7042/api/User/register",
-                {
-                    Roles: userRole,
-                    firstName,
-                    lastName,
-                    email,
-                    birthDate,
-                    username,
-                    password,
-                }
-            );
-
-            const responseData = response.data;
-
-            axios.defaults.headers.common[
-                "Authorization"
-            ] = `Bearer ${responseData.token}`;
-
-            setUserFunction(responseData);
-
-            setUserRole("");
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setUsername("");
-            setPassword("");
-
-            localStorage.setItem("user", JSON.stringify(responseData));
-
-            navigate("/login");
-        } catch (e) {
-            console.log("Error", e);
-            alert("Došlo je do greške prilikom registracije. Proverite unesene podatke.");
-        }
-    };
-
+      
     return (
         <div className="auth-page">
             <div className="pic">
                 <img
                     src={process.env.PUBLIC_URL + "/images/login.jpg"} // Putanja do slike
                     alt="Logo"
-                    className="navbar-logo"
+                    className="slika"
                 />
             </div>
             <div className="auth-page-div">
@@ -196,7 +250,7 @@ const Registration = () => {
                             value={password}
                         />
                         <span
-                            className="password-toggle"
+                            className="password-toggle1"
                             onClick={() => setVisible((prev) => !prev)}
                         >
                             {visible ? <FaRegEye /> : <FaRegEyeSlash />}
@@ -205,19 +259,19 @@ const Registration = () => {
                             <p className="input-alert">{passwordMessage}</p>
                         )}
                     </div>
-                    <div className="auth-page-button">
+                    <div className="auth-page-button1">
                         <button type="submit">Registrujte se</button>
                     </div>
                 </form>
                 <p className="form-footer">
-                        Imate nalog?{" "}
-                        <span onClick={() => navigate("/login")} className="form-footer-link">
-                            Prijavi se.
-                        </span>
-                    </p>
-            </div>
+                    Imate nalog?{" "}
+                      <span onClick={() => navigate("/login")} className="form-footer-link">
+                          Prijavi se.
+                      </span>
+                </p>
+          </div>
         </div>
-    );
+      );
 };
 
 export default Registration;

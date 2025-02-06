@@ -91,9 +91,6 @@ const Appointment = () => {
         <div className="appointment-container">
             <div className="appointment-card">
                 <div className="appointment-header">
-                    <h2 className="appointment-title">
-                        Zakazivanje termina
-                    </h2>
                     {dress && (
                         <p className="appointment-subtitle">
                             za {dress.name}
