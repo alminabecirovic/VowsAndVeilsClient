@@ -125,41 +125,54 @@ const Registration = () => {
 
   // VALIDACIJA: LOZINKA (VELIKO SLOVO, BROJ I ZNAK)
   useEffect(() => {
+    if (!password) {
+        setPasswordMessage(null);
+        return;
+    }
+
     const hasUpperCase = /[A-Z]/.test(password);
     const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasMinLength = password.length >= 8;
 
-    let message = [];
-    if (!hasUpperCase)
-      message.push("Lozinka mora sadržati barem jedno veliko slovo.");
-    if (!hasNumber) message.push("Lozinka mora sadržati barem jedan broj.");
-    if (!hasSpecialChar)
-      message.push("Lozinka mora sadržati barem jedan specijalni znak.");
+    if (!hasMinLength) {
+        setPasswordMessage("Lozinka mora imati najmanje 8 karaktera.");
+    } else if (!hasUpperCase) {
+        setPasswordMessage("Lozinka mora sadržati barem jedno veliko slovo.");
+    } else if (!hasNumber) {
+        setPasswordMessage("Lozinka mora sadržati barem jedan broj.");
+    } else {
+        setPasswordMessage(null); // Ako je lozinka ispravna, nema poruke
+    }
+}, [password]);
+const onSubmitHandler = async (e) => {
+  e.preventDefault();
 
-    setPasswordMessage(message.length ? message.join(" ") : null);
-  }, [password]);
+  // Provera da li su sva polja ispravno popunjena
+  if (firstNameMessage || lastNameMessage || emailMessage || birthDateMessage || usernameMessage || passwordMessage) {
+      console.log("Forma nije validna. Registracija nije dozvoljena.");
+      return;
+  }
 
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
-
-        const verificationCode = generateVerificationCode();
-        localStorage.setItem("verificationCode", verificationCode);
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem(
-        "userData",
-        JSON.stringify({
-            Roles: userRole,
-            firstName,
-            lastName,
-            email,
-            birthDate,
-            username,
-            password,
+  const verificationCode = generateVerificationCode();
+  localStorage.setItem("verificationCode", verificationCode);
+  localStorage.setItem("userEmail", email);
+  localStorage.setItem(
+      "userData",
+      JSON.stringify({
+          Roles: userRole,
+          firstName,
+          lastName,
+          email,
+          birthDate,
+          username,
+          password,
       })
-    );
-    await sendVerificationEmail(email, verificationCode);
-    navigate("/verify_your_account");
-  };
+  );
+
+  await sendVerificationEmail(email, verificationCode);
+  navigate("/verify_your_account");
+};
+
 
       
     return (
@@ -174,7 +187,7 @@ const Registration = () => {
             <div className="auth-page-div">
                 <form onSubmit={onSubmitHandler}>
                     <div className="auth-page-input">
-                        <select
+                        {/*<select
                             value={userRole}
                             onChange={(e) => setUserRole(e.target.value)}
                         >
@@ -184,6 +197,19 @@ const Registration = () => {
                             {roles.map((role, index) => (
                                 <option key={index} value={role}>
                                     {role === "User" ? "Korisnik" : "Vlasnik salona"}
+                                </option>
+                            ))}
+                        </select>
+                        */}
+                        <select value={userRole} onChange={(e) => setUserRole(e.target.value)}>
+                            <option value="" disabled>
+                                Prijavite se kao
+                            </option>
+                             {roles
+                            .filter((role) => role !== "Admin") // Uklanja "Admin" iz liste opcija
+                            .map((role, index) => (
+                                <option key={index} value={role}>
+                                    {role === "User" ? "Korisnik" : role === "SalonOwner" ? "Vlasnik salona" : role}
                                 </option>
                             ))}
                         </select>

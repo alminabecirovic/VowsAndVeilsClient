@@ -1,0 +1,64 @@
+/* verify-account.css */
+
+.verify-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .formic {
+    background: white;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .h22 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  
+  .put {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #000000;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border 0.3s;
+  }
+  
+  
+  .verify {
+    width: 100%;
+    padding: 12px;
+    font-size: 12px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: solid 1px black;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  .verify:hover {
+    background-color: #e4e3e3;
+  }
+  
+  @media (max-width: 500px) {
+    form {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }

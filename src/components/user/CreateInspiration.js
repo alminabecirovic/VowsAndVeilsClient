@@ -1,31 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../../pages/create-inspiration.css"; // Preimenovan CSS fajl
+import "../../pages/create-inspiration.css";
 
 const SubmitInspiration = () => {
     const [photos, setPhotos] = useState([]);
     const [previewPhotos, setPreviewPhotos] = useState([]);
     const [text, setText] = useState("");
     const [description, setDescription] = useState("");
-    const [message, setMessage] = useState(""); 
+    const [photosMessage, setPhotosMessage] = useState(null);
+    const [textMessage, setTextMessage] = useState(null);
+    const [descriptionMessage, setDescriptionMessage] = useState(null);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        setPhotos((prevPhotos) => [...prevPhotos, ...files]);
-        const previewUrls = files.map((file) => URL.createObjectURL(file));
-        setPreviewPhotos((prevPreview) => [...prevPreview, ...previewUrls]);
+        if (files.length > 1) {
+            setPhotosMessage("Možete dodati samo jednu sliku.");
+            return;
+        }
+        setPhotos(files);
+        setPreviewPhotos(files.map((file) => URL.createObjectURL(file)));
     };
+
+    useEffect(() => {
+        if (photos.length > 1) {
+            setPhotosMessage("Dozvoljena je samo jedna slika.");
+        } else {
+            setPhotosMessage(null);
+        }
+    }, [photos]);
+
+    useEffect(() => {
+        const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+        if (wordCount > 10) {
+            setTextMessage("Naslov može sadržavati maksimalno 10 reči.");
+        } else {
+            setTextMessage(null);
+        }
+    }, [text]);
+
+    useEffect(() => {
+        const wordCount = description.trim().split(/\s+/).filter(Boolean).length;
+        if (wordCount > 100) {
+            setDescriptionMessage("Opis može sadržavati maksimalno 100 reči.");
+        } else {
+            setDescriptionMessage(null);
+        }
+    }, [description]);
 
     const createInspiration = async (e) => {
         e.preventDefault();
         setError("");
-        setMessage(""); 
+
+        if (photosMessage || textMessage || descriptionMessage) {
+            console.log("Forma nije validna. Kreiranje nije dozvoljeno.");
+            return;
+        }
 
         const token = localStorage.getItem("jwtToken");
-
         if (!token) {
             setError("Niste prijavljeni. Molimo vas da se ulogujete.");
             return;
@@ -33,7 +67,6 @@ const SubmitInspiration = () => {
 
         try {
             const formData = new FormData();
-
             const tokenPayload = JSON.parse(atob(token.split(".")[1]));
             const userId = tokenPayload?.sub || tokenPayload?.UserId || tokenPayload?.id;
 
@@ -45,14 +78,9 @@ const SubmitInspiration = () => {
             formData.append("UserId", userId);
             formData.append("Text", text);
             formData.append("Description", description);
-            photos.forEach((photo) => formData.append("UrlPhotos", photo));
-
-            console.log("📢 Slanje podataka:");
-            console.log("User ID:", userId);
-            console.log("Text:", text);
-            console.log("Descrption", description);
-            console.log("Photos:", photos);
-            console.log("FormData keys:", [...formData.keys()]);
+            if (photos.length > 0) {
+                formData.append("UrlPhotos", photos[0]);
+            }
 
             const response = await axios.post("https://localhost:7042/api/Inspiration/create", formData, {
                 headers: {
@@ -62,24 +90,10 @@ const SubmitInspiration = () => {
             });
 
             console.log("✅ Uspešno kreirana inspiracija:", response.data);
-
-            setMessage("Vaša inspiracija je uspešno poslata na pregled administratoru.");
-
-            setPhotos([]);
-            setPreviewPhotos([]);
-            setText("");
-            setDescription("");
-
-            setTimeout(() => {
-                setMessage("");
-                navigate("/");
-            }, 3000);
+            navigate("/");
         } catch (e) {
             console.error("❌ Greška prilikom slanja inspiracije:", e.response?.data || e.message);
-            if (e.response?.data?.errors) {
-                console.log("🔍 Detalji greške:", e.response.data.errors);
-            }
-            setError(e.response?.data?.title || "Došlo je do greške prilikom slanja inspiracije. Pokušajte ponovo.");
+            setError(e.response?.data?.title || "Došlo je do greške. Pokušajte ponovo.");
         }
     };
 
@@ -88,23 +102,23 @@ const SubmitInspiration = () => {
             <h1>Pošalji svoju inspiraciju</h1>
             <form onSubmit={createInspiration} className="inspiration-form">
                 <div className="form-section photo-upload">
-                    <label>Fotografije:</label>
+                    <label>Fotografija:</label>
                     <label htmlFor="file-upload" className="upload-button">
-                        Izaberi fotografije
+                        Izaberi fotografiju
                     </label>
                     <input
                         id="file-upload"
                         type="file"
-                        multiple
                         accept="image/*"
                         onChange={handleFileChange}
                         style={{ display: "none" }}
                     />
                     <div className="photo-preview-container">
                         {previewPhotos.map((photo, index) => (
-                            <img key={index} src={photo} alt={`Pregled ${index + 1}`} className="photo-preview" />
+                            <img key={index} src={photo} alt="Pregled" className="photo-preview" />
                         ))}
                     </div>
+                    {photosMessage && <p className="input-alert">{photosMessage}</p>}
                 </div>
 
                 <div className="form-section">
@@ -114,6 +128,7 @@ const SubmitInspiration = () => {
                         onChange={(e) => setText(e.target.value)}
                         placeholder="Unesite naslov..."
                     />
+                    {textMessage && <p className="input-alert">{textMessage}</p>}
                 </div>
 
                 <div className="form-section">
@@ -123,14 +138,13 @@ const SubmitInspiration = () => {
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Unesite opis..."
                     />
+                    {descriptionMessage && <p className="input-alert">{descriptionMessage}</p>}
                 </div>
 
                 <button type="submit" className="submit-inspiration-button">
                     Pošalji svoju inspiraciju
                 </button>
             </form>
-
-            {message && <p className="success-message">{message}</p>}
 
             {error && <p className="error-message">{error}</p>}
         </div>

@@ -48,26 +48,26 @@ function App() {
     <div>
       <Navbar />
       {showNavbar2 && <Navbar2 onCriteriaChange={setCriteria} />}
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/registration" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin_dashboard" element={<AdminDashboard />} />
-        <Route path="/user_dresses_list" element={<UserDressesList criteria={criteria} />} />
-        <Route path="/fav" element={<Favorites />} />
-        <Route path="/appointment" element={<Appointment />} />
-        <Route path="/dress-details/:dressId" element={<DressDetails />} />
-        <Route path="/appointments" element={<AppointmentPage />} />
-        <Route path="/inspiration" element={<CreateInspiration />} />
-        <Route path="/inspiration-page" element={<InspirationPage />} />
-        <Route path="/approved/:id" element={<ApprovedInspirationsPage />} />
-        <Route path="/story" element={<StoryInspiration />} />
-        <Route path="verify_your_account" element={<VerifyAccount/>}/>
-        <Route path="/post" element={<Post/>}/>
-        <Route path="/dress" element={<ListWeddingDress/>}/>
-      </Routes>
-
+      <div style={{ minHeight: '60vh' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin_dashboard" element={<AdminDashboard />} />
+          <Route path="/user_dresses_list" element={<UserDressesList criteria={criteria} />} />
+          <Route path="/fav" element={<Favorites />} />
+          <Route path="/appointment" element={<Appointment />} />
+          <Route path="/dress-details/:dressId" element={<DressDetails />} />
+          <Route path="/appointments" element={<AppointmentPage />} />
+          <Route path="/inspiration" element={<CreateInspiration />} />
+          <Route path="/inspiration-page" element={<InspirationPage />} />
+          <Route path="/approved/:id" element={<ApprovedInspirationsPage />} />
+          <Route path="/story" element={<StoryInspiration />} />
+          <Route path="verify_your_account" element={<VerifyAccount/>}/>
+          <Route path="/post" element={<Post/>}/>
+          <Route path="/dress" element={<ListWeddingDress/>}/>
+        </Routes>
+        </div>
       <Footer />
     </div>
   );

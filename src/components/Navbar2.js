@@ -19,19 +19,20 @@ const Navbar2 = ({ onCriteriaChange }) => {
     sizes: ["S", "M", "L"],
     cities: ["Svi gradovi", "Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"]
   });
-  const [criteria, setCriteria] = useState({ dressTypes: [], size: "", city: "" });
+  const [criteria, setCriteria] = useState({ dressLength: "", size: "", city: "" });
   const [hoveredDress, setHoveredDress] = useState(null);
+  const [activeDress, setActiveDress] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     if (isSidebarOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isSidebarOpen]);
 
@@ -45,14 +46,11 @@ const Navbar2 = ({ onCriteriaChange }) => {
 
   const handleDressTypeSelect = (dressType) => {
     setCriteria((prev) => {
-      const newDressTypes = prev.dressTypes.includes(dressType)
-        ? prev.dressTypes.filter(type => type !== dressType)
-        : [...prev.dressTypes, dressType];
-     
-      const newCriteria = { ...prev, dressTypes: newDressTypes };
+      const newCriteria = { ...prev, dressLength: prev.dressLength === dressType ? "" : dressType };
       onCriteriaChange(newCriteria);
       return newCriteria;
     });
+    setActiveDress((prevActive) => (prevActive === dressType ? null : dressType));
   };
 
   const handleSizeChange = (e) => {
@@ -108,7 +106,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
               </NavLink>
               {location.pathname === "/user_dresses_list" && (
                 <NavLink to="#" onClick={toggleSidebar} className="filter-button">
-                  Filter {criteria.dressTypes.length > 0 && `(${criteria.dressTypes.length})`}
+                  Filter
                 </NavLink>
               )}
             </>
@@ -124,7 +122,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
               </NavLink>
               {location.pathname === "/user_dresses_list" && (
                 <NavLink to="#" onClick={toggleSidebar} className="filter-button">
-                  Filter {criteria.dressTypes.length > 0 && `(${criteria.dressTypes.length})`}
+                  Filter
                 </NavLink>
               )}
             </>
@@ -165,13 +163,13 @@ const Navbar2 = ({ onCriteriaChange }) => {
             {dressTypes.map((dress) => (
               <div
                 key={dress.id}
-                className={`dress-type-option ${criteria.dressTypes.includes(dress.name) ? "active" : ""}`}
+                className={`dress-type-option ${activeDress === dress.name ? "active" : ""}`}
                 onClick={() => handleDressTypeSelect(dress.name)}
                 onMouseEnter={() => setHoveredDress(dress.id)}
                 onMouseLeave={() => setHoveredDress(null)}
               >
-                <img
-                  src={hoveredDress === dress.id || criteria.dressTypes.includes(dress.name) ? dress.hoverImage : dress.image}
+                <img 
+                  src={hoveredDress === dress.id || activeDress === dress.name ? dress.hoverImage : dress.image} 
                   alt={dress.name}
                 />
                 <div className="dress-type-label">{dress.name}</div>

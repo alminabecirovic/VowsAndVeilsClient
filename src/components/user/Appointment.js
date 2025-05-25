@@ -10,8 +10,7 @@ const Appointment = () => {
         firstname: "",
         lastname: "",
         phoneNumber: "",
-        startDate: "",
-        endDate: "",
+        Date: "",
     });
 
     const [userId, setUserId] = useState(null);
@@ -64,8 +63,8 @@ const Appointment = () => {
             firstname: formData.firstname,
             lastname: formData.lastname,
             phoneNumber: formData.phoneNumber,
-            startDate: formData.startDate,
-            endDate: formData.endDate,
+            Date: formData.Date,
+           
         };
 
         try {
@@ -93,7 +92,7 @@ const Appointment = () => {
                 <div className="appointment-header">
                     {dress && (
                         <p className="appointment-subtitle">
-                            za {dress.name}
+                            za {dress.name}, veličina {dress.size}
                         </p>
                     )}
                 </div>
@@ -154,28 +153,15 @@ const Appointment = () => {
                             </label>
                             <input
                                 type="datetime-local"
-                                name="startDate"
-                                value={formData.startDate}
+                                name="Date"
+                                value={formData.Date}
                                 onChange={handleChange}
                                 required
                                 className="date-input"
                             />
                         </div>
 
-                        <div>
-                            <label className="input-label">
-                                
-                                Datum završetka
-                            </label>
-                            <input
-                                type="datetime-local"
-                                name="endDate"
-                                value={formData.endDate}
-                                onChange={handleChange}
-                                required
-                                className="date-input"
-                            />
-                        </div>
+                
                     </div>
 
                     <div className="submit-button-container">

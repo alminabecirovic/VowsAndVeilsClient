@@ -50,8 +50,9 @@ const AppointmentPage = () => {
                             <th>Ime</th>
                             <th>Prezime</th>
                             <th>Telefon</th>
-                            <th>Datum početka</th>
-                            <th>Datum završetka</th>
+                            <th>Datum </th>
+                            <th>Ime venčanice</th>
+                            <th>Broj venčanice</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,8 +61,9 @@ const AppointmentPage = () => {
                                 <td>{appointment.firstname}</td>
                                 <td>{appointment.lastname}</td>
                                 <td>{appointment.phoneNumber}</td>
-                                <td>{new Date(appointment.startDate).toLocaleString()}</td>
-                                <td>{new Date(appointment.endDate).toLocaleString()}</td>
+                                <td>{new Date(appointment.Date).toLocaleString()}</td>
+                                <td>{appointment.weddingDressName || "Nepoznato"}</td>
+                                <td>{appointment.weddingDressSize || "Nepoznato"}</td>
                             </tr>
                         ))}
                     </tbody>

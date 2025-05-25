@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../context/my-context";
 import "../../pages/favorites.css";
 
 const Favorites = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useContext(MyContext);
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Učitaj omiljene iz localStorage-a
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(storedFavorites);
-  }, []);
+    if (currentUser) {
+      // Učitaj omiljene iz localStorage-a
+      const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+      setFavorites(storedFavorites);
+    }
+  }, [currentUser]);
 
   // Ukloni venčanicu iz omiljenih
   const removeFavorite = (weddingDress) => {
@@ -20,7 +26,14 @@ const Favorites = () => {
   return (
     <div className="favorites-container">
       <h1>Omiljene Venčanice</h1>
-      {favorites.length > 0 ? (
+      {!currentUser ? (
+        <p className="form-footer">
+          Ukoliko želite da kreirate listu omiljenih venčanica?{" "}
+          <span onClick={() => navigate("/registration")} className="form-footer-link">
+            Registrujte se.
+          </span>
+        </p>
+      ) : favorites.length > 0 ? (
         favorites.map((dress) => (
           <div key={dress.id} className="favorite-card">
             <div className="favorite-gallery">

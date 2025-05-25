@@ -1,4 +1,3 @@
-
 .navbar {
   width: 98.7vw;
   height: 20vh;
@@ -11,7 +10,8 @@
   font-family: Arial, sans-serif;
   position: relative;
 }
-.nav1{
+
+.nav1 {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -22,6 +22,7 @@
   display: flex;
   background-color: transparent;
   margin-left: 10px;
+  align-items: center;
 }
 
 .navbar-center {
@@ -44,9 +45,12 @@
 }
 
 .navbar-right {
-    display: flex;
-    background-color: transparent;
-    gap: 10px;
+  display: flex;
+  background-color: transparent;
+  gap: 10px;
+  margin-right: 10px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .navbar button {
@@ -74,7 +78,6 @@
 
 .navbar-right button {
   background-color: #3e2c2c;
-
 }
 
 .navbar-left,
@@ -84,34 +87,34 @@
 
 /* Media Queries for Responsive Design */
 @media screen and (max-width: 768px) {
-  .nav1{
+  .nav1 {
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
+  
   .navbar {
     height: 5%;
-      padding: 0.5rem;
+    padding: 0.5rem;
   }
 
   .navbar-center {
-      width: 100%;
+    width: 100%;
   }
 
   .navbar-center img {
-      width: 70%;
-      margin-top: 20px;
-      max-width: 200px;
+    width: 70%;
+    margin-top: 20px;
+    max-width: 200px;
   }
 
   .navbar button {
-      font-size: 14px;
-      
+    font-size: 14px;
   }
+  
   .navbar-right {
     min-width: auto;
-    margin-right: 10px;
-}
+  }
 }
 
 /* Small screens */
@@ -121,49 +124,44 @@
     display: flex;
     width: 100vw;
     height: 5%;
-}
+  }
+  
   .navbar-center img {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      
-      max-width: 180px;
-      margin-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    max-width: 180px;
+    margin-top: 15px;
   }
 
   .navbar button {
-      font-size: 13px;
+    font-size: 13px;
   }
 
-  
   .navbar-right {
-      min-width: auto;
-      margin-right: 10px;
-
-  }
-  .navbar-left{
     min-width: auto;
-    margin-right: 10px;
+  }
   
+  .navbar-left {
+    min-width: auto;
   }
 }
 
 /* For very small screens */
 @media screen and (max-width: 393px) {
   .navbar {
-      padding: 0.25rem;
-      display: flex;
-      width: 100vw;
-      height: 5%;
+    padding: 0.25rem;
+    display: flex;
+    width: 100vw;
+    height: 5%;
   }
 
   .navbar-center img {
-      max-width: 150px;
+    max-width: 150px;
   }
 
   .navbar button {
-      font-size: 12px;
-      padding: 6px 12px;
+    font-size: 12px;
+    padding: 6px 12px;
   }
-
 }
