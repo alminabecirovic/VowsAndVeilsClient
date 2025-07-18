@@ -6,6 +6,7 @@
 .gallery-container {
   background-color: #a89a9a;
   width: 98.5vw;
+  height: auto;
   margin: 5rem auto 0;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -31,7 +32,6 @@
   margin: 0 auto;
 }
 
-/* Gallery Item Styles */
 .gallery-item {
   margin-top: 25px;
   position: relative;
@@ -166,6 +166,33 @@
   color: #ff4757;
 }
 
+.inspiration-page-button1{
+    height: 30px;
+    width: 30%;
+    font-size: 15px;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    position: relative;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.styled-inspiration-button:hover {
+  background-color: #6d3c39;
+  transform: scale(1.05);
+}
+
+.styled-inspiration-button:active {
+  transform: scale(0.98);
+}
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
   .user-container-dresses {
@@ -232,5 +259,23 @@
   .gallery-description {
     padding: 3rem 1rem 1rem;
     font-size: 0.875rem;
+  }
+}
+
+/* Responsive Button Styles */
+@media (max-width: 768px) {
+  .inspiration-page-button1 {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inspiration-page-button1 {
+    width: 100%;
+    height: 35px;
+    font-size: 13px;
+    padding: 0.5rem;
   }
 }

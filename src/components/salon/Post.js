@@ -15,6 +15,8 @@ const CreatePost = () => {
     const [address, setAddress] = useState("");
     const [salonName, setSalonName] = useState("");
     const [error, setError] = useState("");
+    const [touched, setTouched] = useState({});
+    const [loading, setLoading] = useState(false); // <- Dodato
     const navigate = useNavigate();
 
     const cities = ["Beograd", "Novi Sad", "Niš", "Novi Pazar", "Kragujevac", "Subotica", "Zrenjanin", "Pančevo", "Čačak", "Kraljevo", "Leskovac"];
@@ -26,8 +28,27 @@ const CreatePost = () => {
         setPreviewPhotos((prevPreview) => [...prevPreview, ...previewUrls]);
     };
 
+    const handleBlur = (field) => {
+        setTouched((prev) => ({ ...prev, [field]: true }));
+    };
+
+    const isInvalid = (field, value) => touched[field] && !value;
+
     const create = async (e) => {
         e.preventDefault();
+
+        if (!name || !price || !size || !dressLength || !city || !address || !salonName || photos.length === 0) {
+            setError("Molimo popunite sva polja i dodajte bar jednu fotografiju.");
+            return;
+        }
+
+        if (parseFloat(price) <= 0) {
+            setError("Cena mora biti pozitivan broj.");
+            return;
+        }
+
+        setError("");
+        setLoading(true); // <- Aktiviraj loading
 
         try {
             const formData = new FormData();
@@ -47,7 +68,6 @@ const CreatePost = () => {
                 },
             });
 
-            // Resetovanje forme i preusmeravanje
             setPhotos([]);
             setPreviewPhotos([]);
             setName("");
@@ -58,10 +78,13 @@ const CreatePost = () => {
             setCity("");
             setAddress("");
             setSalonName("");
+            setTouched({});
             navigate("/dress");
         } catch (e) {
             console.error("Greška prilikom kreiranja posta:", e);
             setError("Došlo je do greške prilikom kreiranja posta. Pokušajte ponovo.");
+        } finally {
+            setLoading(false); // <- Deaktiviraj loading
         }
     };
 
@@ -84,32 +107,32 @@ const CreatePost = () => {
                     />
                     <div className="photo-preview-grid">
                         {previewPhotos.map((photo, index) => (
-                            <img
-                                key={index}
-                                src={photo}
-                                alt={`Pregled ${index + 1}`}
-                                className="photo-preview"
-                            />
+                            <img key={index} src={photo} alt={`Pregled ${index + 1}`} className="photo-preview" />
                         ))}
                     </div>
+                    {photos.length === 0 && error && (
+                        <p className="field-error">Dodajte bar jednu fotografiju.</p>
+                    )}
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("name", name) ? "invalid" : ""}`}>
                     <label>Naziv:</label>
                     <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        onBlur={() => handleBlur("name")}
                         placeholder="Unesi naziv"
                     />
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("price", price) ? "invalid" : ""}`}>
                     <label>Cena:</label>
                     <input
                         type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        onBlur={() => handleBlur("price")}
                         placeholder="Unesi cenu"
                     />
                 </div>
@@ -125,11 +148,12 @@ const CreatePost = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("size", size) ? "invalid" : ""}`}>
                     <label>Veličina:</label>
                     <select
                         value={size}
                         onChange={(e) => setSize(e.target.value)}
+                        onBlur={() => handleBlur("size")}
                     >
                         <option value="">Izaberi veličinu</option>
                         <option value="S">S</option>
@@ -138,11 +162,12 @@ const CreatePost = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("dressLength", dressLength) ? "invalid" : ""}`}>
                     <label>Dužina haljine:</label>
                     <select
                         value={dressLength}
                         onChange={(e) => setDressLength(e.target.value)}
+                        onBlur={() => handleBlur("dressLength")}
                     >
                         <option value="">Izaberi dužinu</option>
                         <option value="Sirena">Sirena</option>
@@ -152,11 +177,12 @@ const CreatePost = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("city", city) ? "invalid" : ""}`}>
                     <label>Grad:</label>
                     <select
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
+                        onBlur={() => handleBlur("city")}
                     >
                         <option value="">Izaberi grad</option>
                         {cities.map((c, index) => (
@@ -165,28 +191,30 @@ const CreatePost = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("address", address) ? "invalid" : ""}`}>
                     <label>Adresa:</label>
                     <input
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
+                        onBlur={() => handleBlur("address")}
                         placeholder="Unesi adresu"
                     />
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${isInvalid("salonName", salonName) ? "invalid" : ""}`}>
                     <label>Naziv salona:</label>
                     <input
                         type="text"
                         value={salonName}
                         onChange={(e) => setSalonName(e.target.value)}
+                        onBlur={() => handleBlur("salonName")}
                         placeholder="Unesi naziv salona"
                     />
                 </div>
 
-                <button type="submit" className="submit-button">
-                    Kreiraj
+                <button type="submit" className="submit-button" disabled={loading}>
+                    {loading ? "Kreiranje posta..." : "Kreiraj"}
                 </button>
             </form>
             {error && <p className="error-message">{error}</p>}

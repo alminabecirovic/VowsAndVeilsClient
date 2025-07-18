@@ -1,7 +1,10 @@
 .dresses-container {
-    max-width: 1400px;
+    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .dresses-container h1 {
@@ -14,16 +17,52 @@
     letter-spacing: 1px;
 }
 
+.loading-message,
+.error-message,
+.no-dresses {
+    text-align: center;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+.loading-message {
+    background-color: #f8f4f1;
+    color: #2c1810;
+}
+
+.error-message {
+    background-color: #fdf0ed;
+    color: #842029;
+}
+
+.no-dresses {
+    background-color: #f8f4f1;
+    color: #2c1810;
+}
+
 .dresses-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    width: 100%;
 }
 
 .dress-card {
     background: white;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.dress-card h2 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .photos-container {
@@ -31,18 +70,37 @@
     gap: 0.5rem;
     margin-bottom: 1rem;
     overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.photos-container::-webkit-scrollbar {
+    height: 4px;
+}
+
+.photos-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.photos-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
 }
 
 .dress-photo {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
     border: 1px solid #ddd;
+    border-radius: 4px;
+    flex-shrink: 0;
 }
 
 .dress-card p {
     color: #666;
-    margin: 0.25rem 0;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
 .delete-button {
@@ -54,47 +112,128 @@
     border: 1px solid black;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .delete-button:hover {
     background-color: #f8f8f8;
+    transform: translateY(-1px);
 }
 
-.error-message {
-    color: #ef4444;
-    text-align: center;
-    margin: 1rem 0;
-    padding: 0.75rem;
-    background-color: #fee2e2;
-}
-
-.no-dresses {
-    text-align: center;
-    color: #666;
-    grid-column: 1 / -1;
-    padding: 2rem;
-}
-
-/* Responsive Design */
+/* Large screens (1200px and down) */
 @media (max-width: 1200px) {
-    .dresses-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 900px) {
-    .dresses-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .dresses-grid {
-        grid-template-columns: 1fr;
+    .dresses-container {
+        max-width: 100%;
+        padding: 1.75rem;
     }
     
+    .dresses-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.75rem;
+    }
+}
+
+/* Medium screens (992px and down) */
+@media (max-width: 992px) {
+    .dresses-container {
+        padding: 1.5rem;
+    }
+    
+    .dresses-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .dress-card {
+        padding: 1.25rem;
+    }
+    
+    .dresses-container h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Tablet screens (768px and down) */
+@media (max-width: 768px) {
     .dresses-container {
         padding: 1rem;
+    }
+    
+    .dresses-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.25rem;
+    }
+    
+    .dress-card {
+        padding: 1rem;
+    }
+    
+    .dress-photo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .dresses-container h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Small screens (576px and down) */
+@media (max-width: 576px) {
+    .dresses-container {
+        padding: 0.75rem;
+    }
+    
+    .dresses-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .dress-card {
+        padding: 1rem;
+    }
+    
+    .dress-photo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .dress-card p {
+        font-size: 0.9rem;
+    }
+    
+    .delete-button {
+        padding: 0.625rem;
+        font-size: 0.9rem;
+    }
+    
+    .loading-message,
+    .error-message,
+    .no-dresses {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Very small screens (320px and down) */
+@media (max-width: 320px) {
+    .dresses-container {
+        padding: 0.5rem;
+    }
+    
+    .dress-card {
+        padding: 0.75rem;
+    }
+    
+    .dresses-container h1 {
+        font-size: 1.25rem;
+    }
+    
+    .dress-photo {
+        width: 70px;
+        height: 70px;
     }
 }

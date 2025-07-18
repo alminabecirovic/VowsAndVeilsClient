@@ -5,107 +5,103 @@
     justify-content: center;
     padding: 40px 20px;
     background-color: #f8f8f8;
-  }
-  
-  .appointment-card {
+}
+
+.appointment-card {
     width: 100%;
     max-width: 600px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 30px;
-  }
-  
-  .appointment-header {
+    
+}
+
+.appointment-header {
     text-align: center;
     margin-bottom: 30px;
-  }
-  
-  .appointment-title {
+}
+
+.appointment-title {
     color: #333;
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 8px;
-  }
-  
-  .appointment-subtitle {
+}
+
+.appointment-subtitle {
     color: #666;
     font-size: 1.1rem;
     margin-top: 0;
-  }
-  
-  .appointment-form {
+}
+
+.appointment-form {
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
-  
-  .form-grid {
+}
+
+.form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-  }
-  
-  .input-group {
+}
+
+.input-group {
     position: relative;
-  }
-  
-  .form-input {
+}
+
+.form-input {
     width: 100%;
     padding: 12px;
     border: 1px solid #424242;
     font-size: 1rem;
     transition: all 0.3s ease;
-  }
-  
-  .form-input:focus {
+    
+    box-sizing: border-box;
+}
+
+.form-input:focus {
     outline: none;
     border-color: #4a3426;
     box-shadow: 0 0 0 2px rgba(74, 52, 38, 0.1);
-  }
-  
-  .input-label {
+}
+
+.input-label {
     display: block;
     font-size: 0.9rem;
     color: #555;
     margin-bottom: 8px;
     font-weight: 500;
-  }
-  
-  .date-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  
-  .date-input {
+}
+
+.date-input {
     width: 100%;
     padding: 12px;
     border: 1px solid #424242;
     font-size: 0.9rem;
     color: #333;
     transition: all 0.3s ease;
-  }
-  
-  .date-input:focus {
+    box-sizing: border-box;
+}
+
+.date-input:focus {
     outline: none;
     border-color: #4a3426;
     box-shadow: 0 0 0 2px rgba(74, 52, 38, 0.1);
-  }
-  
-  .submit-button-container {
+}
+
+.submit-button-container {
     margin-top: 10px;
-    position: relative;
-    display: inline-block;
+    width: 100%;
 }
 
 .submit-button {
-    width: 96%;
-    height: 7vh;
-    padding: 12px 40px 12px 12px;
-    font-size: 13px;
+    width: 100%;
+    height: 50px;
+    padding: 12px;
+    font-size: 14px;
     background-color: transparent;
     color: black;
-    border: 1px solid #363636;
     cursor: pointer;
     position: relative;
     letter-spacing: 2px;
@@ -113,8 +109,7 @@
     font-weight: 400;
     box-sizing: border-box;
     transition: all 0.3s ease;
-    margin-left: 8px;
-    margin-top: 8px;
+    
 }
 
 /* Animacija ispod dugmeta */
@@ -139,27 +134,105 @@
 
 /* Efekat hovera */
 .submit-button:hover {
-  background-color: white;
+    background-color: white;
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
 
-
-  
-  @media (max-width: 768px) {
+/* Tablet responzivnost */
+@media (max-width: 768px) {
+    .appointment-container {
+        padding: 20px 15px;
+    }
+    
     .appointment-card {
-      margin: 20px;
-      padding: 20px;
+        padding: 25px 20px;
+        margin: 0;
     }
-  
-    .form-grid,
-    .date-group {
-      grid-template-columns: 1fr;
-      gap: 16px;
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
-  
+
     .appointment-title {
-      font-size: 1.75rem;
+        font-size: 1.75rem;
     }
-  }
+
+    .appointment-subtitle {
+        font-size: 1rem;
+    }
+
+    .submit-button {
+        height: 48px;
+        font-size: 13px;
+    }
+}
+
+/* Mobile responzivnost */
+@media (max-width: 480px) {
+    .appointment-container {
+        padding: 15px 10px;
+    }
+    
+    .appointment-card {
+        padding: 20px 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .appointment-header {
+        margin-bottom: 25px;
+    }
+
+    .appointment-title {
+        font-size: 1.5rem;
+    }
+
+    .appointment-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .appointment-form {
+        gap: 20px;
+    }
+
+    .form-input, .date-input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .input-label {
+        font-size: 0.85rem;
+    }
+
+    .submit-button {
+        height: 45px;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+}
+
+/* Vrlo mali ekrani */
+@media (max-width: 320px) {
+    .appointment-container {
+        padding: 10px 5px;
+    }
+    
+    .appointment-card {
+        padding: 15px 10px;
+    }
+
+    .appointment-title {
+        font-size: 1.25rem;
+    }
+
+    .form-input, .date-input {
+        padding: 8px;
+    }
+
+    .submit-button {
+        height: 42px;
+        font-size: 11px;
+    }
+}

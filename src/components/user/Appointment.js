@@ -7,9 +7,6 @@ const Appointment = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        firstname: "",
-        lastname: "",
-        phoneNumber: "",
         Date: "",
     });
 
@@ -48,6 +45,16 @@ const Appointment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const izabraniDatum = new Date(formData.Date);
+        const sada = new Date();
+        sada.setSeconds(0);
+        sada.setMilliseconds(0);
+
+        if (izabraniDatum <= sada) {
+            alert("Ne možete zakazati termin u prošlosti ili za isto vreme.");
+            return;
+        }
+
         const storedUser = JSON.parse(localStorage.getItem("user"));
         const token = storedUser?.token;
 
@@ -60,11 +67,7 @@ const Appointment = () => {
         const appointmentData = {
             userId,
             weddingDressId,
-            firstname: formData.firstname,
-            lastname: formData.lastname,
-            phoneNumber: formData.phoneNumber,
             Date: formData.Date,
-           
         };
 
         try {
@@ -86,6 +89,13 @@ const Appointment = () => {
         }
     };
 
+    // 📍 Minimalno vreme za input (da ne može nazad)
+    const getMinDateTime = () => {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 1);
+        return now.toISOString().slice(0, 16);
+    };
+
     return (
         <div className="appointment-container">
             <div className="appointment-card">
@@ -98,58 +108,10 @@ const Appointment = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="appointment-form">
-                    <div className="form-grid">
-                        <div className="input-group">
-                            <div className="input-icon">
-                                
-                            </div>
-                            <input
-                                type="text"
-                                name="firstname"
-                                placeholder="Ime"
-                                value={formData.firstname}
-                                onChange={handleChange}
-                                required
-                                className="form-input"
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <div className="input-icon">
-                               
-                            </div>
-                            <input
-                                type="text"
-                                name="lastname"
-                                placeholder="Prezime"
-                                value={formData.lastname}
-                                onChange={handleChange}
-                                required
-                                className="form-input"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="input-group">
-                        <div className="input-icon">
-                          
-                        </div>
-                        <input
-                            type="tel"
-                            name="phoneNumber"
-                            placeholder="Telefon"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                            required
-                            className="form-input"
-                        />
-                    </div>
-
                     <div className="date-group">
                         <div>
                             <label className="input-label">
-                               
-                                Datum početka
+                                Datum probe:
                             </label>
                             <input
                                 type="datetime-local"
@@ -158,10 +120,9 @@ const Appointment = () => {
                                 onChange={handleChange}
                                 required
                                 className="date-input"
+                                min={getMinDateTime()}
                             />
                         </div>
-
-                
                     </div>
 
                     <div className="submit-button-container">

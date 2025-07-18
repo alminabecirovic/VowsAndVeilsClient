@@ -128,4 +128,12 @@
     .photo-preview-grid {
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
+     .form-group select {
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    transition: border-color 0.2s ease;
+  }
   }

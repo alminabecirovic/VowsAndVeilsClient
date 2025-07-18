@@ -50,7 +50,7 @@ const ApprovedInspiration = () => {
                 onClick={() => navigate(userRole ? "/inspiration" : "/registration")}
             >
                 <span className="button-text">
-                    {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se inspirisite druge"}
+                    {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se i inspirišite druge"}
                 </span>
                 <span className="button-icon">➝</span>
             </button>

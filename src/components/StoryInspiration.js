@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../pages/story-inspiration.css";
+import { MyContext } from "../context/my-context";
 
 const InspirationGallery = () => {
+    const { userRole } = useContext(MyContext);
     const [inspirations, setInspirations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -35,7 +37,20 @@ const InspirationGallery = () => {
             {loading && <p className="gallery-loading">Učitavanje inspiracija...</p>}
 
             {!loading && inspirations.length === 0 ? (
-                <p className="gallery-empty">Nema odobrenih inspiracija.</p>
+                <div className="gallery-empty-container">
+                    <p className="gallery-empty">Nema odobrenih inspiracija.</p>
+
+                    <button
+                        className="inspiration-page-button1"
+                       onClick={() => navigate(userRole ? "/inspiration" : "/registration")}
+                    >
+                       <span className="button-text">
+                            {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se i inspirišite druge"}
+                        </span>
+                    <span className="button-icon">➝</span>
+                    </button>
+
+                </div>
             ) : (
                 <ul className="gallery-list">
                     {inspirations.map((insp) => (
@@ -43,7 +58,7 @@ const InspirationGallery = () => {
                             <div className="gallery">
                                 {insp.urlPhotos && insp.urlPhotos.length > 0 ? (
                                     <img
-                                        src={insp.urlPhotos[0]} // Učitava samo prvu sliku
+                                        src={insp.urlPhotos[0]}
                                         alt="Slika inspiracije"
                                         className="gallery-image"
                                         onClick={() => navigate(`/approved/${insp.id}`, { state: { inspiration: insp } })}

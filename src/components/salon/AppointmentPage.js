@@ -49,7 +49,7 @@ const AppointmentPage = () => {
                         <tr>
                             <th>Ime</th>
                             <th>Prezime</th>
-                            <th>Telefon</th>
+                            <th>Email</th>
                             <th>Datum </th>
                             <th>Ime venčanice</th>
                             <th>Broj venčanice</th>
@@ -60,12 +60,14 @@ const AppointmentPage = () => {
                             <tr key={appointment.id}>
                                 <td>{appointment.firstname}</td>
                                 <td>{appointment.lastname}</td>
-                                <td>{appointment.phoneNumber}</td>
-                                <td>{new Date(appointment.Date).toLocaleString()}</td>
+                                <td>{appointment.email}</td>
+                                <td>{new Date(appointment.date).toLocaleString()}</td>
                                 <td>{appointment.weddingDressName || "Nepoznato"}</td>
                                 <td>{appointment.weddingDressSize || "Nepoznato"}</td>
+
                             </tr>
                         ))}
+                
                     </tbody>
                 </table>
             ) : (
