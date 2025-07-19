@@ -1,8 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
-import { MyContext } from "../context/my-context";
 import { useNavigate } from "react-router-dom";
 import "../pages/registration.css";
 
@@ -21,8 +20,7 @@ const Registration = () => {
     const [birthDateMessage, setBirthDateMessage] = useState(null);
     const [usernameMessage, setUsernameMessage] = useState(null);
     const [passwordMessage, setPasswordMessage] = useState(null);
-    const [visible, setVisible] = useState(true); // State za prikaz lozinke
-    const { setUserFunction } = useContext(MyContext);
+    const [visible, setVisible] = useState(true); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -92,6 +90,13 @@ const Registration = () => {
     }
   }, [lastName]);
 
+  useEffect(() => {
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    setEmailMessage("Unesite validnu email adresu.");
+  } else {
+    setEmailMessage(null);
+    }
+    }, [email]);
   // VALIDACIJA: DATUM ROĐENJA (18+ GODINA)
   useEffect(() => {
     if (birthDate) {

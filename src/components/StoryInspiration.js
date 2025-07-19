@@ -12,10 +12,6 @@ const InspirationGallery = () => {
     const token = localStorage.getItem("jwtToken");
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchInspirations();
-    }, []);
-
     const fetchInspirations = async () => {
         setLoading(true);
         try {
@@ -30,6 +26,11 @@ const InspirationGallery = () => {
             setLoading(false);
         }
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        fetchInspirations();
+    }, []);
 
     return (
         <div className="gallery-container">

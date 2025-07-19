@@ -13,12 +13,6 @@ const ApprovedInspiration = () => {
     const [loading, setLoading] = useState(!inspiration);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        if (!inspiration) {
-            fetchInspirationById();
-        }
-    }, [fetchInspirationById, inspiration]);
-
     const fetchInspirationById = async () => {
         setLoading(true);
         try {
@@ -30,6 +24,11 @@ const ApprovedInspiration = () => {
             setLoading(false);
         }
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+    fetchInspirationById();
+    }, []);
 
     if (loading) return <p className="loading-message">Učitavanje inspiracije...</p>;
     if (error) return <p className="error-message">{error}</p>;
