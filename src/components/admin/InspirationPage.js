@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "../../pages/inspiration-page.css";
 
@@ -9,7 +9,7 @@ const InspirationPage = () => {
     const [error, setError] = useState("");
     const token = localStorage.getItem("jwtToken");
 
-    const loadInspirations = async () => {
+    const loadInspirations = useCallback(async () => {
         setLoading(true);
         try {
             const [pendingRes, approvedRes] = await Promise.all([
@@ -28,11 +28,11 @@ const InspirationPage = () => {
         } finally {
             setLoading(false);
         }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
+
     useEffect(() => {
         loadInspirations();
-    }, []);
+    }, [loadInspirations]);
 
 
    
@@ -53,7 +53,6 @@ const InspirationPage = () => {
         }
     };
 
-    // ✅ Funkcija za brisanje inspiracije (kada se odbije)
    const handleDelete = async (id) => {
     try {
         await axios.delete(`https://localhost:7042/api/Inspiration/delete/${id}`, {

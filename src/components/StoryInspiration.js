@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../pages/story-inspiration.css";
@@ -11,8 +11,8 @@ const InspirationGallery = () => {
     const [error, setError] = useState("");
     const token = localStorage.getItem("jwtToken");
     const navigate = useNavigate();
-
-    const fetchInspirations = async () => {
+    
+    const fetchInspirations = useCallback(async () => {
         setLoading(true);
         try {
             const response = await axios.get("https://localhost:7042/api/Inspiration/approved", {
@@ -25,12 +25,11 @@ const InspirationGallery = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [token]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         fetchInspirations();
-    }, []);
+    }, [fetchInspirations]);
 
     return (
         <div className="gallery-container">

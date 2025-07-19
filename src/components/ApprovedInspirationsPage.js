@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { MyContext } from "../context/my-context";
@@ -12,8 +12,7 @@ const ApprovedInspiration = () => {
     const [inspiration, setInspiration] = useState(location.state?.inspiration || null);
     const [loading, setLoading] = useState(!inspiration);
     const [error, setError] = useState("");
-
-    const fetchInspirationById = async () => {
+    const fetchInspirationById = useCallback(async () => {
         setLoading(true);
         try {
             const response = await axios.get(`https://localhost:7042/api/Inspiration/${id}`);
@@ -23,12 +22,13 @@ const ApprovedInspiration = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-    fetchInspirationById();
-    }, []);
+        if (!inspiration) {
+            fetchInspirationById();
+        }
+    }, [fetchInspirationById, inspiration]);
 
     if (loading) return <p className="loading-message">Učitavanje inspiracije...</p>;
     if (error) return <p className="error-message">{error}</p>;
@@ -49,7 +49,7 @@ const ApprovedInspiration = () => {
                 onClick={() => navigate(userRole ? "/inspiration" : "/registration")}
             >
                 <span className="button-text">
-                    {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se i inspirišite druge"}
+                    {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se inspirisite druge"}
                 </span>
                 <span className="button-icon">➝</span>
             </button>
