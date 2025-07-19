@@ -9,10 +9,6 @@ const InspirationPage = () => {
     const [error, setError] = useState("");
     const token = localStorage.getItem("jwtToken");
 
-    useEffect(() => {
-        loadInspirations();
-    }, [loadInspirations]);
-
     const loadInspirations = async () => {
         setLoading(true);
         try {
@@ -33,8 +29,13 @@ const InspirationPage = () => {
             setLoading(false);
         }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        loadInspirations();
+    }, []);
 
-    // ✅ Funkcija za odobravanje inspiracije
+
+   
     const handleApprove = async (id) => {
         try {
             await axios.put(`https://localhost:7042/api/Inspiration/approve/${id}?approve=true`, {}, {

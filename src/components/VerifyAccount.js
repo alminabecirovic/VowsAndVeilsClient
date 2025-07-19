@@ -1,13 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "../context/my-context";
 import axios from "axios";
 import "../pages/verify-account.css"
 
 const VerifyAccount = () => {
   const [userCode, setUserCode] = useState("");
   const navigate = useNavigate();
- //const { setUserFunction } = useContext(MyContext);
 
   const handleVerification = async (e) => {
     e.preventDefault();

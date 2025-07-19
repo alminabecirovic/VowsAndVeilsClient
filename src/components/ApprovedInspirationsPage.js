@@ -17,7 +17,7 @@ const ApprovedInspiration = () => {
         if (!inspiration) {
             fetchInspirationById();
         }
-    }, []);
+    }, [fetchInspirationById, inspiration]);
 
     const fetchInspirationById = async () => {
         setLoading(true);
