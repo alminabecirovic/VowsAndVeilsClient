@@ -38,7 +38,7 @@ const InspirationPage = () => {
    
     const handleApprove = async (id) => {
         try {
-            await axios.put(`https://localhost:7042/api/Inspiration/approve/${id}?approve=true`, {}, {
+            await axios.put(`https://vowsandveils-api-production.up.railway.app/api/Inspiration/approve/${id}?approve=true`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

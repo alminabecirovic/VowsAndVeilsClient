@@ -56,7 +56,7 @@ const SubmitInspiration = () => {
             formData.append("Description", description);
             formData.append("UrlPhotos", photos[0]);
 
-            await axios.post("https://localhost:7042/api/Inspiration/create", formData, {
+            await axios.post("https://vowsandveils-api-production.up.railway.app/api/Inspiration/create", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,

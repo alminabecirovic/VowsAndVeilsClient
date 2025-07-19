@@ -21,7 +21,7 @@ const AppointmentPage = () => {
 
             try {
                 const response = await axios.get(
-                    `https://localhost:7042/api/Post/appoitments/${salonOwnerId}`,
+                    `https://vowsandveils-api-production.up.railway.app/api/Post/appoitments/${salonOwnerId}`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }

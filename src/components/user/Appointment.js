@@ -71,7 +71,7 @@ const Appointment = () => {
         };
 
         try {
-            const response = await fetch("https://localhost:7042/api/WeddingDress/reserve", {
+            const response = await fetch("https://vowsandveils-api-production.up.railway.app/api/WeddingDress/reserve", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
