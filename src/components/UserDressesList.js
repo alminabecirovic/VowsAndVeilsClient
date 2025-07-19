@@ -10,7 +10,7 @@ const UserDressesList = ({ criteria }) => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const { currentUser, userRole } = useContext(MyContext);
+    const { userRole } = useContext(MyContext);
 
     useEffect(() => {
         const fetchDresses = async () => {

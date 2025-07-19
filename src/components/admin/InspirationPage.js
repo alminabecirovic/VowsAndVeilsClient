@@ -11,7 +11,7 @@ const InspirationPage = () => {
 
     useEffect(() => {
         loadInspirations();
-    }, []);
+    }, [loadInspirations]);
 
     const loadInspirations = async () => {
         setLoading(true);

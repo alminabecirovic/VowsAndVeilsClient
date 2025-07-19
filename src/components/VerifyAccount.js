@@ -7,7 +7,7 @@ import "../pages/verify-account.css"
 const VerifyAccount = () => {
   const [userCode, setUserCode] = useState("");
   const navigate = useNavigate();
-  const { setUserFunction } = useContext(MyContext);
+ //const { setUserFunction } = useContext(MyContext);
 
   const handleVerification = async (e) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ const VerifyAccount = () => {
       alert("Uspešno ste verifikovani!");
   
       const userData = JSON.parse(localStorage.getItem("userData"));
-      const userRole = userData?.Roles; // Pravilno dohvaćanje uloge korisnika
+      const userRole = userData?.Roles; 
   
       console.log("Slanje podataka za registraciju:", userData);
   
