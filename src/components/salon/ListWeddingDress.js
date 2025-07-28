@@ -19,7 +19,7 @@ const DressesList = () => {
         try {
             setLoading(true);
             const response = await axios.get(
-                "https://localhost:7042/api/Post/owner/wedding-dresses",
+                "https://vowsandveils-api-production.up.railway.app/api/Post/owner/wedding-dresses",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

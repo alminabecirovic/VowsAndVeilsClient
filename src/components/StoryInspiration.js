@@ -15,7 +15,7 @@ const InspirationGallery = () => {
     const fetchInspirations = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await axios.get("https://localhost:7042/api/Inspiration/approved", {
+            const response = await axios.get("https://vowsandveils-api-production.up.railway.app/api/Inspiration/approved", {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

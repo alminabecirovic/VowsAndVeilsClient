@@ -21,7 +21,7 @@ const VerifyAccount = () => {
       console.log("Slanje podataka za registraciju:", userData);
   
       try {
-        await axios.post("https://localhost:7042/api/User/register", userData, {
+        await axios.post("https://vowsandveils-api-production.up.railway.app/api/User/register", userData, {
           headers: { "Content-Type": "application/json" },
         });
   
