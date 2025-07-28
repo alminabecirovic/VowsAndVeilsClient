@@ -13,10 +13,10 @@ const InspirationPage = () => {
         setLoading(true);
         try {
             const [pendingRes, approvedRes] = await Promise.all([
-                axios.get("https://vowsandveils-api-production.up.railway.app/api/Inspiration/pending", {
+                axios.get("https://vowsandveils-api-production-2ada.up.railway.app/api/Inspiration/pending", {
                     headers: { Authorization: `Bearer ${token}` },
                 }),
-                axios.get("https://vowsandveils-api-production.up.railway.app/Inspiration/approved", {
+                axios.get("https://vowsandveils-api-production-2ada.up.railway.app/Inspiration/approved", {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             ]);
@@ -38,7 +38,7 @@ const InspirationPage = () => {
    
     const handleApprove = async (id) => {
         try {
-            await axios.put(`https://vowsandveils-api-production.up.railway.app/api/Inspiration/approve/${id}?approve=true`, {}, {
+            await axios.put(`https://vowsandveils-api-production-2ada.up.railway.app/api/Inspiration/approve/${id}?approve=true`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -55,7 +55,7 @@ const InspirationPage = () => {
 
    const handleDelete = async (id) => {
     try {
-        await axios.delete(`https://vowsandveils-api-production.up.railway.app/api/Inspiration/delete/${id}`, {
+        await axios.delete(`https://vowsandveils-api-production-2ada.up.railway.app/api/Inspiration/delete/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
 

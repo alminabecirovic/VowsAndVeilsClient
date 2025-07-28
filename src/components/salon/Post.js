@@ -62,7 +62,7 @@ const CreatePost = () => {
             formData.append("address", address);
             formData.append("salonName", salonName);
 
-            await axios.post("https://vowsandveils-api-production.up.railway.app/api/Post/create", formData, {
+            await axios.post("https://vowsandveils-api-production-2ada.up.railway.app/api/Post/create", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

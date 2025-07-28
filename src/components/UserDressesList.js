@@ -23,7 +23,7 @@ const UserDressesList = ({ criteria }) => {
                 queryParams.append("city", criteria.city || "All");
                 
                 const response = await fetch(
-                    `https://vowsandveils-api-production.up.railway.app/api/WeddingDress/search?${queryParams.toString()}`
+                    `https://vowsandveils-api-production-2ada.up.railway.app/api/WeddingDress/search?${queryParams.toString()}`
                 );
                 if (!response.ok) {
                     throw new Error("Greška prilikom učitavanja venčanica");
