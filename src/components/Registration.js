@@ -27,7 +27,7 @@ const Registration = () => {
         const fetchRoles = async () => {
             try {
                 const response = await axios.get(
-                    "https://vowsandveils-api-production-2ada.up.railway.app/api/User/valid-roles"
+                    "https://localhost:7042/api/User/valid-roles"
                 );
                 setRoles(response.data);
             } catch (error) {

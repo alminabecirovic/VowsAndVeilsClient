@@ -18,7 +18,7 @@ const DressDetails = () => {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    process.env.REACT_APP_API_URL || "https://vowsandveils-api-production-2ada.up.railway.app/api/Post"
+                    process.env.REACT_APP_API_URL || "https://localhost:7042/api/Post"
                 );
                 if (!response.ok) {
                     throw new Error("Greška prilikom učitavanja venčanica");

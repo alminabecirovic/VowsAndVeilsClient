@@ -74,7 +74,7 @@ const Navbar2 = ({ onCriteriaChange }) => {
   useEffect(() => {
     const fetchFilterOptions = async () => {
       try {
-        const response = await axios.get("https://vowsandveils-api-production-2ada.up.railway.app/api/WeddingDress/search");
+        const response = await axios.get("https://localhost:7042/api/WeddingDress/search");
         console.log("API Response:", response.data);
 
         setFilterOptions((prev) => ({

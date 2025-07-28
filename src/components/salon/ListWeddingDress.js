@@ -19,7 +19,7 @@ const DressesList = () => {
         try {
             setLoading(true);
             const response = await axios.get(
-                "https://vowsandveils-api-production-2ada.up.railway.app/api/Post/owner/wedding-dresses",
+                "https://localhost:7042/api/Post/owner/wedding-dresses",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ const DressesList = () => {
         }
 
         try {
-            await axios.delete(`https://vowsandveils-api-production-2ada.up.railway.app/api/Post/${weddingDressId}`, {
+            await axios.delete(`https://localhost:7042/api/Post/${weddingDressId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -15,7 +15,7 @@ const ApprovedInspiration = () => {
     const fetchInspirationById = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`https://vowsandveils-api-production-2ada.up.railway.app/api/Inspiration/${id}`);
+            const response = await axios.get(`https://localhost:7042/api/Inspiration/${id}`);
             setInspiration(response.data);
         } catch (e) {
             setError("Greška pri učitavanju inspiracije.");
