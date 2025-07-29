@@ -35,21 +35,13 @@ const InspirationGallery = () => {
 
     return (
         <div className="gallery-container">
-            <div style={{ position: 'relative', display: 'inline-block' }}>
-                <button onClick={toggleDropdown}>Meni ▼</button>
-                {isOpen && (
-                    <ul>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#"> 3</a></li>
-                    </ul>
-                )}
-            </div>
+           
 
             {error && <p className="gallery-error">{error}</p>}
             {loading && <p className="gallery-loading">Učitavanje inspiracija...</p>}
 
             {!loading && inspirations.length === 0 ? (
+                
                 <div className="gallery-empty-container">
                     <p className="gallery-empty">Nema odobrenih inspiracija.</p>
                     <button
@@ -78,6 +70,16 @@ const InspirationGallery = () => {
                                     <p>Nema dostupnih slika.</p>
                                 )}
                             </div>
+                             <div style={{ position: 'relative', display: 'inline-block' }}>
+                <button onClick={toggleDropdown}>Meni</button>
+                {isOpen && (
+                    <ul>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
+                )}
+            </div>
                             <p className="gallery-description">{insp.text}</p>
                         </li>
                     ))}
