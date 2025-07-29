@@ -11,14 +11,14 @@ const InspirationGallery = () => {
     const [error, setError] = useState("");
     const token = localStorage.getItem("jwtToken");
     const navigate = useNavigate();
-    
+    const [isOpen, setIsOpen] = useState(false); 
+
     const fetchInspirations = useCallback(async () => {
         setLoading(true);
         try {
             const response = await axios.get("https://vowsandveils-api-production.up.railway.app/api/Inspiration/approved", {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
             setInspirations(response.data);
         } catch (e) {
             setError("Greška pri učitavanju odobrenih inspiracija.");
@@ -31,25 +31,36 @@ const InspirationGallery = () => {
         fetchInspirations();
     }, [fetchInspirations]);
 
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
     return (
         <div className="gallery-container">
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+                <button onClick={toggleDropdown}>Meni ▼</button>
+                {isOpen && (
+                    <ul>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#"> 3</a></li>
+                    </ul>
+                )}
+            </div>
+
             {error && <p className="gallery-error">{error}</p>}
             {loading && <p className="gallery-loading">Učitavanje inspiracija...</p>}
 
             {!loading && inspirations.length === 0 ? (
                 <div className="gallery-empty-container">
                     <p className="gallery-empty">Nema odobrenih inspiracija.</p>
-
                     <button
                         className="inspiration-page-button1"
-                       onClick={() => navigate(userRole ? "/inspiration" : "/registration")}
+                        onClick={() => navigate(userRole ? "/inspiration" : "/registration")}
                     >
-                       <span className="button-text">
+                        <span className="button-text">
                             {userRole ? "Ostavi svoju inspiraciju" : "Registrujte se i inspirišite druge"}
                         </span>
-                    <span className="button-icon">➝</span>
+                        <span className="button-icon">➝</span>
                     </button>
-
                 </div>
             ) : (
                 <ul className="gallery-list">
