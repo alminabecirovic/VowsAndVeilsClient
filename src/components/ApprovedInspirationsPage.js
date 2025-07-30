@@ -23,8 +23,6 @@ const ApprovedInspiration = () => {
             setLoading(false);
         }
     }, [id]);
-    const toggleDropdown = () => setIsOpen(!isOpen);
-
     useEffect(() => {
         if (!inspiration) {
             fetchInspirationById();
@@ -54,17 +52,6 @@ const ApprovedInspiration = () => {
                 </span>
                 <span className="button-icon">➝</span>
             </button>
-                  <div style={{ position: 'relative', display: 'inline-block' }}>
-                <button onClick={toggleDropdown}>Meni</button>
-                {isOpen && (
-
-                    <ul>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                    </ul>
-                )}
-            </div>
         </div>
         
     );

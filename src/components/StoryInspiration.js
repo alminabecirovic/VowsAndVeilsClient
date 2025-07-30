@@ -11,7 +11,6 @@ const InspirationGallery = () => {
     const [error, setError] = useState("");
     const token = localStorage.getItem("jwtToken");
     const navigate = useNavigate();
-    const [isOpen, setIsOpen] = useState(false); 
 
     const fetchInspirations = useCallback(async () => {
         setLoading(true);
@@ -31,17 +30,12 @@ const InspirationGallery = () => {
         fetchInspirations();
     }, [fetchInspirations]);
 
-    const toggleDropdown = () => setIsOpen(!isOpen);
-
     return (
         <div className="gallery-container">
-           
-
             {error && <p className="gallery-error">{error}</p>}
             {loading && <p className="gallery-loading">Učitavanje inspiracija...</p>}
 
             {!loading && inspirations.length === 0 ? (
-                
                 <div className="gallery-empty-container">
                     <p className="gallery-empty">Nema odobrenih inspiracija.</p>
                     <button
@@ -56,17 +50,6 @@ const InspirationGallery = () => {
                 </div>
             ) : (
                 <ul className="gallery-list">
-                    <div style={{ position: 'relative', display: 'inline-block' }}>
-                <button onClick={toggleDropdown}>Meni</button>
-                {isOpen && (
-
-                    <ul>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                    </ul>
-                )}
-            </div>
                     {inspirations.map((insp) => (
                         <li key={insp.id} className="gallery-item">
                             <div className="gallery">
@@ -81,7 +64,6 @@ const InspirationGallery = () => {
                                     <p>Nema dostupnih slika.</p>
                                 )}
                             </div>
-                            
                             <p className="gallery-description">{insp.text}</p>
                         </li>
                     ))}
